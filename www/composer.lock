@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "11af7634657f6788911f69ae3a6f146f",
-    "content-hash": "02daee6e6f680e3da68b9f4a6f552952",
+    "hash": "8f4a33f1051fb6cc64fcd8bc8a7b5963",
+    "content-hash": "b69f5c026decc07fd308cd9c3f049e9c",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -478,6 +478,51 @@
                 "yii2"
             ],
             "time": "2015-06-20 15:44:27"
+        },
+        {
+            "name": "demogorgorn/yii2-ajax-submit-button",
+            "version": "1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/demogorgorn/yii2-ajax-submit-button.git",
+                "reference": "e37725bb0c11b22a07f45381dd0ace2d2eb39c4a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/demogorgorn/yii2-ajax-submit-button/zipball/e37725bb0c11b22a07f45381dd0ace2d2eb39c4a",
+                "reference": "e37725bb0c11b22a07f45381dd0ace2d2eb39c4a",
+                "shasum": ""
+            },
+            "require": {
+                "yiisoft/yii2": "*"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "demogorgorn\\ajax\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Oleg Martemjanov",
+                    "email": "demogorgorn@gmail.com",
+                    "homepage": "http://foreign.by"
+                }
+            ],
+            "description": "AjaxSubmitButton renders an ajax button which is very similar to ajaxSubmitButton from Yii1.",
+            "homepage": "https://github.com/demogorgorn/yii2-ajax-submit-button",
+            "keywords": [
+                "ajax",
+                "button",
+                "extension",
+                "submit",
+                "widget"
+            ],
+            "time": "2017-01-28 20:43:37"
         },
         {
             "name": "ezyang/htmlpurifier",
