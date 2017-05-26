@@ -6,8 +6,41 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'sourceLanguage' => 'en',
+    'language' => 'ru-RU',
+    'name'=>'Inwiz',
+    // 'baseUrl'=> '',
     'components' => [
+        'i18n'         => [
+            'translations' => [
+
+
+                'app*'   => [
+                    'class'    => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+
+
+                ],
+                'user'   => [
+                    'class'    => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages',
+
+
+                ],
+                /* 'menu*'  => [
+                     'class'    => 'yii\i18n\PhpMessageSource',
+                     'basePath' => '@app/messages',
+                 ],*/
+
+                'kvgrid' => [
+                    'class'    => 'yii\i18n\PhpMessageSource',
+                    'basePath' => '@app/messages', //'@vendor/kartik-v/yii2-grid/messages',
+
+                ],
+            ],
+        ],
         'request' => [
+            'baseUrl' => '',
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
             'cookieValidationKey' => 'VMIQ1tNYucszbTOQpJp9hCfyWldKiIHd',
         ],
@@ -38,14 +71,14 @@ $config = [
             ],
         ],
         'db' => require(__DIR__ . '/db.php'),
-        /*
+
         'urlManager' => [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
             ],
         ],
-        */
+
     ],
     'params' => $params,
 ];

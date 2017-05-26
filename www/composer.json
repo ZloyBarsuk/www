@@ -17,7 +17,17 @@
         "php": ">=5.4.0",
         "yiisoft/yii2": "~2.0.5",
         "yiisoft/yii2-bootstrap": "~2.0.0",
-        "yiisoft/yii2-swiftmailer": "~2.0.0"
+        "yiisoft/yii2-swiftmailer": "~2.0.0",
+        "cornernote/yii2-ace": "1.0.0",
+        "symfony/dom-crawler": "v2.8.0",
+        "symfony/css-selector": "v2.8.0",
+        "kartik-v/yii2-widgets": "v3.4.0",
+        "wbraganca/yii2-dynamicform": "v2.0.1",
+        "sadovojav/yii2-ckeditor": "dev-master",
+        "kartik-v/yii2-tabs-x": "v1.2.0",
+        "yiisoft/yii2-jui": "2.0.0",
+        "kartik-v/yii2-mpdf": "v1.0.0",
+        "kartik-v/yii2-grid": "v3.1.3"
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

@@ -1,78 +1,49 @@
 <?php
+use cornernote\ace\web\AceAsset;
+use yii\bootstrap\Nav;
+use yii\helpers\Html;
 
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-use yii\helpers\Html;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
-use yii\widgets\Breadcrumbs;
-use app\assets\AppAsset;
+!empty($viewPath) || $viewPath = '@vendor/cornernote/yii2-ace/src/views/layouts';
+!empty($viewNavbar) || $viewNavbar = $viewPath . '/_navbar';
+!empty($viewSidebar) || $viewSidebar = $viewPath . '/_sidebar';
+!empty($viewFooter) || $viewFooter = $viewPath . '/_footer';
+!empty($viewContent) || $viewContent = $viewPath . '/_content';
 
-AppAsset::register($this);
+AceAsset::register($this);
 ?>
+
 <?php $this->beginPage() ?>
-<!DOCTYPE html>
-<html lang="<?= Yii::$app->language ?>">
-<head>
-    <meta charset="<?= Yii::$app->charset ?>">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <?= Html::csrfMetaTags() ?>
-    <title><?= Html::encode($this->title) ?></title>
-    <?php $this->head() ?>
-</head>
-<body>
-<?php $this->beginBody() ?>
+    <!DOCTYPE html>
+    <html>
+    <head>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta charset="UTF-8">
+        <?= Html::csrfMetaTags() ?>
+        <title><?= Html::encode($this->title . ' :: ' . Yii::$app->name) ?></title>
+        <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
+        <?php $this->head() ?>
+    </head>
+    <?php $this->beginBody() ?>
+    <body class="no-skin">
 
-<div class="wrap">
-    <?php
-    NavBar::begin([
-        'brandLabel' => 'My Company',
-        'brandUrl' => Yii::$app->homeUrl,
-        'options' => [
-            'class' => 'navbar-inverse navbar-fixed-top',
-        ],
-    ]);
-    echo Nav::widget([
-        'options' => ['class' => 'navbar-nav navbar-right'],
-        'items' => [
-            ['label' => 'Home', 'url' => ['/site/index']],
-            ['label' => 'About', 'url' => ['/site/about']],
-            ['label' => 'Contact', 'url' => ['/site/contact']],
-            Yii::$app->user->isGuest ? (
-                ['label' => 'Login', 'url' => ['/site/login']]
-            ) : (
-                '<li>'
-                . Html::beginForm(['/site/logout'], 'post')
-                . Html::submitButton(
-                    'Logout (' . Yii::$app->user->identity->username . ')',
-                    ['class' => 'btn btn-link logout']
-                )
-                . Html::endForm()
-                . '</li>'
-            )
-        ],
-    ]);
-    NavBar::end();
-    ?>
+    <?= $this->render($viewNavbar) ?>
 
-    <div class="container">
-        <?= Breadcrumbs::widget([
-            'links' => isset($this->params['breadcrumbs']) ? $this->params['breadcrumbs'] : [],
-        ]) ?>
-        <?= $content ?>
+    <div class="main-container" id="main-container">
+
+        <?= $this->render($viewSidebar) ?>
+
+        <?= $this->render($viewContent, ['content' => $content]) ?>
+
+        <?= $this->render($viewFooter) ?>
+
     </div>
-</div>
 
-<footer class="footer">
-    <div class="container">
-        <p class="pull-left">&copy; My Company <?= date('Y') ?></p>
 
-        <p class="pull-right"><?= Yii::powered() ?></p>
-    </div>
-</footer>
+    </body>
+    <?php $this->endBody() ?>
+    </html>
 
-<?php $this->endBody() ?>
-</body>
-</html>
 <?php $this->endPage() ?>

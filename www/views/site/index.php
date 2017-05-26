@@ -1,7 +1,12 @@
 <?php
 
 /* @var $this yii\web\View */
+$this->registerJsFile(
+    '@web/js/modal_js/modal_products.js',
+    [ 'depends' => [\yii\web\JqueryAsset::className()],
 
+    ]
+);
 $this->title = 'My Yii Application';
 ?>
 <div class="site-index">
