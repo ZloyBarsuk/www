@@ -113,3 +113,11 @@ a.desc:after {
 .nav > li > form > button.logout:focus {
     outline: none;
 }
+
+
+/* own css styles */
+
+
+#modal-test{
+    z-index: 1900;
+}

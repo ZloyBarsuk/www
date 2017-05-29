@@ -2,12 +2,22 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
-
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
 /* @var $model_Contractor app\models\Contractor */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php
 
+$this->registerJsFile(
+    '@web/js/modal_js/modal_test.js',
+    [ 'depends' => [\yii\web\JqueryAsset::className()],
+
+    ]
+);
+
+?>
 <div class="contractor-form">
 
     <?php $form = ActiveForm::begin(
@@ -107,3 +117,7 @@ use yii\widgets\ActiveForm;
 
     <?php ActiveForm::end(); ?>
 </div>
+<?= Html::button(Yii::t('app', 'zxcxzc zxcxzc'),  ['value'=>Url::to('/contractor/tabs'),'class' => 'btn btn-success','id'=>'modalButtonFromModal']) ?>
+
+
+

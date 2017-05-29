@@ -22,7 +22,7 @@ $this->params['breadcrumbs'][] = $this->title;
     </p>-->
 
     <p>
-        <?= Html::button(Yii::t('app', 'Create Contractor'),  ['value'=>Url::to('/contractor/create'),'class' => 'btn btn-success','id'=>'modalButton']) ?>
+        <?= Html::button(Yii::t('app', 'Create Contractor'),  ['value'=>Url::to('/contractor/create'),'class' => 'btn btn-success','id'=>'modalButtonFromModal']) ?>
 
     </p>
 <?php Pjax::begin(); ?>    <?= GridView::widget([
@@ -51,17 +51,43 @@ Modal::begin([
     'size' => 'modal-lg',
     'toggleButton' => false,
 
+    'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+
 
 ]);
 
 echo "<div id='modalContent'> </div>";
 Modal::end();
 ?>
+<?php
+Modal::begin([
+    'header' => '<h4>' . Yii::t('app', '') . '</h4>',
+    'id' => 'modal-test',
+    'size' => 'modal-sm',
+    'toggleButton' => false,
 
+    'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+
+
+]);
+
+echo "<div id='modalContent2'> </div>";
+Modal::end();
+?>
 <?php
 
 $this->registerJsFile(
     '@web/js/modal_js/modal_contractor.js',
+    [ 'depends' => [\yii\web\JqueryAsset::className()],
+
+    ]
+);
+
+?>
+<?php
+
+$this->registerJsFile(
+    '@web/js/modal_js/modal_test.js',
     [ 'depends' => [\yii\web\JqueryAsset::className()],
 
     ]

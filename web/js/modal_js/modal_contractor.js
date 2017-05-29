@@ -1,16 +1,26 @@
 $(document).on('ready', function () {
-    alert('ready');
 
     // $( "form" ).off( ".validator" );
 
 
     $('#modalButton').click(function () {
 
-alert('sdfsdf');
         var modal = $('#modal-contractor');
         var href = $(this).attr('value');
         var modal_content = modal.find('#modalContent');
         modal_content.html('');
+
+        var index_highest = 0;
+        modal.each(function() {
+            // always use a radix when using parseInt
+            var index_current = parseInt($(this).css("zIndex"), 1);
+            if(index_current > index_highest) {
+                index_highest = index_current;
+            }
+        });
+        alert(href);
+
+
 
 
         $.post(href).done(function (data) {

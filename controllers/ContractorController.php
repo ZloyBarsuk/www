@@ -77,7 +77,7 @@ class ContractorController extends Controller
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate()
+    public function actionCreate2()
     {
 
         $request = Yii::$app->request;
@@ -90,9 +90,7 @@ class ContractorController extends Controller
         // $model->loadDefaultValues();
 
         if ($request->isAjax) {
-            /*
-            *   Process for ajax request
-            */
+
 
 
             Yii::$app->response->format = Response::FORMAT_JSON;
@@ -144,21 +142,21 @@ class ContractorController extends Controller
 
     }
 
-    public function actionCreate2()
+    public function actionCreate()
     {
-        $model = new Products();
+        $model = new Contractor();
         // Ajax
         $request = Yii::$app->getRequest();
         if ($request->isAjax && $model->load($request->post())) {
-            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
         // General use
         if ($model->load($request->post()) && $model->save()) {
             return $this->redirect(['index']);
         } else {
-            return $this->renderAjax('create', [
-                'model' => $model,
+            return $this->renderAjax('_form', [
+                'model_Contractor' => $model,
             ]);
         }
     }
@@ -220,5 +218,33 @@ class ContractorController extends Controller
             return \yii\widgets\ActiveForm::validate($model);
         }
     }
+
+
+    /*public function actionCreate()
+    {
+        $model = new Company();
+
+        if ($model->load(Yii::$app->request->post())) {
+            if ($model->save()) {
+                if (Yii::$app->request->isAjax) {
+                    // JSON response is expected in case of successful save
+                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                    return ['success' => true];
+                }
+                return $this->redirect(['view', 'id' => $model->id]);
+            }
+        }
+
+        if (Yii::$app->request->isAjax) {
+            return $this->renderAjax('create', [
+                'model' => $model,
+            ]);
+        } else {
+            return $this->render('create', [
+                'model' => $model,
+            ]);
+        }
+    }*/
+
 
 }
