@@ -43,6 +43,8 @@ class BanksSearch extends Banks
     {
         $query = Banks::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +57,7 @@ class BanksSearch extends Banks
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'bank_id' => $this->bank_id,
             'created_at' => $this->created_at,

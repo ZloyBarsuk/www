@@ -44,6 +44,8 @@ class ProductsToInvoiceSearch extends ProductsToInvoice
     {
         $query = ProductsToInvoice::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -56,6 +58,7 @@ class ProductsToInvoiceSearch extends ProductsToInvoice
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'pr_to_inv_id' => $this->pr_to_inv_id,
             'invoice_id' => $this->invoice_id,

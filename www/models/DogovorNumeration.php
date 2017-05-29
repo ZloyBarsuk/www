@@ -14,7 +14,7 @@ use Yii;
  *
  * @property Contractor $executor
  */
-class Numeration extends \yii\db\ActiveRecord
+class DogovorNumeration extends \yii\db\ActiveRecord
 {
     /**
      * @inheritdoc

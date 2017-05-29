@@ -44,6 +44,8 @@ class InvoiceSearch extends Invoice
     {
         $query = Invoice::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -56,6 +58,7 @@ class InvoiceSearch extends Invoice
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'invoice_id' => $this->invoice_id,
             'contractor_id' => $this->contractor_id,

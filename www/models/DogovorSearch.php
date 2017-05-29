@@ -44,6 +44,8 @@ class DogovorSearch extends Dogovor
     {
         $query = Dogovor::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -56,6 +58,7 @@ class DogovorSearch extends Dogovor
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'dogovor_id' => $this->dogovor_id,
             'id_executor' => $this->id_executor,

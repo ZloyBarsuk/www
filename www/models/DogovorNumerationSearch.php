@@ -5,12 +5,12 @@ namespace app\models;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use app\models\Numeration;
+use app\models\DogovorNumeration;
 
 /**
- * NumerationSearch represents the model behind the search form about `app\models\Numeration`.
+ * DogovorNumerationSearch represents the model behind the search form about `app\models\DogovorNumeration`.
  */
-class NumerationSearch extends Numeration
+class DogovorNumerationSearch extends DogovorNumeration
 {
     /**
      * @inheritdoc
@@ -41,7 +41,9 @@ class NumerationSearch extends Numeration
      */
     public function search($params)
     {
-        $query = Numeration::find();
+        $query = DogovorNumeration::find();
+
+        // add conditions that should always apply here
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -55,6 +57,7 @@ class NumerationSearch extends Numeration
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'dog_num_id' => $this->dog_num_id,
             'number' => $this->number,

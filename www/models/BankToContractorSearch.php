@@ -42,6 +42,8 @@ class BankToContractorSearch extends BankToContractor
     {
         $query = BankToContractor::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -54,6 +56,7 @@ class BankToContractorSearch extends BankToContractor
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'bank_contr_id' => $this->bank_contr_id,
             'id_contractor' => $this->id_contractor,

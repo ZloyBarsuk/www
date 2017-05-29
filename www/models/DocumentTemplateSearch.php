@@ -43,6 +43,8 @@ class DocumentTemplateSearch extends DocumentTemplate
     {
         $query = DocumentTemplate::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +57,7 @@ class DocumentTemplateSearch extends DocumentTemplate
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'doc_templ_id' => $this->doc_templ_id,
             'contractor_id' => $this->contractor_id,

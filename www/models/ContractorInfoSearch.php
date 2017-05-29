@@ -43,6 +43,8 @@ class ContractorInfoSearch extends ContractorInfo
     {
         $query = ContractorInfo::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +57,7 @@ class ContractorInfoSearch extends ContractorInfo
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'contr_info_id' => $this->contr_info_id,
             'id_contractor' => $this->id_contractor,

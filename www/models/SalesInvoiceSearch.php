@@ -43,6 +43,8 @@ class SalesInvoiceSearch extends SalesInvoice
     {
         $query = SalesInvoice::find();
 
+        // add conditions that should always apply here
+
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
         ]);
@@ -55,6 +57,7 @@ class SalesInvoiceSearch extends SalesInvoice
             return $dataProvider;
         }
 
+        // grid filtering conditions
         $query->andFilterWhere([
             'id' => $this->id,
             'inv_id' => $this->inv_id,
