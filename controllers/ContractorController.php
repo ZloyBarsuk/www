@@ -2,17 +2,13 @@
 
 namespace app\controllers;
 
-use app\models\BankDetails;
-use app\models\Banks;
-use app\models\ContractorInfo;
+use app\models\Products;
 use Yii;
 use app\models\Contractor;
 use app\models\ContractorSearch;
-use yii\helpers\Json;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-use yii\web\Response;
 
 /**
  * ContractorController implements the CRUD actions for Contractor model.
@@ -61,105 +57,12 @@ class ContractorController extends Controller
         ]);
     }
 
-
-    public function actionTabs()
-    {
-        $model_Contractor = new Contractor();
-        // $model2=Yii::$app->request->post('fuck');
-        // $model2=$id;
-        $html = $this->renderAjax('_form', ['model_Contractor' => $model_Contractor, 'model2' => 'fgh']);
-        return Json::encode($html);
-    }
-
-
     /**
      * Creates a new Contractor model.
      * If creation is successful, the browser will be redirected to the 'view' page.
      * @return mixed
      */
-    public function actionCreate2()
-    {
 
-        $request = Yii::$app->request;
-        $model_Contractor = new Contractor();
-        $model_Contr_Info = new ContractorInfo();
-        $model_Banks = new Banks();
-        $model_Banks_Details = new BankDetails();
-
-
-        // $model->loadDefaultValues();
-
-        if ($request->isAjax) {
-
-
-
-            Yii::$app->response->format = Response::FORMAT_JSON;
-
-
-            if ($request->isGet) {
-
-                $form_html = $this->renderAjax(
-                    'create',
-                    [   'model_Contractor' => $model_Contractor,
-                        'model_Contr_Info' => $model_Contr_Info,
-                        'model_Banks' => $model_Banks,
-                        'model_Banks_Details' => $model_Banks_Details,
-                    ]
-                );
-                return Json::encode($form_html);
-
-
-
-            } elseif ($model_Contractor->load($request->post()) && $model_Contractor->save()) {
-                return [
-
-                    'content' => '<span class="text-success">' . Yii::t('app', 'New record is written to DB') . 'x</span>',
-
-                ];
-            } else {
-                $form_html = $this->renderAjax(
-                    '_form',
-                    [   'model_Contractor' => $model_Contractor,
-                        'model_Contr_Info' => $model_Contr_Info,
-                        'model_Banks' => $model_Banks,
-                        'model_Banks_Details' => $model_Banks_Details,
-                    ]
-                );
-                return Json::encode($form_html);
-            }
-        } else {
-            /*
-            *   Process for non-ajax request
-            */
-            if ($model_Contractor->load($request->post()) && $model_Contractor->save()) {
-              //  return $this->redirect(['view', 'id' => $model_Contractor->products_id]);
-            } else {
-                return $this->render('create', [
-                    'model_Contractor' => $model_Contractor,
-                ]);
-            }
-        }
-
-    }
-
-    public function actionCreate()
-    {
-        $model = new Contractor();
-        // Ajax
-        $request = Yii::$app->getRequest();
-        if ($request->isAjax && $model->load($request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
-        // General use
-        if ($model->load($request->post()) && $model->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->renderAjax('_form', [
-                'model_Contractor' => $model,
-            ]);
-        }
-    }
 
     /**
      * Updates an existing Contractor model.
@@ -209,42 +112,61 @@ class ContractorController extends Controller
         }
     }
 
-    public function actionValidate()
+
+
+
+
+    public function actionCreate()
     {
-        $model = new Products();
-        $request = \Yii::$app->getRequest();
+        $model = new Contractor();
+        $model_prod=new Products();
+        // Ajax
+        $request = Yii::$app->getRequest();
         if ($request->isAjax && $model->load($request->post())) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return \yii\widgets\ActiveForm::validate($model);
+            return ActiveForm::validate($model);
+        }
+        // General use
+        if ($model->load($request->post()) && $model->save()) {
+            return $this->redirect(['index']);
+        } else {
+            return $this->renderAjax('create', [
+                'model' => $model,
+                'model_prod' =>$model_prod,
+
+            ]);
         }
     }
 
 
     /*public function actionCreate()
-    {
-        $model = new Company();
+        {
+            $model = new Company();
 
-        if ($model->load(Yii::$app->request->post())) {
-            if ($model->save()) {
-                if (Yii::$app->request->isAjax) {
-                    // JSON response is expected in case of successful save
-                    Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                    return ['success' => true];
+            if ($model->load(Yii::$app->request->post())) {
+                if ($model->save()) {
+                    if (Yii::$app->request->isAjax) {
+                        // JSON response is expected in case of successful save
+                        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+                        return ['success' => true];
+                    }
+                    return $this->redirect(['view', 'id' => $model->id]);
                 }
-                return $this->redirect(['view', 'id' => $model->id]);
             }
-        }
 
-        if (Yii::$app->request->isAjax) {
-            return $this->renderAjax('create', [
-                'model' => $model,
-            ]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
-        }
-    }*/
+            if (Yii::$app->request->isAjax) {
+                return $this->renderAjax('create', [
+                    'model' => $model,
+                ]);
+            } else {
+                return $this->render('create', [
+                    'model' => $model,
+                ]);
+            }
+        }*/
+
+
+
 
 
 }

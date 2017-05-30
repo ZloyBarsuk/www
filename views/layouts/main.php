@@ -2,7 +2,7 @@
 use cornernote\ace\web\AceAsset;
 use yii\bootstrap\Nav;
 use yii\helpers\Html;
-
+use yii\bootstrap\Modal;
 /* @var $this \yii\web\View */
 /* @var $content string */
 
@@ -30,6 +30,26 @@ AceAsset::register($this);
     <body class="no-skin">
 
     <?= $this->render($viewNavbar) ?>
+
+    <?php
+    /*  universal modal windows for edit and create */
+
+    Modal::begin([
+        'header' => '<h4><div id="modalUniversalHeader"> </div></h4>',
+        'id' => 'modal-universal',
+        'size' => 'modal-lg',
+        'toggleButton' => false,
+
+
+
+    ]);
+
+    echo "<div id='modalUniversalContent'> </div>";
+    Modal::end();
+
+
+
+    ?>
 
     <div class="main-container" id="main-container">
 

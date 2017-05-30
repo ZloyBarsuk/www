@@ -3,24 +3,27 @@ $(document).on('ready', function () {
     // $( "form" ).off( ".validator" );
 
 
-    $('#modalButton').click(function () {
+    $('body  #modalButtonContractor').click(function () {
 
+        alert('');
         var modal = $('#modal-contractor');
+
+        // проверка работы универсального модалки нахуй
+        // var modal = $('#modal-universal');
+
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalContent');
+        var modal_content = modal.find('#modalContentContractor');
         modal_content.html('');
 
         var index_highest = 0;
-        modal.each(function() {
+        modal.each(function () {
             // always use a radix when using parseInt
             var index_current = parseInt($(this).css("zIndex"), 1);
-            if(index_current > index_highest) {
+            if (index_current > index_highest) {
                 index_highest = index_current;
             }
         });
-        alert(href);
-
-
+        // alert(href);
 
 
         $.post(href).done(function (data) {
@@ -30,7 +33,7 @@ $(document).on('ready', function () {
         });
 
         modal.on('hidden.bs.modal', function (event) {
-            $.pjax.reload({container: '#pjax_products'});
+            $.pjax.reload({container: '#pjax_contractor'});
             modal_content.html('');
             return false;
             /* $('#pjax_add_product').on('pjax:end', function () {
@@ -43,7 +46,7 @@ $(document).on('ready', function () {
     });
     // обработка формы товара
 
-    $('body').on('beforeSubmit', 'form#products-form', function (event) {
+    $('body').on('beforeSubmit', 'form#contractor-form', function (event) {
         event.stopPropagation();
         var form = $(this);
         //  alert("pjax_add_product");
@@ -78,7 +81,7 @@ $(document).on('ready', function () {
                             if (data.notify == 1) {
                                 notification('success', data);
 
-                                $.pjax.reload({container: '#pjax_products', timeout: 3000});
+                                $.pjax.reload({container: '#pjax_contractor', timeout: 3000});
 
                                 //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
 
@@ -107,22 +110,22 @@ $(document).on('ready', function () {
         return false;
     });
     // обновление твоара блядь
-    $('body').on('click', 'td>a.update_poducts', function (event) {
+    $('body').on('click', 'td>a.update_contractor', function (event) {
 
         event.stopPropagation();
         var href = $(this).attr('href');
         var data_id = $(this).attr('data-model-id');
 
-        var modal = $('#modal-products');
+        var modal = $('#modal-contractor');
 
-        var modal_content = modal.find('#modalContent');
+        var modal_content = modal.find('#modalContentContractor');
         modal_content.html('');
         $.post(href).done(function (data) {
 
             if (data.notify == 1) {
                 notification('success', data);
 
-                $.pjax.reload({container: '#pjax_products', timeout: 3000});
+                $.pjax.reload({container: '#pjax_contractor', timeout: 3000});
 
                 //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
 
@@ -144,7 +147,7 @@ $(document).on('ready', function () {
 
     // удаление товара
 
-    $('body').on('click', 'td>a.delete_poducts', function (event) {
+    $('body').on('click', 'td>a.delete_contractor', function (event) {
 
         event.stopPropagation();
 
@@ -152,7 +155,7 @@ $(document).on('ready', function () {
         $.ajax({
             'url': url,
             'type': 'POST',
-           // 'data': form.serialize(),
+            // 'data': form.serialize(),
             'cache': false,
             success: function (data) {
 
@@ -171,7 +174,7 @@ $(document).on('ready', function () {
                         if (data.notify == 1) {
                             notyfy_alert(data);
 
-                            $.pjax.reload({container: '#pjax_products', timeout: 3000});
+                            $.pjax.reload({container: '#pjax_contractor', timeout: 3000});
 
                             //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
 
@@ -196,7 +199,6 @@ $(document).on('ready', function () {
         });
 
 
-
         return false;
 
 
@@ -212,8 +214,8 @@ $(document).on('ready', function () {
 
     function notyfy_alert(response) {
         alert(JSON.stringify(response));
-        var notify = $('#noty_'+response.flag);
-        var notify_text=notify.find('.noty_text');
+        var notify = $('#noty_' + response.flag);
+        var notify_text = notify.find('.noty_text');
         notify_text.text('');
         notify_text.text(response.notify_text);
         notify.css('display', 'inline-block');
@@ -224,8 +226,6 @@ $(document).on('ready', function () {
     }
 
     return false;
-
-
 
 
 })

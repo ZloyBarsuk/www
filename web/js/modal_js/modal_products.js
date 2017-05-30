@@ -96,9 +96,10 @@ $(document).on('ready', function () {
 
         return false;
     });
+
     // обновление твоара блядь
     $('body').on('click', 'td>a.update_poducts', function (event) {
-
+        alert('form#products-form');
         event.stopPropagation();
         var href = $(this).attr('href');
         var data_id = $(this).attr('data-model-id');

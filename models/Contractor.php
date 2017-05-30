@@ -42,11 +42,9 @@ class Contractor extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at'], 'safe'],
-            [['name_ua'], 'unique'],
-            [['name_en'], 'unique'],
-            [['created_by'], 'required'],
-            [['created_by'], 'integer'],
+            [['created_at','created_by'], 'safe'],
+            [['name_ua','name_en'], 'unique'],
+            [['name_ua','name_en'], 'required'],
             [['contractor_type'], 'string'],
             [['name_ua', 'name_en', 'signature', 'filename'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],

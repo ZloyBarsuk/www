@@ -3,121 +3,80 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
-use yii\bootstrap\Modal;
 /* @var $this yii\web\View */
-/* @var $model_Contractor app\models\Contractor */
+/* @var $model app\models\Contractor */
 /* @var $form yii\widgets\ActiveForm */
 ?>
-<?php
 
-$this->registerJsFile(
-    '@web/js/modal_js/modal_test.js',
-    [ 'depends' => [\yii\web\JqueryAsset::className()],
-
-    ]
-);
-
-?>
 <div class="contractor-form">
+    <?php yii\widgets\Pjax::begin(['id' => 'pjax_add_contractor']) ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'contractor-form',
+        //  'enableAjaxValidation' => true,
+        // 'validationUrl' => Url::toRoute(['/products/validate']),
 
-    <?php $form = ActiveForm::begin(
+    ]); ?>
+    <?= $form->field($model, 'name_ua')->textInput(['maxlength' => true]) ?>
 
-    ); ?>
+    <?= $form->field($model, 'name_en')->textInput(['maxlength' => true]) ?>
 
+    <?= $form->field($model, 'signature')->textInput(['maxlength' => true]) ?>
 
-</div>
-<div class="contractor-form">
-    <div class="row">
+    <?= $form->field($model, 'filename')->textInput(['maxlength' => true]) ?>
 
-        <div class="col-md-6">
+    <?= $form->field($model, 'created_at')->textInput() ?>
 
-            <div class="form-group">
+    <?= $form->field($model, 'created_by')->textInput() ?>
 
-                <div class="col-md-9">
-                    <div class="input-group">
-                        <?= $form->field($model_Contractor, 'name_ua')->textInput(['maxlength' => true]) ?>
-                    </div>
-                </div>
-            </div>
+    <?= $form->field($model, 'contractor_type')->dropDownList([ 'client' => 'Client', 'owner' => 'Owner', ], ['prompt' => '']) ?>
 
-            <div class="form-group">
-
-                <div class="col-md-9 col-xs-12">
-                    <div class="input-group">
-                        <?= $form->field($model_Contractor, 'name_en')->textInput(['maxlength' => true]) ?>
-                    </div>
-                </div>
-            </div>
-
-            <div class="form-group">
-
-                <div class="col-md-6 col-xs-9">
-                    <?= $form->field($model_Contractor, 'contractor_type')->dropDownList(['client' => Yii::t('app', 'Client'), 'owner' => Yii::t('app', 'Owner'),], ['prompt' => 'Выбери тип контрагента']) ?>
-
-                </div>
-            </div>
-
-            <div class="form-group">
-
-                <div class="col-md-9">
-                    <?= $form->field($model_Contractor, 'signature')->textInput(['maxlength' => true]) ?>
-
-                </div>
-            </div>
-
-        </div>
-        <div class="col-md-6">
-
-            <div class="form-group">
-
-                <div class="col-md-9">
-                    <div class="input-group">
-                        <?php // $form->field($model_Contractor, 'filename')->textInput(['maxlength' => true]) ;?>
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="form-group">
-                <div class="col-md-9">
-                    <?php //$form->field($model_Contractor, 'created_at')->textInput() ; ?>
-                </div>
-            </div>
-
-
-            <div class="form-group">
-                <div class="col-md-9">
-                    <?php //$form->field($model_Contractor, 'created_by')->textInput(); ?>
-
-                </div>
-            </div>
-
-
-        </div>
-
+    <div class="form-group">
+        <?= Html::submitButton($model->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
     </div>
-    <div class="row">
-        <div class="col-md-12">
-            <div class="form-group">
-                <div class="col-md-9">
-
-
-                    <?php if (!Yii::$app->request->isAjax) { ?>
-
-                            <?= Html::submitButton($model_Contractor->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_Contractor->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-
-                    <?php } ?>
-
-
-                </div>
-            </div>
-        </div>
-    </div>
-
 
     <?php ActiveForm::end(); ?>
+
+    <?php yii\widgets\Pjax::end() ?>
+
 </div>
-<?= Html::button(Yii::t('app', 'zxcxzc zxcxzc'),  ['value'=>Url::to('/contractor/tabs'),'class' => 'btn btn-success','id'=>'modalButtonFromModal']) ?>
 
 
+<?php
+$wizard_config = [
+    'id' => 'stepwizard',
+    'steps' => [
+        1 => [
+            'title' => 'Step 1',
+            'icon' => 'glyphicon glyphicon-cloud-download',
+           // 'content' => '<h3>Step 1</h3>This is step 1',
 
+            'content' =>$this->render('/products/_form', [
+                'model' =>$model_prod,
+            ]),
+
+    'buttons' => [
+                'next' => [
+                    'title' => 'Forward',
+                    'options' => [
+                        'class' => 'disabled'
+                    ],
+                ],
+            ],
+        ],
+        2 => [
+            'title' => 'Step 2',
+            'icon' => 'glyphicon glyphicon-cloud-upload',
+            'content' => '<h3>Step 2</h3>This is step 2',
+            'skippable' => true,
+        ],
+        3 => [
+            'title' => 'Step 3',
+            'icon' => 'glyphicon glyphicon-transfer',
+            'content' => '<h3>Step 3</h3>This is step 3',
+        ],
+    ],
+    'complete_content' => "You are done!", // Optional final screen
+    'start_step' => 1, // Optional, start with a specific step
+];
+?>
+<?= \drsdre\wizardwidget\WizardWidget::widget($wizard_config); ?>

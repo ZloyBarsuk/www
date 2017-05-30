@@ -64,11 +64,17 @@ class ProductsController extends Controller
     public function actionCreate()
     {
         $model = new Products();
-
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->products_id]);
+        // Ajax
+        $request = Yii::$app->getRequest();
+        if ($request->isAjax && $model->load($request->post())) {
+            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
+        }
+        // General use
+        if ($model->load($request->post()) && $model->save()) {
+            return $this->redirect(['index']);
         } else {
-            return $this->render('create', [
+            return $this->renderAjax('create', [
                 'model' => $model,
             ]);
         }
@@ -80,14 +86,45 @@ class ProductsController extends Controller
      * @param integer $id
      * @return mixed
      */
+    /* public function actionUpdate($id)
+     {
+         $model = $this->findModel($id);
+
+         if ($model->load(Yii::$app->request->post()) && $model->save()) {
+             return $this->redirect(['view', 'id' => $model->products_id]);
+         } else {
+             return $this->render('update', [
+                 'model' => $model,
+             ]);
+         }
+     }*/
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $request = Yii::$app->getRequest();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->products_id]);
+        if ($request->isAjax && $model->load($request->post())) {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+
+            $ajaxValidate = ActiveForm::validate($model);
+
+            if (count($ajaxValidate) > 0) {
+                return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => $ajaxValidate];
+            }
+
+            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => $ajaxValidate, 'result' => $model->save()];
+
+
+        } /*// General use
+        if ($model->load($request->post()) && $model->save()) {
+            return $this->redirect(['index']);
         } else {
-            return $this->render('update', [
+            return $this->renderAjax('_form', [
+                'model' => $model,
+            ]);
+        }*/
+        else {
+            return $this->renderAjax('_form', [
                 'model' => $model,
             ]);
         }
@@ -121,4 +158,16 @@ class ProductsController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionValidate()
+    {
+        $model = new Products();
+        $request = \Yii::$app->getRequest();
+        if ($request->isAjax && $model->load($request->post())) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return \yii\widgets\ActiveForm::validate($model);
+        }
+    }
+
+
 }

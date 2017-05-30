@@ -5,6 +5,7 @@ use yii\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\ContractorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -12,20 +13,42 @@ use yii\bootstrap\Modal;
 $this->title = Yii::t('app', 'Contractors');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+<?php
+
+$this->registerJsFile(
+    '@web/js/modal_js/modal_contractor.js',
+    ['depends' => [\yii\web\JqueryAsset::className()],
+
+    ]
+);
+
+?>
+
 <div class="contractor-index">
 
-    <h1></h1>
+    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
-  <!--  <p>
-        <?php /* Html::a(Yii::t('app', 'Create Contractor'), ['create'], ['class' => 'btn btn-success']) ; */?>
-    </p>-->
-
     <p>
-        <?= Html::button(Yii::t('app', 'Create Contractor'),  ['value'=>Url::to('/contractor/create'),'class' => 'btn btn-success','id'=>'modalButtonFromModal']) ?>
-
+        <?= Html::button(Yii::t('app', 'Create Contractor'), ['value' => Url::to('/contractor/create'), 'class' => 'btn btn-success', 'id' => 'modalButtonContractor']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+
+    <?php
+    Modal::begin([
+        'header' => '<h4>' . Yii::t('app', 'Contractor') . '</h4>',
+        'id' => 'modal-contractor',
+        'size' => 'modal-lg',
+        'toggleButton' => false,
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+
+    ]);
+
+    echo "<div id='modalContentContractor'> </div>";
+    Modal::end();
+    ?>
+
+
+    <?php Pjax::begin(['id' => 'pjax_contractor']); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -43,54 +66,4 @@ $this->params['breadcrumbs'][] = $this->title;
             ['class' => 'yii\grid\ActionColumn'],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
-<?php
-Modal::begin([
-    'header' => '<h4>' . Yii::t('app', '') . '</h4>',
-    'id' => 'modal-contractor',
-    'size' => 'modal-lg',
-    'toggleButton' => false,
-
-    'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
-
-
-]);
-
-echo "<div id='modalContent'> </div>";
-Modal::end();
-?>
-<?php
-Modal::begin([
-    'header' => '<h4>' . Yii::t('app', '') . '</h4>',
-    'id' => 'modal-test',
-    'size' => 'modal-sm',
-    'toggleButton' => false,
-
-    'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
-
-
-]);
-
-echo "<div id='modalContent2'> </div>";
-Modal::end();
-?>
-<?php
-
-$this->registerJsFile(
-    '@web/js/modal_js/modal_contractor.js',
-    [ 'depends' => [\yii\web\JqueryAsset::className()],
-
-    ]
-);
-
-?>
-<?php
-
-$this->registerJsFile(
-    '@web/js/modal_js/modal_test.js',
-    [ 'depends' => [\yii\web\JqueryAsset::className()],
-
-    ]
-);
-
-?>
+    <?php Pjax::end(); ?></div>

@@ -2,6 +2,7 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Products */
@@ -9,8 +10,12 @@ use yii\widgets\ActiveForm;
 ?>
 
 <div class="products-form">
-
-    <?php $form = ActiveForm::begin(); ?>
+    <?php yii\widgets\Pjax::begin(['id' => 'pjax_add_product']) ?>
+    <?php $form = ActiveForm::begin([
+        'id' => 'products-form',
+      //  'enableAjaxValidation' => true,
+       // 'validationUrl' => Url::toRoute(['/products/validate']),
+    ]); ?>
 
     <?= $form->field($model, 'description_en')->textInput(['maxlength' => true]) ?>
 
@@ -36,7 +41,7 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'price')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'active')->dropDownList([ 'y' => 'Y', 'n' => 'N', ], ['prompt' => '']) ?>
+    <?= $form->field($model, 'active')->dropDownList(['y' => 'Y', 'n' => 'N',], ['prompt' => '']) ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 
@@ -45,5 +50,5 @@ use yii\widgets\ActiveForm;
     </div>
 
     <?php ActiveForm::end(); ?>
-
+    <?php yii\widgets\Pjax::end() ?>
 </div>
