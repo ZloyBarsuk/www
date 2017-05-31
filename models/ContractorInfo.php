@@ -45,7 +45,9 @@ class ContractorInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_contractor', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en', 'created_at', 'created_by'], 'required'],
+            [['id_contractor', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en',], 'required'],
+
+            [['created_at', 'created_by'], 'safe'],
             [['id_contractor', 'created_at', 'created_by'], 'integer'],
             [['adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en', 'director_ua', 'director_en', 'email', 'phone', 'fax', 'contact_person', 'tax_number', 'vat_reg_no', 'rep', 'customer_number'], 'string', 'max' => 255],
             [['id_contractor'], 'exist', 'skipOnError' => true, 'targetClass' => Contractor::className(), 'targetAttribute' => ['id_contractor' => 'contractor_id']],
@@ -93,6 +95,6 @@ class ContractorInfo extends \yii\db\ActiveRecord
      */
     public function getCreatedBy()
     {
-        return $this->hasOne(UserAccounts::className(), ['id' => 'created_by']);
+        return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 }
