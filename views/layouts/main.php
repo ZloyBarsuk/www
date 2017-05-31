@@ -1,18 +1,21 @@
 <?php
-use cornernote\ace\web\AceAsset;
+// use cornernote\ace\web\AceAsset;
 use yii\bootstrap\Nav;
 use yii\helpers\Html;
 use yii\bootstrap\Modal;
+use app\assets\AppAsset;
+
 /* @var $this \yii\web\View */
 /* @var $content string */
 
-!empty($viewPath) || $viewPath = '@vendor/cornernote/yii2-ace/src/views/layouts';
+// !empty($viewPath) || $viewPath = '@vendor/cornernote/yii2-ace/src/views/layouts';
+!empty($viewPath) || $viewPath = '@app/views/layouts';
 !empty($viewNavbar) || $viewNavbar = $viewPath . '/_navbar';
 !empty($viewSidebar) || $viewSidebar = $viewPath . '/_sidebar';
 !empty($viewFooter) || $viewFooter = $viewPath . '/_footer';
 !empty($viewContent) || $viewContent = $viewPath . '/_content';
 
-AceAsset::register($this);
+AppAsset::register($this);
 ?>
 
 <?php $this->beginPage() ?>

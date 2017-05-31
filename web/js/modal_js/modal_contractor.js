@@ -5,7 +5,6 @@ $(document).on('ready', function () {
 
     $('body  #modalButtonContractor').click(function () {
 
-        alert('');
         var modal = $('#modal-contractor');
 
         // проверка работы универсального модалки нахуй

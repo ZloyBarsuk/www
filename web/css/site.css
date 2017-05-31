@@ -121,3 +121,51 @@ a.desc:after {
 #modal-test{
     z-index: 1900;
 }
+
+.nav-tabs>li>a, .nav-tabs>li>a:focus {
+  /*  border-radius: 0!important; */
+    /* border-color: #c5d0dc; */
+    background-color: #F9F9F9;
+    color: #999;
+    margin-right: -1px;
+    line-height: 18px;
+    position: relative;
+}
+
+
+.form-group select, .form-group textarea, .form-group input[type=text], .form-group input[type=password], .form-group input[type=datetime], .form-group input[type=datetime-local], .form-group input[type=date], .form-group input[type=month], .form-group input[type=time], .form-group input[type=week], .form-group input[type=number], .form-group input[type=email], .form-group input[type=url], .form-group input[type=search], .form-group input[type=tel], .form-group input[type=color] {
+    background: #FFF;
+    border-radius: 9px !important;
+}
+
+textarea, input[type=text], input[type=password], input[type=datetime], input[type=datetime-local], input[type=date], input[type=month], input[type=time], input[type=week], input[type=number], input[type=email], input[type=url], input[type=search], input[type=tel], input[type=color] {
+    border-radius: 9px !important;
+    color: #858585;
+    background-color: #fff;
+    border: 1px solid #d5d5d5;
+    padding: 5px 4px 6px;
+    font-size: 14px;
+    font-family: inherit;
+    -webkit-box-shadow: none!important;
+    box-shadow: none!important;
+    -webkit-transition-duration: .1s;
+    transition-duration: .1s;
+}
+
+
+
+.alert {
+    padding: 5px;
+     margin-bottom: 10px;
+    border: 1px solid transparent;
+    border-radius: 4px;
+}
+.form-group {
+     margin-bottom: 5px;
+}
+.help-block {
+    display: block;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    color: #737373;
+}

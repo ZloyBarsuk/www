@@ -49,7 +49,7 @@ class ContractorInfo extends \yii\db\ActiveRecord
             [['id_contractor', 'created_at', 'created_by'], 'integer'],
             [['adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en', 'director_ua', 'director_en', 'email', 'phone', 'fax', 'contact_person', 'tax_number', 'vat_reg_no', 'rep', 'customer_number'], 'string', 'max' => 255],
             [['id_contractor'], 'exist', 'skipOnError' => true, 'targetClass' => Contractor::className(), 'targetAttribute' => ['id_contractor' => 'contractor_id']],
-            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccounts::className(), 'targetAttribute' => ['created_by' => 'id']],
+            [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
         ];
     }
 

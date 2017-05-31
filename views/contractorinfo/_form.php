@@ -14,33 +14,14 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'id_contractor')->textInput() ?>
 
-    <?= $form->field($model, 'adress_official_ua')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'adress_official_en')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'adress_post_ua')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'adress_post_en')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'director_ua')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'director_en')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'email')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'phone')->textInput(['maxlength' => true]) ?>
 
-    <?= $form->field($model, 'fax')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'contact_person')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'tax_number')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'vat_reg_no')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'rep')->textInput(['maxlength' => true]) ?>
-
-    <?= $form->field($model, 'customer_number')->textInput(['maxlength' => true]) ?>
 
     <?= $form->field($model, 'created_at')->textInput() ?>
 

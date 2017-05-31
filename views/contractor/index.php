@@ -36,6 +36,10 @@ $this->registerJsFile(
     <?php
     Modal::begin([
         'header' => '<h4>' . Yii::t('app', 'Contractor') . '</h4>',
+     //   'footer' => '<div class="form-group"><div class="col-md-5 col-xs-10"></div></div>',
+
+
+
         'id' => 'modal-contractor',
         'size' => 'modal-lg',
         'toggleButton' => false,

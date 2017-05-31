@@ -2,13 +2,15 @@
 
 namespace app\controllers;
 
-use app\models\Products;
+use app\models\ContractorInfo;
 use Yii;
 use app\models\Contractor;
 use app\models\ContractorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\widgets\ActiveForm;
+use yii\web\Response;
 
 /**
  * ContractorController implements the CRUD actions for Contractor model.
@@ -113,31 +115,84 @@ class ContractorController extends Controller
     }
 
 
-
-
-
-    public function actionCreate()
+    public function actionCreate_old()
     {
-        $model = new Contractor();
-        $model_prod=new Products();
+        $model_contr = new Contractor();
+        $model_contr_info = new ContractorInfo();
+
         // Ajax
         $request = Yii::$app->getRequest();
-        if ($request->isAjax && $model->load($request->post())) {
+        if ($request->isAjax && $model_contr->load($request->post())) {
             Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
+            return ActiveForm::validate($model_contr);
         }
         // General use
-        if ($model->load($request->post()) && $model->save()) {
+        if ($model_contr->load($request->post()) && $model_contr->save()) {
             return $this->redirect(['index']);
         } else {
             return $this->renderAjax('create', [
-                'model' => $model,
-                'model_prod' =>$model_prod,
+                'model_contr' => $model_contr,
+                'model_contr_info' => $model_contr_info,
 
             ]);
         }
     }
 
+
+    public function actionCreate()
+    {
+        $model_contr = new Contractor();
+        $model_contr_info = new ContractorInfo();
+        $request = Yii::$app->getRequest();
+
+        // если AJAX
+        if ($request->isAjax) {
+
+            if ($model_contr->load($request->post())) {
+                $model_contr_info->load($request->post());
+                $valid = $model_contr->validate();
+                $valid = $model_contr_info->validate() && $valid;
+                if ($valid) {
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($flag = $model_contr->save(false)) {
+
+                            $model_contr_info->id_contractor = $model_contr->contractor_id;
+                            if (!($flag = $model_contr_info->save(false))) {
+                                $transaction->rollBack();
+
+                            }
+
+                        }
+                        if ($flag) {
+                            $transaction->commit();
+
+                            // success message flash
+                            Yii::$app->session->setFlash('success', 'This is the message');
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
+                    }
+                }
+            } else {
+                return $this->renderAjax('create', [
+                    'model_contr' => $model_contr,
+                    'model_contr_info' => $model_contr_info,
+
+                ]);
+            }
+
+
+        } else {
+            return $this->render('create', [
+                'model_contr' => $model_contr,
+                'model_contr_info' => $model_contr_info,
+            ]);
+
+        }
+
+
+    }
 
     /*public function actionCreate()
         {
@@ -166,7 +221,15 @@ class ContractorController extends Controller
         }*/
 
 
-
+    public function actionValidate()
+    {
+        $model = new Contractor();
+        $request = \Yii::$app->getRequest();
+        if ($request->isAjax && $model->load($request->post())) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return \yii\widgets\ActiveForm::validate($model);
+        }
+    }
 
 
 }
