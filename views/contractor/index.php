@@ -62,7 +62,18 @@ $this->registerJsFile(
             'name_ua',
             'name_en',
             'signature',
-            'filename',
+
+            [
+                'attribute' => 'Image',
+                'format' => 'raw',
+                'value' => function ($model) {
+                    if ($model->signature!='')
+                     //   return '<img src="/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати';
+                    return '<img src="'.Yii::getAlias('@webroot').'/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати';
+
+                    
+                },
+            ],
             // 'created_at',
             // 'created_by',
             // 'contractor_type',

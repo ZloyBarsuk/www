@@ -11,7 +11,6 @@ use Yii;
  * @property string $name_ua
  * @property string $name_en
  * @property string $signature
- * @property string $filename
  * @property string $created_at
  * @property integer $created_by
  * @property string $contractor_type
@@ -28,6 +27,9 @@ use Yii;
  */
 class Contractor extends \yii\db\ActiveRecord
 {
+
+    public $image;
+
     /**
      * @inheritdoc
      */
@@ -46,8 +48,13 @@ class Contractor extends \yii\db\ActiveRecord
             [['name_ua','name_en'], 'unique'],
             [['name_ua','name_en'], 'required'],
             [['contractor_type'], 'string'],
-            [['name_ua', 'name_en', 'signature', 'filename'], 'string', 'max' => 255],
+            [['name_ua', 'name_en', ], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
+            [['image'], 'safe'],
+            [['image'], 'file', 'extensions'=>'jpg, gif, png'],
+            [['image'], 'file', 'maxSize'=>'10000000'],
+            [['signature', ], 'string', 'max' => 255],
+
         ];
     }
 
@@ -61,7 +68,6 @@ class Contractor extends \yii\db\ActiveRecord
             'name_ua' => Yii::t('app', 'Name Ua'),
             'name_en' => Yii::t('app', 'Name En'),
             'signature' => Yii::t('app', 'Signature'),
-            'filename' => Yii::t('app', 'Filename'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
             'contractor_type' => Yii::t('app', 'Contractor Type'),

@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use kartik\file\FileInput;
 
 /* @var $this yii\web\View */
 /* @var $model_contr app\models\Contractor */
@@ -15,7 +16,8 @@ use yii\helpers\Url;
             <!-- START TABS -->
             <div class="panel panel-default tabs">
                 <ul class="nav nav-tabs" role="tablist">
-                    <li class="active"><a href="#tab-first" role="tab" data-toggle="tab" aria-expanded="true">Контрагент</a>
+                    <li class="active"><a href="#tab-first" role="tab" data-toggle="tab"
+                                          aria-expanded="true">Контрагент</a>
 
                     </li>
                     <li class=""><a href="#tab-second" role="tab" data-toggle="tab" aria-expanded="false">Банк</a>
@@ -35,6 +37,7 @@ use yii\helpers\Url;
                                     <?php yii\widgets\Pjax::begin(['id' => 'pjax_add_contractor']) ?>
                                     <?php $form = ActiveForm::begin([
                                         'id' => 'contractor-form',
+                                        'options' => ['enctype' => 'multipart/form-data'], // important
                                         //  'enableAjaxValidation' => true,
                                         // 'validationUrl' => Url::toRoute(['/products/validate']),
 
@@ -45,7 +48,8 @@ use yii\helpers\Url;
                                         <div class="col-md-12">
                                             <div class="alert alert-success" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                                            aria-hidden="true">×</span><span
+                                                            class="sr-only">Close</span>
                                                 </button>
                                                 <strong>Контрагент</strong>
                                             </div>
@@ -77,7 +81,8 @@ use yii\helpers\Url;
                                         <div class="col-md-12">
                                             <div class="alert alert-success" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                                            aria-hidden="true">×</span><span
+                                                            class="sr-only">Close</span>
                                                 </button>
                                                 <strong>Реквизиты контрагента</strong>
                                             </div>
@@ -141,7 +146,8 @@ use yii\helpers\Url;
                                         <div class="col-md-12">
                                             <div class="alert alert-success" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span class="sr-only">Close</span>
+                                                            aria-hidden="true">×</span><span
+                                                            class="sr-only">Close</span>
                                                 </button>
                                                 <strong>Прочее</strong>
                                             </div>
@@ -192,16 +198,37 @@ use yii\helpers\Url;
                                                     </div>
                                                 </div>
 
+
+
                                             </div>
 
                                         </div>
                                     </div>
 
-                                    <div class="form-group">
-                                        <div class="col-md-5 col-xs-10">
-                                            <?= Html::submitButton($model_contr->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_contr->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+
+                                    <div class="row">
+                                        <div class="form-group">
+                                            <div class="col-md-8 col-xs-10">
+                                                <?= $form->field($model_contr, 'image')->widget(FileInput::classname(), [
+                                                    'options' => ['accept' => 'image/*'],
+                                                    'pluginOptions' => ['allowedFileExtensions' => ['jpg', 'gif', 'png'], 'showUpload' => false,'maxFileSize'=>10000000],
+                                                ]); ?>
+                                            </div>
                                         </div>
+
+                                        <div class="row">
+                                            <div class="col-md-12">
+                                                <div class="form-group">
+                                                    <div class="col-md-5 col-xs-10">
+                                                        <?= Html::submitButton($model_contr->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_contr->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
+
+
                                     <?php ActiveForm::end(); ?>
                                     <?php yii\widgets\Pjax::end() ?>
                                 </div>

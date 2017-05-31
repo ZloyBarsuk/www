@@ -11,7 +11,7 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
-
+use yii\web\UploadedFile;
 /**
  * ContractorController implements the CRUD actions for Contractor model.
  */
@@ -149,6 +149,24 @@ class ContractorController extends Controller
         if ($request->isAjax) {
 
             if ($model_contr->load($request->post())) {
+                $image = UploadedFile::getInstance($model_contr, 'image');
+
+                if (!is_null($image)) {
+                    $model_contr->signature = $image->name;
+                    $ext=(explode(".", $image->name));
+                    $ext = end($ext);
+                    // generate a unique file name to prevent duplicate filenames
+                    $model_contr->signature = Yii::$app->security->generateRandomString().".{$ext}";
+                    // the path to save file, you can set an uploadPath
+                    // in Yii::$app->params (as used in example below)
+                    Yii::$app->params['uploadPath'] = Yii::getAlias('@web'). 'uploads/signatures/';
+                    $path = Yii::$app->params['uploadPath'] . $model_contr->signature;
+                    $image->saveAs($path);
+                }
+
+
+
+
                 $model_contr_info->load($request->post());
                 $valid = $model_contr->validate();
                 $valid = $model_contr_info->validate() && $valid;
