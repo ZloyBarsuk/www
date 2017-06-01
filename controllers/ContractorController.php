@@ -12,6 +12,8 @@ use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
 use yii\web\UploadedFile;
+use app\models\MediaForm;
+
 /**
  * ContractorController implements the CRUD actions for Contractor model.
  */
@@ -143,15 +145,16 @@ class ContractorController extends Controller
     {
         $model_contr = new Contractor();
         $model_contr_info = new ContractorInfo();
+        $model_media = new MediaForm();
         $request = Yii::$app->getRequest();
 
         // если AJAX
         if ($request->isAjax) {
 
             if ($model_contr->load($request->post())) {
-                $image = UploadedFile::getInstance($model_contr, 'image');
+                // $image = UploadedFile::getInstance($model_contr, 'image');
 
-                if (!is_null($image)) {
+                /*if (!is_null($image)) {
                     $model_contr->signature = $image->name;
                     $ext=(explode(".", $image->name));
                     $ext = end($ext);
@@ -162,9 +165,7 @@ class ContractorController extends Controller
                     Yii::$app->params['uploadPath'] = Yii::getAlias('@web'). 'uploads/signatures/';
                     $path = Yii::$app->params['uploadPath'] . $model_contr->signature;
                     $image->saveAs($path);
-                }
-
-
+                }*/
 
 
                 $model_contr_info->load($request->post());
@@ -196,6 +197,8 @@ class ContractorController extends Controller
                 return $this->renderAjax('create', [
                     'model_contr' => $model_contr,
                     'model_contr_info' => $model_contr_info,
+                    'model_media' => $model_media,
+
 
                 ]);
             }
@@ -205,6 +208,7 @@ class ContractorController extends Controller
             return $this->render('create', [
                 'model_contr' => $model_contr,
                 'model_contr_info' => $model_contr_info,
+                'model_media' => $model_media,
             ]);
 
         }
