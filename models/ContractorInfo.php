@@ -45,7 +45,8 @@ class ContractorInfo extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['id_contractor', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en',], 'required'],
+            // [['id_contractor', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en',], 'required'],
+            [[ 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en',], 'required'],
 
             [['created_at', 'created_by'], 'safe'],
             [['id_contractor', 'created_at', 'created_by'], 'integer'],

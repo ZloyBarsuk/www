@@ -1,13 +1,16 @@
 <?php
-//add your name space
-namespace app\models;
+/**
+ * Created by PhpStorm.
+ * User: Andrey
+ * Date: 01.06.2017
+ * Time: 22:14
+ */
 
-use Yii;
-use yii\helpers\ArrayHelper;
+namespace app\models;
 
 use yii\base\Model;
 use yii\web\UploadedFile;
-
+use Yii;
 class MediaForm extends Model
 {
     /**
@@ -18,20 +21,29 @@ class MediaForm extends Model
     public function rules()
     {
         return [
-            [['imageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['imageFile'], 'safe'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
         ];
     }
+
+    public function attributeLabels()
+    {
+        return [
+            'imageFile' => 'Печать предприятия',
+
+        ];
+    }
+
+
 
     public function upload()
     {
         if ($this->validate()) {
-            $this->imageFile->saveAs('uploads/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
-            $fuck=['fuck'=>'sdfsdfsddf'];
-            return [$fuck]; // json_encode($fuck);
+            $this->imageFile->saveAs('uploads/signatures/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+
+            return true;
         } else {
             return false;
         }
     }
-
-
 }

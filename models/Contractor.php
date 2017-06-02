@@ -28,7 +28,7 @@ use Yii;
 class Contractor extends \yii\db\ActiveRecord
 {
 
-    public $image;
+   // public $image;
 
     /**
      * @inheritdoc
@@ -50,9 +50,9 @@ class Contractor extends \yii\db\ActiveRecord
             [['contractor_type'], 'string'],
             [['name_ua', 'name_en', ], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['image'], 'safe'],
-            [['image'], 'file', 'extensions'=>'jpg, gif, png'],
-            [['image'], 'file', 'maxSize'=>'10000000'],
+            [['signature'], 'safe'],
+          //  [['image'], 'file', 'extensions'=>'jpg, gif, png'],
+         //   [['image'], 'file', 'maxSize'=>'10000000'],
             [['signature', ], 'string', 'max' => 255],
 
         ];
