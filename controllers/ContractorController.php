@@ -192,6 +192,10 @@ class ContractorController extends Controller
                     } catch (Exception $e) {
                         $transaction->rollBack();
                     }
+                } else {
+
+
+
                 }
             } else {
                 return $this->renderAjax('create', [
@@ -216,31 +220,7 @@ class ContractorController extends Controller
 
     }
 
-    /*public function actionCreate()
-        {
-            $model = new Company();
 
-            if ($model->load(Yii::$app->request->post())) {
-                if ($model->save()) {
-                    if (Yii::$app->request->isAjax) {
-                        // JSON response is expected in case of successful save
-                        Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-                        return ['success' => true];
-                    }
-                    return $this->redirect(['view', 'id' => $model->id]);
-                }
-            }
-
-            if (Yii::$app->request->isAjax) {
-                return $this->renderAjax('create', [
-                    'model' => $model,
-                ]);
-            } else {
-                return $this->render('create', [
-                    'model' => $model,
-                ]);
-            }
-        }*/
 
 
     public function actionValidate()

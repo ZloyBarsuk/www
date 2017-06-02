@@ -69,7 +69,7 @@ $this->registerJsFile(
                 'value' => function ($model) {
                     if ($model->signature!='')
                      //   return '<img src="/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати';
-                    return '<img src="'.Yii::getAlias('@webroot').'/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати';
+                    return '<div class="signature"  style="text-align:center;"><img src="/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати'."</div>";
 
                     
                 },
