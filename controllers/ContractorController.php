@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\ContractorInfo;
+use app\models\Model;
 use Yii;
 use app\models\Contractor;
 use app\models\ContractorSearch;
@@ -19,9 +20,7 @@ use app\models\MediaForm;
  */
 class ContractorController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
     public function behaviors()
     {
         return [
@@ -34,10 +33,7 @@ class ContractorController extends Controller
         ];
     }
 
-    /**
-     * Lists all Contractor models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $searchModel = new ContractorSearch();
@@ -49,11 +45,7 @@ class ContractorController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Contractor model.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionView($id)
     {
         return $this->render('view', [
@@ -61,38 +53,82 @@ class ContractorController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Contractor model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
 
-
-    /**
-     * Updates an existing Contractor model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model_contr = $this->findModel($id);
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->contractor_id]);
+        $model_contr_info = $model_contr->contractorInfo;
+        $model_contr_info->scenario = ContractorInfo::SCENARIO_UPDATE;
+
+        $model_media = new MediaForm();
+        $oldSignature = $model_contr->signature;
+
+        $request = Yii::$app->getRequest();
+
+        // если AJAX
+        if ($request->isAjax) {
+
+            if ($model_contr->load($request->post())) {
+
+                $model_contr_info->load($request->post(),'ContractorInfo');
+
+                $valid = $model_contr->validate();
+                $valid = $model_contr_info->validate() && $valid;
+
+                // удаляем старую отку. если ее обновили;
+                if ($oldSignature !== $model_contr->signature) {
+                    unlink('uploads/signatures/' . $oldSignature);
+                } else {
+                    $model_contr->signature = $oldSignature;
+                }
+
+                if ($valid) {
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($flag = $model_contr->save(false)) {
+
+                            if (!($flag = $model_contr_info->save(false))) {
+                                $transaction->rollBack();
+
+                            }
+
+                        }
+                        if ($flag) {
+                            $transaction->commit();
+
+                            // success message flash
+                            Yii::$app->session->setFlash('success', 'This is the message');
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
+                    }
+                } else {
+
+
+                }
+            } else {
+                return $this->renderAjax('update', [
+                    'model_contr' => $model_contr,
+                    'model_contr_info' => $model_contr_info,
+                    'model_media' => $model_media,
+
+
+                ]);
+            }
+
+
         } else {
             return $this->render('update', [
-                'model' => $model,
+                'model_contr' => $model_contr,
+                'model_contr_info' => $model_contr_info,
+                'model_media' => $model_media,
             ]);
+
         }
     }
 
-    /**
-     * Deletes an existing Contractor model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -100,13 +136,7 @@ class ContractorController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Contractor model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Contractor the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = Contractor::findOne($id)) !== null) {
@@ -115,31 +145,6 @@ class ContractorController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
-
-    public function actionCreate_old()
-    {
-        $model_contr = new Contractor();
-        $model_contr_info = new ContractorInfo();
-
-        // Ajax
-        $request = Yii::$app->getRequest();
-        if ($request->isAjax && $model_contr->load($request->post())) {
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return ActiveForm::validate($model_contr);
-        }
-        // General use
-        if ($model_contr->load($request->post()) && $model_contr->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->renderAjax('create', [
-                'model_contr' => $model_contr,
-                'model_contr_info' => $model_contr_info,
-
-            ]);
-        }
-    }
-
 
     public function actionCreate()
     {
@@ -195,7 +200,6 @@ class ContractorController extends Controller
                 } else {
 
 
-
                 }
             } else {
                 return $this->renderAjax('create', [
@@ -220,7 +224,28 @@ class ContractorController extends Controller
 
     }
 
+    public function actionCreate_old()
+    {
+        $model_contr = new Contractor();
+        $model_contr_info = new ContractorInfo();
 
+        // Ajax
+        $request = Yii::$app->getRequest();
+        if ($request->isAjax && $model_contr->load($request->post())) {
+            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
+            return ActiveForm::validate($model_contr);
+        }
+        // General use
+        if ($model_contr->load($request->post()) && $model_contr->save()) {
+            return $this->redirect(['index']);
+        } else {
+            return $this->renderAjax('create', [
+                'model_contr' => $model_contr,
+                'model_contr_info' => $model_contr_info,
+
+            ]);
+        }
+    }
 
 
     public function actionValidate()

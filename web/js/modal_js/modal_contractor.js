@@ -108,7 +108,7 @@ $(document).on('ready', function () {
 
         return false;
     });
-    // обновление твоара блядь
+    // обновление контрагента и его инфы  блядь
     $('body').on('click', 'td>a.update_contractor', function (event) {
 
         event.stopPropagation();

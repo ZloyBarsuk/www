@@ -36,8 +36,7 @@ $this->registerJsFile(
     <?php
     Modal::begin([
         'header' => '<h4>' . Yii::t('app', 'Contractor') . '</h4>',
-     //   'footer' => '<div class="form-group"><div class="col-md-5 col-xs-10"></div></div>',
-
+        //   'footer' => '<div class="form-group"><div class="col-md-5 col-xs-10"></div></div>',
 
 
         'id' => 'modal-contractor',
@@ -67,18 +66,44 @@ $this->registerJsFile(
                 'attribute' => 'Image',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    if ($model->signature!='')
-                     //   return '<img src="/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати';
-                    return '<div class="signature"  style="text-align:center;"><img src="/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати'."</div>";
+                    if ($model->signature != '')
+                        //   return '<img src="/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати';
+                        return '<div class="signature"  style="text-align:center;"><img src="/uploads/signatures/' . $model->signature . '" width="50px" height="auto">'; else return 'нет печати' . "</div>";
 
-                    
+
                 },
             ],
             // 'created_at',
             // 'created_by',
             // 'contractor_type',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                /*'urlCreator'=>function ( $action,  $model,  $key,  $index,  $this) {
+                return $key.'/'.$action;
+                },*/
+                'header' => 'Действия',
+                'template' => '{update}{delete}',
+                'buttons' => [
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                            'title' => Yii::t('yii', 'Update'),
+                            'class' => 'update_contractor',
+                            'data-model-id' => $model->contractor_id,
+                            'data-pjax' => 1,
+                            // 'action' => $url,
+                        ]);
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                            'title' => Yii::t('yii', 'Delete'),
+                            'class' => 'delete_contractor',
+                            'data-model-id' => $model->contractor_id,
+                            'data-pjax' => 1,
+                        ]);
+                    },
+
+                ]
+            ],
         ],
     ]); ?>
     <?php Pjax::end(); ?></div>

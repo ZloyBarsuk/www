@@ -24,6 +24,7 @@ echo $form->field($model, 'imageFile')->widget(FileInput::classname(), [
         'maxFileSize' => 10000000,
         'overwriteInitial' => true,
     ],
+
     'pluginEvents'=>[
         // "fileuploaded" => "function(event, data, previewId, index) { alert(JSON.stringify(data)); }",
       //  "fileuploaded" => "function(event, data, previewId, index) { $('#contractor-signature').val(data.filenames.[0]); }",

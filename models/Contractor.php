@@ -29,7 +29,8 @@ class Contractor extends \yii\db\ActiveRecord
 {
 
    // public $image;
-
+    const SCENARIO_CREATE = 'create';
+    const SCENARIO_UPDATE = 'update';
     /**
      * @inheritdoc
      */
@@ -45,7 +46,7 @@ class Contractor extends \yii\db\ActiveRecord
     {
         return [
             [['created_at','created_by'], 'safe'],
-            [['name_ua','name_en'], 'unique'],
+
             [['name_ua','name_en'], 'required'],
             [['contractor_type'], 'string'],
             [['name_ua', 'name_en', ], 'string', 'max' => 255],
@@ -54,7 +55,7 @@ class Contractor extends \yii\db\ActiveRecord
           //  [['image'], 'file', 'extensions'=>'jpg, gif, png'],
          //   [['image'], 'file', 'maxSize'=>'10000000'],
             [['signature', ], 'string', 'max' => 255],
-
+            [['name_ua','name_en'], 'unique', 'on' => self::SCENARIO_CREATE],
         ];
     }
 
@@ -73,6 +74,18 @@ class Contractor extends \yii\db\ActiveRecord
             'contractor_type' => Yii::t('app', 'Contractor Type'),
         ];
     }
+
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_CREATE] = ['username', 'password'];
+        $scenarios[self::SCENARIO_UPDATE] = ['name_ua', 'name_en', 'password'];
+        return $scenarios;
+
+
+    }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -93,9 +106,9 @@ class Contractor extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getContractorInfos()
+    public function getContractorInfo()
     {
-        return $this->hasMany(ContractorInfo::className(), ['id_contractor' => 'contractor_id']);
+        return $this->hasOne(ContractorInfo::className(), ['id_contractor' => 'contractor_id']);
     }
 
     /**

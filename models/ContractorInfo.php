@@ -34,6 +34,19 @@ class ContractorInfo extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+    const SCENARIO_CREATE = 'create';
+    const SCENARIO_UPDATE = 'update';
+    public function scenarios()
+    {
+       $scenarios = parent::scenarios();
+        $scenarios[self::SCENARIO_CREATE] = ['username', 'password'];
+        $scenarios[self::SCENARIO_UPDATE] = ['created_by'];
+        return $scenarios;
+
+
+    }
+
+
     public static function tableName()
     {
         return 'contractor_info';
@@ -42,17 +55,23 @@ class ContractorInfo extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+
     public function rules()
     {
         return [
             // [['id_contractor', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en',], 'required'],
-            [[ 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en',], 'required'],
+            [['adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en',], 'required'],
 
             [['created_at', 'created_by'], 'safe'],
-            [['id_contractor', 'created_at', 'created_by'], 'integer'],
+            ['email', 'email'],
+
             [['adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en', 'director_ua', 'director_en', 'email', 'phone', 'fax', 'contact_person', 'tax_number', 'vat_reg_no', 'rep', 'customer_number'], 'string', 'max' => 255],
             [['id_contractor'], 'exist', 'skipOnError' => true, 'targetClass' => Contractor::className(), 'targetAttribute' => ['id_contractor' => 'contractor_id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
+          //  [['created_by'], 'safe', 'on' => self::SCENARIO_UPDATE],
+            [ ['created_by'], 'integer', 'max' => 12,'on' => self::SCENARIO_UPDATE],
+
         ];
     }
 

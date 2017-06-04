@@ -48,15 +48,15 @@ use kartik\file\FileInput;
                                         <div class="col-md-12">
                                             <div class="alert alert-success" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span
-                                                        class="sr-only">Close</span>
+                                                            aria-hidden="true">×</span><span
+                                                            class="sr-only">Close</span>
                                                 </button>
                                                 <strong>Контрагент</strong>
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="col-md-10 col-xs-12">
-                                                    <?= Html::activeHiddenInput($model_contr, 'signature', ['value' => '']) ?>
+                                                    <?= Html::activeHiddenInput($model_contr, 'signature', ['value' => $model_contr->signature]) ?>
                                                     <?= $form->field($model_contr, 'name_en')->textInput(['maxlength' => true]) ?>
                                                 </div>
                                             </div>
@@ -82,8 +82,8 @@ use kartik\file\FileInput;
                                         <div class="col-md-12">
                                             <div class="alert alert-success" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span
-                                                        class="sr-only">Close</span>
+                                                            aria-hidden="true">×</span><span
+                                                            class="sr-only">Close</span>
                                                 </button>
                                                 <strong>Реквизиты контрагента</strong>
                                             </div>
@@ -137,6 +137,8 @@ use kartik\file\FileInput;
                                                     <?= $form->field($model_contr_info, 'contact_person')->textInput(['maxlength' => true]) ?>
 
                                                 </div>
+                                                <?= Html::activeHiddenInput($model_contr_info, 'created_at') ?>
+
                                             </div>
 
 
@@ -148,8 +150,8 @@ use kartik\file\FileInput;
                                         <div class="col-md-12">
                                             <div class="alert alert-success" role="alert">
                                                 <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span
-                                                        class="sr-only">Close</span>
+                                                            aria-hidden="true">×</span><span
+                                                            class="sr-only">Close</span>
                                                 </button>
                                                 <strong>Прочее</strong>
                                             </div>
@@ -220,17 +222,22 @@ use kartik\file\FileInput;
                                                     'options' => ['accept' => 'image/*'],
                                                     'pluginOptions' => [
                                                         'previewFileType' => 'any',
+                                                        'initialPreview'=> [
+                                                            '<img src="/uploads/signatures/'.$model_contr->signature.'" class="file-preview-image">',
+                                                        ],
                                                         'uploadUrl' => Url::to(['/media/upload']),
                                                         'allowedFileExtensions' => ['jpg', 'gif', 'png'],
                                                         'showUpload' => true,
                                                         'maxFileSize' => 10000000,
                                                         'overwriteInitial' => true,
                                                     ],
+
+
                                                     'pluginEvents' => [
-                                                        "fileuploaded" => "function(event, data, previewId, index) { $('#contractor-signature').val(data.filenames[0]); alert(JSON.stringify(data.filenames[0])); }",
+                                                    "fileuploaded" => "function(event, data, previewId, index) { $('#contractor-signature').val(data.filenames[0]); }",
 
 
-                                                    ]
+                                                ]
 
                                                 ]);
                                                 ?>
@@ -248,7 +255,7 @@ use kartik\file\FileInput;
                                                         <div class="alert alert-success" role="alert">
                                                             <button type="button" class="close" data-dismiss="alert">
                                                                 <span aria-hidden="true">×</span><span
-                                                                    class="sr-only">Close</span></button>
+                                                                        class="sr-only">Close</span></button>
                                                             <strong>Well done!</strong> You successfully read this
                                                             important alert message.
                                                         </div>
