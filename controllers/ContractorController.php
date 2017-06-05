@@ -59,7 +59,7 @@ class ContractorController extends Controller
         $model_contr = $this->findModel($id);
 
         $model_contr_info = $model_contr->contractorInfo;
-        $model_contr_info->scenario = ContractorInfo::SCENARIO_UPDATE;
+      //  $model_contr_info->scenario = ContractorInfo::SCENARIO_UPDATE;
 
         $model_media = new MediaForm();
         $oldSignature = $model_contr->signature;
@@ -98,10 +98,17 @@ class ContractorController extends Controller
                             $transaction->commit();
 
                             // success message flash
-                            Yii::$app->session->setFlash('success', 'This is the message');
+
+                            Yii::$app->response->format = Response::FORMAT_JSON;
+                        return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => '', /*'result' => $model->save()*/];
+
+                           // Yii::$app->session->setFlash('success', 'This is the message');
                         }
                     } catch (Exception $e) {
                         $transaction->rollBack();
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+
                     }
                 } else {
 
@@ -190,12 +197,17 @@ class ContractorController extends Controller
                         }
                         if ($flag) {
                             $transaction->commit();
-
+                            Yii::$app->response->format = Response::FORMAT_JSON;
                             // success message flash
-                            Yii::$app->session->setFlash('success', 'This is the message');
+                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+
+                            // Yii::$app->session->setFlash('success', 'This is the message');
                         }
                     } catch (Exception $e) {
                         $transaction->rollBack();
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+
                     }
                 } else {
 
@@ -224,7 +236,7 @@ class ContractorController extends Controller
 
     }
 
-    public function actionCreate_old()
+   /* public function actionCreate_old()
     {
         $model_contr = new Contractor();
         $model_contr_info = new ContractorInfo();
@@ -245,7 +257,7 @@ class ContractorController extends Controller
 
             ]);
         }
-    }
+    }*/
 
 
     public function actionValidate()

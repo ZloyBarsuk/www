@@ -60,10 +60,10 @@ $this->registerJsFile(
             'contractor_id',
             'name_ua',
             'name_en',
-            'signature',
+          //  'signature',
 
             [
-                'attribute' => 'Image',
+                'attribute' => 'Печать',
                 'format' => 'raw',
                 'value' => function ($model) {
                     if ($model->signature != '')
@@ -101,6 +101,16 @@ $this->registerJsFile(
                             'data-pjax' => 1,
                         ]);
                     },
+
+                    'delete' => function($url, $model){
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->contractor_id], [
+                            'class' => '',
+                            'data' => [
+                                'confirm' => 'Уверен в удалении записи? Можешь потеряь все данные !:)',
+                                'method' => 'post',
+                            ],
+                        ]);
+                    }
 
                 ]
             ],

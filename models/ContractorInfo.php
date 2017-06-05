@@ -36,15 +36,16 @@ class ContractorInfo extends \yii\db\ActiveRecord
      */
     const SCENARIO_CREATE = 'create';
     const SCENARIO_UPDATE = 'update';
-    public function scenarios()
+
+    /*public function scenarios()
     {
        $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_CREATE] = ['username', 'password'];
-        $scenarios[self::SCENARIO_UPDATE] = ['created_by'];
+        $scenarios[self::SCENARIO_CREATE] = ['email'];
+        $scenarios[self::SCENARIO_UPDATE] = ['email','adress_official_ua'];
         return $scenarios;
 
 
-    }
+    }*/
 
 
     public static function tableName()
@@ -70,7 +71,8 @@ class ContractorInfo extends \yii\db\ActiveRecord
             [['id_contractor'], 'exist', 'skipOnError' => true, 'targetClass' => Contractor::className(), 'targetAttribute' => ['id_contractor' => 'contractor_id']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
           //  [['created_by'], 'safe', 'on' => self::SCENARIO_UPDATE],
-            [ ['created_by'], 'integer', 'max' => 12,'on' => self::SCENARIO_UPDATE],
+          //  [ ['email'], 'email','on' => self::SCENARIO_UPDATE],
+          //  [ ['adress_official_ua'], 'required','on' => self::SCENARIO_UPDATE],
 
         ];
     }

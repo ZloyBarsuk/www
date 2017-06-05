@@ -220,7 +220,7 @@ $(document).on('ready', function () {
         notify.css('display', 'inline-block');
         notify.toggle(7000);
 
-        $.pjax.reload({container: '#pjax_products', timeout: 3000});
+        $.pjax.reload({container: '#pjax_contractor', timeout: 3000});
         return false;
     }
 

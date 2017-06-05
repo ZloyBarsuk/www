@@ -79,8 +79,8 @@ class Contractor extends \yii\db\ActiveRecord
     public function scenarios()
     {
         $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_CREATE] = ['username', 'password'];
-        $scenarios[self::SCENARIO_UPDATE] = ['name_ua', 'name_en', 'password'];
+        $scenarios[self::SCENARIO_CREATE] = ['name_ua', 'name_en',];
+        $scenarios[self::SCENARIO_UPDATE] = ['name_ua', 'name_en',];
         return $scenarios;
 
 
