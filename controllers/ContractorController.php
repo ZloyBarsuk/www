@@ -138,9 +138,19 @@ class ContractorController extends Controller
 
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        return $this->redirect(['index']);
+        if ($request->isAjax) {
+
+            if ($this->findModel($id)->delete()) {
+                return ['notify' => 1, 'flag' => 'success', 'notify_text' => Yii::t('app', 'Delete successful'),];
+
+            } else {
+                return ['notify' => 0, 'flag' => 'error', 'notify_text' => Yii::t('app', 'Delete unsuccessful'),];
+            }
+
+        }
     }
 
 

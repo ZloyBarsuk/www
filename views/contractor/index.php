@@ -60,7 +60,7 @@ $this->registerJsFile(
             'contractor_id',
             'name_ua',
             'name_en',
-          //  'signature',
+            //  'signature',
 
             [
                 'attribute' => 'Печать',
@@ -93,18 +93,11 @@ $this->registerJsFile(
                             // 'action' => $url,
                         ]);
                     },
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                            'title' => Yii::t('yii', 'Delete'),
-                            'class' => 'delete_contractor',
-                            'data-model-id' => $model->contractor_id,
-                            'data-pjax' => 1,
-                        ]);
-                    },
 
-                    'delete' => function($url, $model){
+
+                    'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->contractor_id], [
-                            'class' => '',
+                            'class' => 'delete_contractor',
                             'data' => [
                                 'confirm' => 'Уверен в удалении записи? Можешь потеряь все данные !:)',
                                 'method' => 'post',
