@@ -38,7 +38,7 @@ class ContractorController extends Controller
     {
         $searchModel = new ContractorSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+        $dataProvider->pagination->pageSize=10;
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -57,7 +57,7 @@ class ContractorController extends Controller
     public function actionUpdate($id)
     {
         $model_contr = $this->findModel($id);
-
+        $model_contr->scenario='update';
         $model_contr_info = $model_contr->contractorInfo;
       //  $model_contr_info->scenario = ContractorInfo::SCENARIO_UPDATE;
 
@@ -141,7 +141,7 @@ class ContractorController extends Controller
         $request = Yii::$app->getRequest();
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if ($request->isAjax) {
+        if ($request->isAjax && $request->isPost) {
 
             if ($this->findModel($id)->delete()) {
                 return ['notify' => 1, 'flag' => 'success', 'notify_text' => Yii::t('app', 'Delete successful'),];
@@ -165,7 +165,7 @@ class ContractorController extends Controller
 
     public function actionCreate()
     {
-        $model_contr = new Contractor();
+        $model_contr = new Contractor(['scenario'=>"create"]);
         $model_contr_info = new ContractorInfo();
         $model_media = new MediaForm();
         $request = Yii::$app->getRequest();
@@ -174,26 +174,15 @@ class ContractorController extends Controller
         if ($request->isAjax) {
 
             if ($model_contr->load($request->post())) {
-                // $image = UploadedFile::getInstance($model_contr, 'image');
 
-                /*if (!is_null($image)) {
-                    $model_contr->signature = $image->name;
-                    $ext=(explode(".", $image->name));
-                    $ext = end($ext);
-                    // generate a unique file name to prevent duplicate filenames
-                    $model_contr->signature = Yii::$app->security->generateRandomString().".{$ext}";
-                    // the path to save file, you can set an uploadPath
-                    // in Yii::$app->params (as used in example below)
-                    Yii::$app->params['uploadPath'] = Yii::getAlias('@web'). 'uploads/signatures/';
-                    $path = Yii::$app->params['uploadPath'] . $model_contr->signature;
-                    $image->saveAs($path);
-                }*/
 
 
                 $model_contr_info->load($request->post());
                 $valid = $model_contr->validate();
                 $valid = $model_contr_info->validate() && $valid;
                 if ($valid) {
+                    // добавляем картинку
+                    empty($model_contr->signature)?$model_contr->signature='empty.png':'';
                     $transaction = \Yii::$app->db->beginTransaction();
                     try {
                         if ($flag = $model_contr->save(false)) {
@@ -209,7 +198,7 @@ class ContractorController extends Controller
                             $transaction->commit();
                             Yii::$app->response->format = Response::FORMAT_JSON;
                             // success message flash
-                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => ''];
 
                             // Yii::$app->session->setFlash('success', 'This is the message');
                         }
@@ -246,28 +235,6 @@ class ContractorController extends Controller
 
     }
 
-   /* public function actionCreate_old()
-    {
-        $model_contr = new Contractor();
-        $model_contr_info = new ContractorInfo();
-
-        // Ajax
-        $request = Yii::$app->getRequest();
-        if ($request->isAjax && $model_contr->load($request->post())) {
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return ActiveForm::validate($model_contr);
-        }
-        // General use
-        if ($model_contr->load($request->post()) && $model_contr->save()) {
-            return $this->redirect(['index']);
-        } else {
-            return $this->renderAjax('create', [
-                'model_contr' => $model_contr,
-                'model_contr_info' => $model_contr_info,
-
-            ]);
-        }
-    }*/
 
 
     public function actionValidate()
@@ -280,5 +247,11 @@ class ContractorController extends Controller
         }
     }
 
-
+    public function actionAjaxvalidate($id = null)
+    {
+        $model = $id ? $this->findModel($id) : new Contractor(['scenario' => 'create']);
+        $model->load(Yii::$app->request->post());
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ActiveForm::validate($model);
+    }
 }

@@ -28,9 +28,7 @@ use Yii;
 class Contractor extends \yii\db\ActiveRecord
 {
 
-   // public $image;
-    const SCENARIO_CREATE = 'create';
-    const SCENARIO_UPDATE = 'update';
+
     /**
      * @inheritdoc
      */
@@ -42,20 +40,30 @@ class Contractor extends \yii\db\ActiveRecord
     /**
      * @inheritdoc
      */
+
+    public function scenarios()
+    {
+        $scenarios = parent::scenarios();
+        $scenarios['create'] = ['name_ua', 'name_en',];
+        $scenarios['update'] = ['name_ua', 'name_en',];
+        return $scenarios;
+
+
+    }
     public function rules()
     {
         return [
             [['created_at','created_by'], 'safe'],
 
             [['name_ua','name_en'], 'required'],
+            [['name_ua','name_en'], 'unique', 'on' =>'create'],
+            [['name_ua','name_en'], 'safe', 'on' =>'update'],
             [['contractor_type'], 'string'],
             [['name_ua', 'name_en', ], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
             [['signature'], 'safe'],
-          //  [['image'], 'file', 'extensions'=>'jpg, gif, png'],
-         //   [['image'], 'file', 'maxSize'=>'10000000'],
             [['signature', ], 'string', 'max' => 255],
-            [['name_ua','name_en'], 'unique', 'on' => self::SCENARIO_CREATE],
+
         ];
     }
 
@@ -76,15 +84,7 @@ class Contractor extends \yii\db\ActiveRecord
     }
 
 
-    public function scenarios()
-    {
-        $scenarios = parent::scenarios();
-        $scenarios[self::SCENARIO_CREATE] = ['name_ua', 'name_en',];
-        $scenarios[self::SCENARIO_UPDATE] = ['name_ua', 'name_en',];
-        return $scenarios;
 
-
-    }
 
 
     /**

@@ -147,10 +147,14 @@ $(document).on('ready', function () {
     // удаление товара
 
     $('body').on('click', 'td>a.delete_contractor', function (event) {
+        if (confirm("Are you sure?")) {
+
+
 
         event.stopPropagation();
 
         var url = $(this).attr("href");
+
         $.ajax({
             'url': url,
             'type': 'POST',
@@ -166,14 +170,15 @@ $(document).on('ready', function () {
                          $("#example-form").yiiActiveForm("updateAttribute", key, "");
                          $("#example-form").yiiActiveForm("updateAttribute", key, [val]);
                          });*/
+                        alert(JSON.stringify(data));
 
                         notyfy_alert(data);
 
                     } else {
                         if (data.notify == 1) {
                             notyfy_alert(data);
-
-                            $.pjax.reload({container: '#pjax_contractor', timeout: 3000});
+                            alert(JSON.stringify(data));
+                            $.pjax.reload({container: '#pjax_contractor', timeout: 2000});
 
                             //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
 
@@ -197,8 +202,12 @@ $(document).on('ready', function () {
             }
         });
 
-
-        return false;
+            return false;
+        }
+        else
+        {
+            return false;
+        }
 
 
     });
@@ -212,7 +221,7 @@ $(document).on('ready', function () {
 
 
     function notyfy_alert(response) {
-        alert(JSON.stringify(response));
+       // alert(JSON.stringify(response));
         var notify = $('#noty_' + response.flag);
         var notify_text = notify.find('.noty_text');
         notify_text.text('');
@@ -220,7 +229,7 @@ $(document).on('ready', function () {
         notify.css('display', 'inline-block');
         notify.toggle(7000);
 
-        $.pjax.reload({container: '#pjax_contractor', timeout: 3000});
+        $.pjax.reload({container: '#pjax_contractor', timeout: 2000});
         return false;
     }
 

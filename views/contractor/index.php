@@ -10,7 +10,7 @@ use yii\bootstrap\Modal;
 /* @var $searchModel app\models\ContractorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Contractors');
+ $this->title = Yii::t('app', 'Contractor');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <?php
@@ -26,7 +26,7 @@ $this->registerJsFile(
 
 <div class="contractor-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+   <!-- <h1><?/*= Html::encode($this->title) */?></h1>-->
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -51,9 +51,16 @@ $this->registerJsFile(
     ?>
 
 
-    <?php Pjax::begin(['id' => 'pjax_contractor']); ?>    <?= GridView::widget([
+    <?php Pjax::begin([
+
+            'id' => 'pjax_contractor',
+
+        ]
+
+    ); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -81,6 +88,7 @@ $this->registerJsFile(
                 /*'urlCreator'=>function ( $action,  $model,  $key,  $index,  $this) {
                 return $key.'/'.$action;
                 },*/
+
                 'header' => 'Действия',
                 'template' => '{update}{delete}',
                 'buttons' => [
@@ -94,16 +102,18 @@ $this->registerJsFile(
                         ]);
                     },
 
-
                     'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', ['delete', 'id' => $model->contractor_id], [
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                            'title' => Yii::t('yii', 'Update'),
                             'class' => 'delete_contractor',
-                            'data' => [
-                                'confirm' => 'Уверен в удалении записи? Можешь потеряь все данные !:)',
-                                'method' => 'post',
-                            ],
+                            'data-model-id' => $model->contractor_id,
+                            'data-pjax' => 1,
+                            'data-method' => 'post',
+
+                            // 'action' => $url,
                         ]);
-                    }
+                    },
+
 
                 ]
             ],

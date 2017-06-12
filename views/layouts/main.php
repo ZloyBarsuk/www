@@ -60,7 +60,7 @@ AppAsset::register($this);
 
         <?= $this->render($viewContent, ['content' => $content]) ?>
 
-        <?= $this->render($viewFooter) ?>
+
 
     </div>
 

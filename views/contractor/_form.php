@@ -39,7 +39,7 @@ use kartik\file\FileInput;
                                     'id' => 'contractor-form',
                                     'options' => ['enctype' => 'multipart/form-data'], // important
                                     'enableAjaxValidation' => true,
-                                    'validationUrl' => Url::toRoute(['/contractor/validate']),
+                                    'validationUrl' => Url::toRoute(['/contractor/ajaxvalidate']),
 
                                 ]); ?>
 
@@ -249,7 +249,7 @@ use kartik\file\FileInput;
                                                 <div class="col-md-3 col-xs-5">
                                                     <?= Html::submitButton($model_contr->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_contr->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                                                 </div>
-                                                <div class="col-md-6">
+                                                <div class="col-md-10">
                                                     <div class="alert alert-success" role="alert" style="display:none;" id="success_notify">
                                                         <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span
                                                                 class="sr-only"><?php Yii::t('app', 'Close'); ?> </span></button>
