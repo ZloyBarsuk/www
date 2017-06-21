@@ -39,7 +39,8 @@ use kartik\file\FileInput;
                                     'id' => 'contractor-form',
                                     'options' => ['enctype' => 'multipart/form-data'], // important
                                     'enableAjaxValidation' => true,
-                                    'validationUrl' => Url::toRoute(['/contractor/ajaxvalidate']),
+                                  //  'validationUrl' => Url::toRoute(['/contractor/ajaxvalidate']),
+                                    'validationUrl' => Url::toRoute(['contractor/ajax-validate', 'scenario' => $model_contr->scenario,'model_id'=> $model_contr->contractor_id]),
 
                                 ]); ?>
 

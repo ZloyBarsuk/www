@@ -237,21 +237,27 @@ class ContractorController extends Controller
 
 
 
-    public function actionValidate()
+    public function actionAjaxValidate($scenario = false,$model_id=false)
     {
-        $model = new Contractor();
-        $request = \Yii::$app->getRequest();
-        if ($request->isAjax && $model->load($request->post())) {
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return \yii\widgets\ActiveForm::validate($model);
-        }
-    }
 
-    public function actionAjaxvalidate($id = null)
-    {
-        $model = $id ? $this->findModel($id) : new Contractor(['scenario' => 'create']);
-        $model->load(Yii::$app->request->post());
+        if($scenario=='create')
+        {
+            $model = new Contractor();
+
+        }
+        else{
+            $model=$this->findModel($model_id);
+            $model->scenario=$scenario;
+        }
         Yii::$app->response->format = Response::FORMAT_JSON;
         return ActiveForm::validate($model);
     }
+
+    /*public function actionAjaxvalidate($scenario = false)
+    {
+        $model = $scenario ? $this->findModel($id) : new Contractor(['scenario' => 'create']);
+        $model->load(Yii::$app->request->post());
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ActiveForm::validate($model);
+    }*/
 }
