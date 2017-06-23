@@ -19,6 +19,7 @@ class BanksSearch extends Banks
     {
         return [
             [['bank_id', 'created_by'], 'integer'],
+
             [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en', 'created_at'], 'safe'],
         ];
     }

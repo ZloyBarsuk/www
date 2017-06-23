@@ -44,6 +44,19 @@ class BanksController extends Controller
         ]);
     }
 
+
+
+    public function actionInfoByContractor()
+    {
+        $searchModel = new BanksSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('admin', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+    }
+
     /**
      * Displays a single Banks model.
      * @param integer $id

@@ -21,6 +21,15 @@ $this->registerJsFile(
 
     ]
 );
+$this->registerJsFile(
+    '@web/js/modal_js/tabs_loader.js',
+    ['depends' => [\yii\web\JqueryAsset::className()],
+
+    ]
+);
+
+
+
 
 ?>
 
@@ -64,9 +73,10 @@ $this->registerJsFile(
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'contractor_id',
-            'name_ua',
+           // 'contractor_id',
             'name_en',
+            'name_ua',
+
             //  'signature',
 
             [
@@ -80,6 +90,7 @@ $this->registerJsFile(
 
                 },
             ],
+
             // 'created_at',
             // 'created_by',
             // 'contractor_type',
@@ -104,7 +115,7 @@ $this->registerJsFile(
 
                     'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                            'title' => Yii::t('yii', 'Update'),
+                            'title' => Yii::t('yii', 'Delete'),
                             'class' => 'delete_contractor',
                             'data-model-id' => $model->contractor_id,
                             'data-pjax' => 1,

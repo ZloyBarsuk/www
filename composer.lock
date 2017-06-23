@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "765ec57f40d0655a1f43686a97cc2d21",
-    "content-hash": "4f2d85bfa7bd0ec6dc26c81acfa9467d",
+    "hash": "d1c3528295b11bd87e15e22600472f3f",
+    "content-hash": "9c7d4a7c67fbca978e3d9a263c265a14",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -258,6 +258,27 @@
                 "mask",
                 "plugins"
             ]
+        },
+        {
+            "name": "bower-asset/noty",
+            "version": "v2.4.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/needim/noty.git",
+                "reference": "ebb543ef0a3c039cdb7cdae887197ffa43433d52"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/needim/noty/zipball/ebb543ef0a3c039cdb7cdae887197ffa43433d52",
+                "reference": "ebb543ef0a3c039cdb7cdae887197ffa43433d52",
+                "shasum": ""
+            },
+            "type": "bower-asset-library",
+            "extra": {
+                "bower-asset-main": "js/noty/packaged/jquery.noty.packaged.js",
+                "bower-asset-ignore": []
+            },
+            "description": "noty - a jQuery notification plugin"
         },
         {
             "name": "bower-asset/punycode",
@@ -2210,6 +2231,51 @@
                 "yii"
             ],
             "time": "2016-01-07 19:09:18"
+        },
+        {
+            "name": "shifrin/yii2-noty",
+            "version": "v1.0.2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/Shifrin/yii2-noty.git",
+                "reference": "a818379e79a7ea218b58cb4efc01cc2f45f40d4f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/Shifrin/yii2-noty/zipball/a818379e79a7ea218b58cb4efc01cc2f45f40d4f",
+                "reference": "a818379e79a7ea218b58cb4efc01cc2f45f40d4f",
+                "shasum": ""
+            },
+            "require": {
+                "bower-asset/noty": "^2.3",
+                "yiisoft/yii2": ">=2.0.6"
+            },
+            "type": "yii2-extension",
+            "autoload": {
+                "psr-4": {
+                    "shifrin\\noty\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mohammed Shifreen",
+                    "email": "mshifreen@gmail.com"
+                }
+            ],
+            "description": "Yii widget for Noty jQuery notification plugin",
+            "keywords": [
+                "alert",
+                "flash",
+                "message",
+                "notification",
+                "noty",
+                "yii2"
+            ],
+            "time": "2016-02-21 06:48:51"
         },
         {
             "name": "swiftmailer/swiftmailer",

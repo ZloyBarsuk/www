@@ -37,8 +37,8 @@ class Banks extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at'], 'safe'],
-            [['created_by'], 'required'],
+            [['created_at,created_by'], 'safe'],
+            [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en',], 'required'],
             [['created_by'], 'integer'],
             [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccounts::className(), 'targetAttribute' => ['created_by' => 'id']],

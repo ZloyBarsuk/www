@@ -43,7 +43,7 @@ $(document).on('ready', function () {
 
 
     });
-    // обработка формы товара
+    // добавление контрагента бяльт
 
     $('body').on('beforeSubmit', 'form#contractor-form', function (event) {
         event.stopPropagation();
@@ -79,6 +79,7 @@ $(document).on('ready', function () {
                         } else {
                             if (data.notify == 1) {
                                 notification('success', data);
+                                $('#contractor-contractor_id').val(data.contractor_id);
 
                                 $.pjax.reload({container: '#pjax_contractor', timeout: 3000});
 
@@ -147,7 +148,7 @@ $(document).on('ready', function () {
     // удаление товара
 
     $('body').on('click', 'td>a.delete_contractor', function (event) {
-        if (confirm("Are you sure?")) {
+        if (confirm("Уверен, что хочешь удалить?")) {
 
 
 
@@ -170,14 +171,19 @@ $(document).on('ready', function () {
                          $("#example-form").yiiActiveForm("updateAttribute", key, "");
                          $("#example-form").yiiActiveForm("updateAttribute", key, [val]);
                          });*/
-                        alert(JSON.stringify(data));
+                     //   alert(JSON.stringify(data));
 
                         notyfy_alert(data);
 
                     } else {
                         if (data.notify == 1) {
                             notyfy_alert(data);
-                            alert(JSON.stringify(data));
+                         //   alert(JSON.stringify(data));
+
+                            var n = Noty('id');
+                            $.noty.setText(n.options.id, data.notify_text);
+                            $.noty.setType(n.options.id, 'information');
+
                             $.pjax.reload({container: '#pjax_contractor', timeout: 2000});
 
                             //  $.pjax.reload({container: '#pjax_products', timeout: 2000});

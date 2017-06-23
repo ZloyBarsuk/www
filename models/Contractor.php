@@ -41,28 +41,35 @@ class Contractor extends \yii\db\ActiveRecord
      * @inheritdoc
      */
 
+    /* public function scenarios()
+     {
+
+         $scenarios = parent::scenarios();
+         $scenarios['create'] = ['name_ua', 'name_en'];
+         $scenarios['update'] =  ['name_ua', 'name_en','contractor_type'];
+         return $scenarios;
+
+
+     }*/
+
     public function scenarios()
     {
-        $scenarios = parent::scenarios();
-        $scenarios['create'] = ['name_ua', 'name_en',];
-        $scenarios['update'] = ['name_ua', 'name_en',];
-        return $scenarios;
-
-
+        return [
+            'create' => ['name_ua', 'name_en','contractor_type', 'signature'],
+            'update' => ['name_ua', 'name_en','contractor_type', 'signature']
+        ];
     }
+
+
     public function rules()
     {
         return [
-            [['created_at','created_by'], 'safe'],
-
-            [['name_ua','name_en'], 'required'],
-            [['name_ua','name_en'], 'unique', 'on' =>'create'],
-            [['name_ua','name_en'], 'safe', 'on' =>'update'],
-            [['contractor_type'], 'string'],
-            [['name_ua', 'name_en', ], 'string', 'max' => 255],
+            [['name_ua', 'name_en'], 'required', 'on' => ['create', 'update']],
+            [['name_ua', 'name_en'], 'unique', 'on' => ['create']],
+           // [['name_ua', 'name_en', 'signature', 'contractor_type'], 'safe', 'on' => ['update']],
+            [['name_ua', 'name_en', 'signature',], 'string', 'max' => 255, 'on' => ['create', 'update']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
-            [['signature'], 'safe'],
-            [['signature', ], 'string', 'max' => 255],
+
 
         ];
     }
@@ -82,9 +89,6 @@ class Contractor extends \yii\db\ActiveRecord
             'contractor_type' => Yii::t('app', 'Contractor Type'),
         ];
     }
-
-
-
 
 
     /**

@@ -14,22 +14,22 @@ use kartik\file\FileInput;
     <div class="col-md-12">
 
         <!-- START TABS -->
-        <div class="panel panel-default tabs">
-            <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#tab-first" role="tab" data-toggle="tab"
+        <div id="tabs">
+            <ul class="nav nav-tabs nav-tabs-arrowed" role="tablist">
+                <li class="active"><a href="#contractor" role="tab" data-toggle="tab"
                                       aria-expanded="true">Контрагент</a>
-
                 </li>
-                <li class=""><a href="#tab-second" role="tab" data-toggle="tab" aria-expanded="false">Банк</a>
+                <li class=""><a class="jsloader" href="#baks" role="tab" data-toggle="tab"
+                                aria-expanded="false">Банк</a>
                 </li>
-                <li class=""><a href="#tab-third" role="tab" data-toggle="tab" aria-expanded="false">Печать</a></li>
-
+                <li class=""><a class="jsloader" href="#stamps" role="tab" data-toggle="tab" aria-expanded="false">Печать</a>
+                </li>
 
             </ul>
             <div class="panel-body tab-content">
-                <div class="tab-pane active" id="tab-first">
+                <div class="tab-pane active" id="contractor">
 
-                    <div class="contractor-form">
+                    <div class="contractor">
 
                         <div class="row">
                             <div class="col-md-12">
@@ -39,21 +39,18 @@ use kartik\file\FileInput;
                                     'id' => 'contractor-form',
                                     'options' => ['enctype' => 'multipart/form-data'], // important
                                     'enableAjaxValidation' => true,
-                                  //  'validationUrl' => Url::toRoute(['/contractor/ajaxvalidate']),
-                                    'validationUrl' => Url::toRoute(['contractor/ajax-validate', 'scenario' => $model_contr->scenario,'model_id'=> $model_contr->contractor_id]),
+                                    //  'validationUrl' => Url::toRoute(['/contractor/ajaxvalidate']),
+                                    'validationUrl' => Url::toRoute(['contractor/ajax-validate', 'scenario' => $model_contr->scenario, 'model_id' => $model_contr->contractor_id]),
 
                                 ]); ?>
 
 
                                 <div class="row">
                                     <div class="col-md-12">
-                                        <div class="alert alert-success" role="alert">
-                                            <button type="button" class="close" data-dismiss="alert"><span
-                                                    aria-hidden="true">×</span><span
-                                                    class="sr-only">Close</span>
-                                            </button>
-                                            <strong>Контрагент</strong>
-                                        </div>
+
+
+                                        <?= Html::activeHiddenInput($model_contr, 'contractor_id') ?>
+
 
                                         <div class="form-group">
                                             <div class="col-md-10 col-xs-12">
@@ -220,10 +217,12 @@ use kartik\file\FileInput;
                                             <?php
                                             echo $form->field($model_media, 'imageFile')->widget(FileInput::classname(), [
                                                 'options' => ['accept' => 'image/*'],
+                                                // 'resizeImages'=>true,
                                                 'pluginOptions' => [
+
                                                     'previewFileType' => 'any',
                                                     'initialPreview' => [
-                                                        '<img src="/uploads/signatures/' . $model_contr->signature . '" class="file-preview-image">',
+                                                        '<img  style="height:inherit;width:inherit;" src="/uploads/signatures/' . $model_contr->signature . '" class="file-preview-image">',
                                                     ],
                                                     'uploadUrl' => Url::to(['/media/upload']),
                                                     'allowedFileExtensions' => ['jpg', 'gif', 'png'],
@@ -251,16 +250,22 @@ use kartik\file\FileInput;
                                                     <?= Html::submitButton($model_contr->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_contr->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <div class="alert alert-success" role="alert" style="display:none;" id="success_notify">
-                                                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span
-                                                                class="sr-only"><?php Yii::t('app', 'Close'); ?> </span></button>
+                                                    <div class="alert alert-success" role="alert" style="display:none;"
+                                                         id="success_notify">
+                                                        <button type="button" class="close" data-dismiss="alert"><span
+                                                                aria-hidden="true">×</span><span
+                                                                class="sr-only"><?php Yii::t('app', 'Close'); ?> </span>
+                                                        </button>
                                                         <strong>
                                                             <div class="success_notify_content"></div>
                                                         </strong>
                                                     </div>
-                                                    <div class="alert alert-danger" role="alert" style="display:none;" id="danger_notify">
-                                                        <button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">×</span><span
-                                                                class="sr-only"><?php Yii::t('app', 'Close'); ?> </span></button>
+                                                    <div class="alert alert-danger" role="alert" style="display:none;"
+                                                         id="danger_notify">
+                                                        <button type="button" class="close" data-dismiss="alert"><span
+                                                                aria-hidden="true">×</span><span
+                                                                class="sr-only"><?php Yii::t('app', 'Close'); ?> </span>
+                                                        </button>
                                                         <strong>
                                                             <div class="danger_notify_content"></div>
                                                         </strong>
@@ -283,17 +288,19 @@ use kartik\file\FileInput;
                     </div>
 
                 </div>
-                <div class="tab-pane" id="tab-second">
-                    <p>Donec tristique eu sem et aliquam. Proin sodales elementum urna et euismod. Quisque nisl
-                        nisl,
-                        venenatis eget dignissim et, adipiscing eu tellus. Sed nulla massa, luctus id orci sed,
-                        elementum consequat est. Proin dictum odio quis diam gravida facilisis. Sed pharetra dolor a
-                        tempor tristique. Sed semper sed urna ac dignissim. Aenean fermentum leo at posuere mattis.
-                        Etiam vitae quam in magna viverra dictum. Curabitur feugiat ligula in dui luctus, sed
-                        aliquet
-                        neque posuere.</p>
+
+
+                <div class="tab-pane" id="baks">
+
+                    <div id="banks-body">
+
+
+                    </div>
+
                 </div>
-                <div class="tab-pane" id="tab-third">
+
+
+                <div class="tab-pane" id="stamps">
                     <p>
 
                         <!-- рабочий вариант блядь --><? /*=
