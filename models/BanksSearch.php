@@ -19,8 +19,7 @@ class BanksSearch extends Banks
     {
         return [
             [['bank_id', 'created_by'], 'integer'],
-
-            [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en', 'created_at'], 'safe'],
+            [['name_ua', 'name_en', 'created_at'], 'safe'],
         ];
     }
 
@@ -66,11 +65,8 @@ class BanksSearch extends Banks
         ]);
 
         $query->andFilterWhere(['like', 'name_ua', $this->name_ua])
-            ->andFilterWhere(['like', 'name_en', $this->name_en])
-            ->andFilterWhere(['like', 'adress_official_ua', $this->adress_official_ua])
-            ->andFilterWhere(['like', 'adress_official_en', $this->adress_official_en])
-            ->andFilterWhere(['like', 'adress_post_ua', $this->adress_post_ua])
-            ->andFilterWhere(['like', 'adress_post_en', $this->adress_post_en]);
+            ->andFilterWhere(['like', 'name_en', $this->name_en]);
+
 
         return $dataProvider;
     }

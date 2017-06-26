@@ -45,12 +45,11 @@ class BanksController extends Controller
     }
 
 
-
     public function actionInfoByContractor()
     {
         $searchModel = new BanksSearch();
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-
+// Yii::$app->request->post('username');
         return $this->render('admin', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
@@ -134,4 +133,38 @@ class BanksController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    /* Мои блядские контроллеры для модалок )))*/
+
+
+    public function actionCreateFromList()
+    {
+
+        $data_list = Banks::AllBanks();
+        $request = Yii::$app->getRequest();
+        $banks_model=new Banks();
+            if ($request->isAjax) {
+
+                if ($banks_model->load($request->post())) {
+
+
+
+
+
+                }
+                return $this->renderAjax('select_bank_form', [
+                    'data_list' => $data_list,
+                    'banks_model' => $banks_model,
+
+
+
+
+                ]);
+            }
+
+
+
+    }
+
+
 }

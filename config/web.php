@@ -11,6 +11,10 @@ $config = [
     'name'=>'Inwiz',
     // 'baseUrl'=> '',
     'components' => [
+
+        'assetManager' => [
+            'linkAssets' => true
+        ],
         'i18n'         => [
             'translations' => [
 

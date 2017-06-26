@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "banks".
  *
@@ -38,8 +38,8 @@ class Banks extends \yii\db\ActiveRecord
     {
         return [
             [['created_at,created_by'], 'safe'],
-            [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en',], 'required'],
-            [['created_by'], 'integer'],
+            [['name_ua', 'name_en'], 'required'],
+            //  [['created_by'], 'integer'],
             [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en'], 'string', 'max' => 255],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => UserAccounts::className(), 'targetAttribute' => ['created_by' => 'id']],
         ];
@@ -54,10 +54,6 @@ class Banks extends \yii\db\ActiveRecord
             'bank_id' => Yii::t('app', 'Bank ID'),
             'name_ua' => Yii::t('app', 'Name Ua'),
             'name_en' => Yii::t('app', 'Name En'),
-            'adress_official_ua' => Yii::t('app', 'Adress Official Ua'),
-            'adress_official_en' => Yii::t('app', 'Adress Official En'),
-            'adress_post_ua' => Yii::t('app', 'Adress Post Ua'),
-            'adress_post_en' => Yii::t('app', 'Adress Post En'),
             'created_at' => Yii::t('app', 'Created At'),
             'created_by' => Yii::t('app', 'Created By'),
         ];
@@ -85,5 +81,11 @@ class Banks extends \yii\db\ActiveRecord
     public function getCreatedBy()
     {
         return $this->hasOne(UserAccounts::className(), ['id' => 'created_by']);
+    }
+
+    public static function AllBanks()
+    {
+        $banks_model_list = ArrayHelper::map(self::find()->orderBy('name_ua')->asArray()->all(), 'bank_id','name_ua');
+        return $banks_model_list;
     }
 }

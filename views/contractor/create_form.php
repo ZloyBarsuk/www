@@ -15,21 +15,34 @@ use kartik\file\FileInput;
 
         <!-- START TABS -->
         <div id="tabs">
-            <ul class="nav nav-tabs nav-tabs-arrowed" role="tablist">
-                <li class="active"><a href="#contractor" role="tab" data-toggle="tab"
-                                      aria-expanded="true">Контрагент</a>
-                </li>
-                <li class=""><a class="jsloader" href="#baks" role="tab" data-toggle="tab"
-                                aria-expanded="false">Банк</a>
-                </li>
-                <li class=""><a class="jsloader" href="#stamps" role="tab" data-toggle="tab" aria-expanded="false">Печать</a>
+
+
+
+            <!-- Nav tabs -->
+            <ul class="nav nav-tabs" role="tablist">
+                <li class="active"><a href="#contractor" role="tab" data-toggle="tab">Контрагент</a></li>
+                <!-- <li><a href="#javatab" role="tab" data-toggle="tab" class="ajax_loader">Java</a></li>
+                 <li><a href="#csharptab" role="tab" data-toggle="tab" class="ajax_loader">C#</a></li>
+                 <li><a href="#mysqltab" role="tab" data-toggle="tab" class="ajax_loader">MySQL</a></li>-->
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Банковские реквизиты <b
+                            class="caret"></b></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#banks_create-from-list" role="tab" data-toggle="tab" class="ajax_loader">Выбрать из
+                                списка существующих</a></li>
+                        <li><a href="#banks_create" role="tab" data-toggle="tab" class="ajax_loader">Записать новый
+                                банк</a></li>
+                    </ul>
                 </li>
 
             </ul>
-            <div class="panel-body tab-content">
-                <div class="tab-pane active" id="contractor">
+            </li>
 
-                    <div class="contractor">
+            <!-- Tab panes -->
+            <div class="tab-content">
+                <div class="tab-pane active" id="contractor">
+                    <div class="">
 
                         <div class="row">
                             <div class="col-md-12">
@@ -286,84 +299,23 @@ use kartik\file\FileInput;
 
 
                     </div>
+                </div>
+
+                <div class="tab-pane" id="banks_create-from-list">
+
+                </div>
+                <div class="tab-pane" id="banks_create">
+
+                    Create
 
                 </div>
 
-
-                <div class="tab-pane" id="baks">
-
-                    <div id="banks-body">
-
-
-                    </div>
-
-                </div>
-
-
-                <div class="tab-pane" id="stamps">
-                    <p>
-
-                        <!-- рабочий вариант блядь --><? /*=
-
-                        $this->render('/media/media_upload_form', [
-                            'model' => $model_media,
-                        ]);
-
-                        */ ?>
-                    </p>
-                </div>
 
             </div>
+            <!-- END TABS -->
         </div>
-        <!-- END TABS -->
+
+
     </div>
 
 
-</div>
-
-
-<?php
-/*$wizard_config = [
-    'id' => 'stepwizard',
-    'steps' => [
-        1 => [
-            'title' => 'Контрагент',
-            'icon' => 'glyphicon glyphicon-user',
-
-
-            'content' =>$this->render('/products/_form', [
-                'model' =>$model_contr_prod,
-            ]),
-
-    'buttons' => [
-                'next' => [
-                    'title' => 'Далее',
-                    'options' => [
-                        'class' => 'disabled'
-                    ],
-                ],
-            ],
-        ],
-        2 => [
-            'title' => 'Реквизиты контрагента',
-            'icon' => 'glyphicon glyphicon-file',
-            'content' => '<h3>Step 2</h3>This is step 2',
-            'skippable' => true,
-        ],
-        3 => [
-            'title' => 'Банки',
-            'icon' => 'glyphicon glyphicon-piggy-bank',
-            'content' => '<h3>Step 3</h3>This is step 3',
-        ],
-        3 => [
-            'title' => 'Платежные данные банка',
-            'icon' => 'glyphicon glyphicon-euro',
-            'content' => '<h3>Step 3</h3>This is step 3',
-        ],
-    ],
-    'complete_content' => "Форма заполнена! Сохраните  записи!",
-    'start_step' => 1,
-];*/
-?>
-<?= /* \drsdre\wizardwidget\WizardWidget::widget($wizard_config); */
-''; ?>
