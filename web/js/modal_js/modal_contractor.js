@@ -151,67 +151,65 @@ $(document).on('ready', function () {
         if (confirm("Уверен, что хочешь удалить?")) {
 
 
+            event.stopPropagation();
 
-        event.stopPropagation();
+            var url = $(this).attr("href");
 
-        var url = $(this).attr("href");
+            $.ajax({
+                'url': url,
+                'type': 'POST',
+                // 'data': form.serialize(),
+                'cache': false,
+                success: function (data) {
 
-        $.ajax({
-            'url': url,
-            'type': 'POST',
-            // 'data': form.serialize(),
-            'cache': false,
-            success: function (data) {
+                    if (data === Object(data)) {
+                        // Если success значит валидация не прошла
+                        if (data.notify == 0) {
+                            //Выводим ошибки валидации
+                            /* $.each(data.validate, function(key, val) {
+                             $("#example-form").yiiActiveForm("updateAttribute", key, "");
+                             $("#example-form").yiiActiveForm("updateAttribute", key, [val]);
+                             });*/
+                            //   alert(JSON.stringify(data));
 
-                if (data === Object(data)) {
-                    // Если success значит валидация не прошла
-                    if (data.notify == 0) {
-                        //Выводим ошибки валидации
-                        /* $.each(data.validate, function(key, val) {
-                         $("#example-form").yiiActiveForm("updateAttribute", key, "");
-                         $("#example-form").yiiActiveForm("updateAttribute", key, [val]);
-                         });*/
-                     //   alert(JSON.stringify(data));
-
-                        notyfy_alert(data);
-
-                    } else {
-                        if (data.notify == 1) {
                             notyfy_alert(data);
-                         //   alert(JSON.stringify(data));
 
-                            var n = Noty('id');
-                            $.noty.setText(n.options.id, data.notify_text);
-                            $.noty.setType(n.options.id, 'information');
+                        } else {
+                            if (data.notify == 1) {
+                                notyfy_alert(data);
+                                //   alert(JSON.stringify(data));
 
-                            $.pjax.reload({container: '#pjax_contractor', timeout: 2000});
+                                var n = Noty('id');
+                                $.noty.setText(n.options.id, data.notify_text);
+                                $.noty.setType(n.options.id, 'information');
 
-                            //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
+                                $.pjax.reload({container: '#pjax_contractor', timeout: 2000});
+
+                                //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
+
+                            }
+                            else {
+                                notyfy_alert(data);
+                            }
+
 
                         }
-                        else {
-                            notyfy_alert(data);
-                        }
-
-
+                        //  event.stopPropagation();
+                        return false;
                     }
-                    //  event.stopPropagation();
-                    return false;
+                },
+
+                error: function (data) {
+
+                    console.log(JSON.stringify(data));
+                    notyfy_alert(data);
+                    // do something with response
                 }
-            },
-
-            error: function (data) {
-
-                console.log(JSON.stringify(data));
-                notyfy_alert(data);
-                // do something with response
-            }
-        });
+            });
 
             return false;
         }
-        else
-        {
+        else {
             return false;
         }
 
@@ -227,7 +225,7 @@ $(document).on('ready', function () {
 
 
     function notyfy_alert(response) {
-       // alert(JSON.stringify(response));
+        // alert(JSON.stringify(response));
         var notify = $('#noty_' + response.flag);
         var notify_text = notify.find('.noty_text');
         notify_text.text('');
