@@ -44,7 +44,7 @@ $this->registerJsFile(
 
     <?php
     Modal::begin([
-        'header' => '<h4>' . Yii::t('app', 'Contractor') . '</h4>',
+        'header' => '<h5>' . Yii::t('app', 'Заполнение данных Контрагента') . '</h5>',
         //   'footer' => '<div class="form-group"><div class="col-md-5 col-xs-10"></div></div>',
 
 

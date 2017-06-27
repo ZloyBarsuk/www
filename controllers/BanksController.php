@@ -8,6 +8,8 @@ use app\models\BanksSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\widgets\ActiveForm;
+use yii\web\Response;
 
 /**
  * BanksController implements the CRUD actions for Banks model.
@@ -44,18 +46,6 @@ class BanksController extends Controller
         ]);
     }
 
-
-    public function actionInfoByContractor()
-    {
-        $searchModel = new BanksSearch();
-        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
-// Yii::$app->request->post('username');
-        return $this->render('admin', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-    }
-
     /**
      * Displays a single Banks model.
      * @param integer $id
@@ -75,23 +65,56 @@ class BanksController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Banks();
+        $model_bank = new Banks();
+        //  $model_contr = new Contractor(['scenario' => "create"]);
+        //  $model_contr_info = new ContractorInfo();
+        //   $model_media = new MediaForm();
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        // если AJAX
+        if ($request->isAjax) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bank_id]);
+            if ($model_bank->load($request->post())) {
+
+                if ($model_bank->validate()) {
+
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($model_bank->save(false)) {
+
+                            $transaction->commit();
+
+                        } else {
+                            $transaction->rollBack();
+                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => ''];
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
+                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+                    }
+                } else {
+                    return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => $model_bank->errors];
+
+                }
+            } else {
+                return $this->renderAjax('create_form', [
+                    'model_bank' => $model_bank,
+
+                ]);
+            }
+
+
         } else {
-            return $this->render('create', [
-                'model' => $model,
+            return $this->render('create_form', [
+                'model_contr' => $model_contr,
+                'model_contr_info' => $model_contr_info,
+                'model_media' => $model_media,
             ]);
+
         }
     }
 
-    /**
-     * Updates an existing Banks model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -134,37 +157,35 @@ class BanksController extends Controller
         }
     }
 
-    /* Мои блядские контроллеры для модалок )))*/
-
 
     public function actionCreateFromList()
     {
 
         $data_list = Banks::AllBanks();
         $request = Yii::$app->getRequest();
-        $banks_model=new Banks();
-            if ($request->isAjax) {
+        $banks_model = new Banks();
+        if ($request->isAjax) {
 
-                if ($banks_model->load($request->post())) {
-
-
+            if ($banks_model->load($request->post())) {
 
 
-
-                }
-                return $this->renderAjax('select_bank_form', [
-                    'data_list' => $data_list,
-                    'banks_model' => $banks_model,
-
-
-
-
-                ]);
             }
+            return $this->renderAjax('select_bank_form', [
+                'data_list' => $data_list,
+                'banks_model' => $banks_model,
 
+
+            ]);
+        }
 
 
     }
 
-
+    public function actionAjaxValidate()
+    {
+        $model = new Banks();
+        $model->load(Yii::$app->request->post());
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ActiveForm::validate($model);
+    }
 }

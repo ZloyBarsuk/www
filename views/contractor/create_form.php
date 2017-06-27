@@ -29,8 +29,8 @@ use kartik\file\FileInput;
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Банковские реквизиты <b
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
-                        <li><a href="#banks_create-from-list" role="tab" data-toggle="tab" class="ajax_loader">Выбрать из
-                                списка существующих</a></li>
+                       <!-- <li><a href="#banks_create-from-list" role="tab" data-toggle="tab" class="ajax_loader">Выбрать из
+                                списка существующих</a></li>-->
                         <li><a href="#banks_create" role="tab" data-toggle="tab" class="ajax_loader">Записать новый
                                 банк</a></li>
                     </ul>
@@ -301,9 +301,9 @@ use kartik\file\FileInput;
                     </div>
                 </div>
 
-                <div class="tab-pane" id="banks_create-from-list">
+               <!-- <div class="tab-pane" id="banks_create-from-list">
 
-                </div>
+                </div>-->
                 <div class="tab-pane" id="banks_create">
 
                     Create

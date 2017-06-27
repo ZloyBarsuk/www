@@ -18,8 +18,8 @@ class BanksSearch extends Banks
     public function rules()
     {
         return [
-            [['bank_id', 'created_by'], 'integer'],
-            [['name_ua', 'name_en', 'created_at'], 'safe'],
+            [['bank_id', 'created_by', 'contractor_id'], 'integer'],
+            [['name_ua', 'name_en', 'inn', 'kpp', 'ogrm', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en', 'r_s', 'k_s', 'bic', 'swift', 'account_type', 'created_at', 'by_default'], 'safe'],
         ];
     }
 
@@ -62,11 +62,24 @@ class BanksSearch extends Banks
             'bank_id' => $this->bank_id,
             'created_at' => $this->created_at,
             'created_by' => $this->created_by,
+            'contractor_id' => $this->contractor_id,
         ]);
 
         $query->andFilterWhere(['like', 'name_ua', $this->name_ua])
-            ->andFilterWhere(['like', 'name_en', $this->name_en]);
-
+            ->andFilterWhere(['like', 'name_en', $this->name_en])
+            ->andFilterWhere(['like', 'inn', $this->inn])
+            ->andFilterWhere(['like', 'kpp', $this->kpp])
+            ->andFilterWhere(['like', 'ogrm', $this->ogrm])
+            ->andFilterWhere(['like', 'adress_official_ua', $this->adress_official_ua])
+            ->andFilterWhere(['like', 'adress_official_en', $this->adress_official_en])
+            ->andFilterWhere(['like', 'adress_post_ua', $this->adress_post_ua])
+            ->andFilterWhere(['like', 'adress_post_en', $this->adress_post_en])
+            ->andFilterWhere(['like', 'r_s', $this->r_s])
+            ->andFilterWhere(['like', 'k_s', $this->k_s])
+            ->andFilterWhere(['like', 'bic', $this->bic])
+            ->andFilterWhere(['like', 'swift', $this->swift])
+            ->andFilterWhere(['like', 'account_type', $this->account_type])
+            ->andFilterWhere(['like', 'by_default', $this->by_default]);
 
         return $dataProvider;
     }
