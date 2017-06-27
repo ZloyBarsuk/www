@@ -8,7 +8,11 @@ use yii\helpers\Url;
 /* @var $model app\models\Banks */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php
+$this->registerJsFile('/js/modal_js/add_banks.js', ['position' => $this::POS_END]);
 
+// $this->registerJsFile(Yii::$app->request->BaseUrl . '/js/custom.js', ['position' => $this::POS_END]);
+?>
 <div class="banks-form">
     <div class="row">
         <div class="col-md-12">
@@ -29,23 +33,23 @@ use yii\helpers\Url;
 
 
                     <?= Html::activeHiddenInput($model_bank, 'bank_id') ?>
-
+                    <?= Html::activeHiddenInput($model_bank, 'contractor_id', ['value' => $model_bank->contractor_id]) ?>
 
                     <div class="form-group">
                         <div class="col-md-10 col-xs-12">
-                            <?= $form->field($model_bank, 'name_en')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model_bank, 'name_en')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-10 col-xs-12">
-                            <?= $form->field($model_bank, 'name_ua')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model_bank, 'name_ua')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'by_default')->dropDownList(['y' => 'да', 'n' => 'нет',], ['prompt' => 'Использовать по умолчанию в договоре']) ?>
+                            <?= $form->field($model_bank, 'by_default')->dropDownList(['y' => 'да', 'n' => 'нет',], ['prompt' => 'Использовать по умолчанию в договоре','class'=>'form-control input-sm']) ?>
                         </div>
                     </div>
 
@@ -73,44 +77,44 @@ use yii\helpers\Url;
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'adress_official_en')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model_bank, 'adress_official_en')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'adress_official_ua')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model_bank, 'adress_official_ua')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'adress_post_en')->textInput(['maxlength' => true]) ?>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'adress_post_ua')->textInput(['maxlength' => true]) ?>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'inn')->textInput(['maxlength' => true]) ?>
-
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'kpp')->textInput(['maxlength' => true]) ?>
-
+                            <?= $form->field($model_bank, 'adress_post_en')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'ogrm')->textInput(['maxlength' => true]) ?>
+                            <?= $form->field($model_bank, 'adress_post_ua')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <div class="col-md-3 col-xs-10">
+                            <?= $form->field($model_bank, 'inn')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <div class="col-md-3 col-xs-10">
+                            <?= $form->field($model_bank, 'kpp')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <div class="col-md-3 col-xs-10">
+                            <?= $form->field($model_bank, 'ogrm')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
 
                         </div>
 
@@ -136,35 +140,35 @@ use yii\helpers\Url;
 
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'r_s')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model_bank, 'r_s')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'k_s')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model_bank, 'k_s')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'bic')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model_bank, 'bic')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'swift')->textInput(['maxlength' => true]) ?>
+                                <?= $form->field($model_bank, 'swift')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'account_type')->dropDownList(['rub' => 'Rub', 'eur' => 'Eur', 'usd' => 'Usd', 'uah' => 'Uah',], ['prompt' => 'Выбор валюты счета']) ?>
+                                <?= $form->field($model_bank, 'account_type')->dropDownList(['rub' => 'Rub', 'eur' => 'Eur', 'usd' => 'Usd', 'uah' => 'Uah',], ['prompt' => 'Выбор валюты счета','class'=>'form-control input-sm']) ?>
                             </div>
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'comments')->textarea(['rows' => 2, 'cols' => 3]); ?>
+                            <div class="col-md-4 col-xs-10">
+                                <?= $form->field($model_bank, 'comments')->textarea(['rows' => 1, 'cols' => 2]); ?>
 
                             </div>
                         </div>

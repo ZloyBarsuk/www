@@ -49,7 +49,7 @@ class Banks extends \yii\db\ActiveRecord
         return [
             [['account_type', 'by_default'], 'string'],
             [['created_at','created_by'], 'safe'],
-            [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en'], 'required'],
+            [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en','r_s', 'k_s','account_type', 'by_default'], 'required'],
             [['created_by', 'contractor_id'], 'integer'],
             [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en','comments'], 'string', 'max' => 255],
             [['inn'], 'string', 'max' => 12],

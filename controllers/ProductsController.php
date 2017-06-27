@@ -8,6 +8,8 @@ use app\models\ProductsSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
 
 /**
  * ProductsController implements the CRUD actions for Products model.
@@ -67,7 +69,7 @@ class ProductsController extends Controller
         // Ajax
         $request = Yii::$app->getRequest();
         if ($request->isAjax && $model->load($request->post())) {
-            Yii::$app->response->format = yii\web\Response::FORMAT_JSON;
+            Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);
         }
         // General use
@@ -159,13 +161,13 @@ class ProductsController extends Controller
         }
     }
 
-    public function actionValidate()
+    public function actionAjaxValidate()
     {
         $model = new Products();
         $request = \Yii::$app->getRequest();
         if ($request->isAjax && $model->load($request->post())) {
-            Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-            return \yii\widgets\ActiveForm::validate($model);
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ActiveForm::validate($model);
         }
     }
 

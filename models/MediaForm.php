@@ -22,7 +22,7 @@ class MediaForm extends Model
     {
         return [
             [['imageFile'], 'safe'],
-            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg'],
+            [['imageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, gif'],
         ];
     }
 

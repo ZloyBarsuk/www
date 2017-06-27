@@ -17,7 +17,6 @@ use kartik\file\FileInput;
         <div id="tabs">
 
 
-
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active"><a href="#contractor" role="tab" data-toggle="tab">Контрагент</a></li>
@@ -29,8 +28,8 @@ use kartik\file\FileInput;
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Банковские реквизиты <b
                             class="caret"></b></a>
                     <ul class="dropdown-menu">
-                       <!-- <li><a href="#banks_create-from-list" role="tab" data-toggle="tab" class="ajax_loader">Выбрать из
-                                списка существующих</a></li>-->
+                        <!-- <li><a href="#banks_create-from-list" role="tab" data-toggle="tab" class="ajax_loader">Выбрать из
+                                 списка существующих</a></li>-->
                         <li><a href="#banks_create" role="tab" data-toggle="tab" class="ajax_loader">Записать новый
                                 банк</a></li>
                     </ul>
@@ -68,19 +67,19 @@ use kartik\file\FileInput;
                                         <div class="form-group">
                                             <div class="col-md-10 col-xs-12">
                                                 <?= Html::activeHiddenInput($model_contr, 'signature', ['value' => $model_contr->signature]) ?>
-                                                <?= $form->field($model_contr, 'name_en')->textInput(['maxlength' => true]) ?>
+                                                <?= $form->field($model_contr, 'name_en')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="col-md-10 col-xs-12">
-                                                <?= $form->field($model_contr, 'name_ua')->textInput(['maxlength' => true]) ?>
+                                                <?= $form->field($model_contr, 'name_ua')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="col-md-6 col-xs-10">
-                                                <?= $form->field($model_contr, 'contractor_type')->dropDownList(['client' => Yii::t('app', 'Client'), 'owner' => Yii::t('app', 'Owner'),], ['prompt' => 'выбери тип контрагента']) ?>
+                                                <?= $form->field($model_contr, 'contractor_type')->dropDownList(['client' => Yii::t('app', 'Client'), 'owner' => Yii::t('app', 'Owner'),], ['prompt' => 'выбери тип контрагента', 'class' => 'form-control input-sm']) ?>
                                             </div>
                                         </div>
 
@@ -108,44 +107,44 @@ use kartik\file\FileInput;
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-xs-10">
-                                                <?= $form->field($model_contr_info, 'adress_official_en')->textInput(['maxlength' => true]) ?>
+                                                <?= $form->field($model_contr_info, 'adress_official_en')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-xs-10">
-                                                <?= $form->field($model_contr_info, 'adress_official_ua')->textInput(['maxlength' => true]) ?>
+                                                <?= $form->field($model_contr_info, 'adress_official_ua')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-xs-10">
-                                                <?= $form->field($model_contr_info, 'adress_post_en')->textInput(['maxlength' => true]) ?>
+                                                <?= $form->field($model_contr_info, 'adress_post_en')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-6 col-xs-10">
-                                                <?= $form->field($model_contr_info, 'director_en')->textInput(['maxlength' => true]) ?>
+                                                <?= $form->field($model_contr_info, 'director_en')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <div class="col-md-6 col-xs-10">
-                                                <?= $form->field($model_contr_info, 'adress_post_ua')->textInput(['maxlength' => true]) ?>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="form-group">
-                                            <div class="col-md-6 col-xs-10">
-                                                <?= $form->field($model_contr_info, 'director_ua')->textInput(['maxlength' => true]) ?>
-
+                                                <?= $form->field($model_contr_info, 'adress_post_ua')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                             </div>
                                         </div>
 
 
                                         <div class="form-group">
                                             <div class="col-md-6 col-xs-10">
-                                                <?= $form->field($model_contr_info, 'contact_person')->textInput(['maxlength' => true]) ?>
+                                                <?= $form->field($model_contr_info, 'director_ua')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
+
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-6 col-xs-10">
+                                                <?= $form->field($model_contr_info, 'contact_person')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                                             </div>
                                             <?= Html::activeHiddenInput($model_contr_info, 'created_at') ?>
@@ -172,25 +171,25 @@ use kartik\file\FileInput;
 
                                             <div class="form-group">
                                                 <div class="col-md-6 col-xs-10">
-                                                    <?= $form->field($model_contr_info, 'email')->textInput(['maxlength' => true]) ?>
+                                                    <?= $form->field($model_contr_info, 'email')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="col-md-6 col-xs-10">
-                                                    <?= $form->field($model_contr_info, 'phone')->textInput(['maxlength' => true]) ?>
+                                                    <?= $form->field($model_contr_info, 'phone')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="col-md-6 col-xs-10">
-                                                    <?= $form->field($model_contr_info, 'fax')->textInput(['maxlength' => true]) ?>
+                                                    <?= $form->field($model_contr_info, 'fax')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                                 </div>
                                             </div>
 
                                             <div class="form-group">
                                                 <div class="col-md-6 col-xs-10">
-                                                    <?= $form->field($model_contr_info, 'tax_number')->textInput(['maxlength' => true]) ?>
+                                                    <?= $form->field($model_contr_info, 'tax_number')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                                 </div>
                                             </div>
 
@@ -199,17 +198,17 @@ use kartik\file\FileInput;
                                         <div class="col-md-6">
                                             <div class="form-group">
                                                 <div class="col-md-6 col-xs-10">
-                                                    <?= $form->field($model_contr_info, 'vat_reg_no')->textInput(['maxlength' => true]) ?>
+                                                    <?= $form->field($model_contr_info, 'vat_reg_no')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-6 col-xs-10">
-                                                    <?= $form->field($model_contr_info, 'rep')->textInput(['maxlength' => true]) ?>
+                                                    <?= $form->field($model_contr_info, 'rep')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                                 </div>
                                             </div>
                                             <div class="form-group">
                                                 <div class="col-md-6 col-xs-10">
-                                                    <?= $form->field($model_contr_info, 'customer_number')->textInput(['maxlength' => true]) ?>
+                                                    <?= $form->field($model_contr_info, 'customer_number')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                                 </div>
                                             </div>
 
@@ -238,7 +237,7 @@ use kartik\file\FileInput;
                                                         '<img  style="height:inherit;width:inherit;" src="/uploads/signatures/' . $model_contr->signature . '" class="file-preview-image">',
                                                     ],
                                                     'uploadUrl' => Url::to(['/media/upload']),
-                                                    'allowedFileExtensions' => ['jpg', 'gif', 'png'],
+                                                    'allowedFileExtensions' => ['jpg', 'gif', 'png', 'gif'],
                                                     'showUpload' => true,
                                                     'maxFileSize' => 10000000,
                                                     'overwriteInitial' => true,
@@ -263,21 +262,24 @@ use kartik\file\FileInput;
                                                     <?= Html::submitButton($model_contr->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_contr->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <div class="alert alert-success" role="alert" style="display:none;"
-                                                         id="success_notify">
-                                                        <button type="button" class="close" data-dismiss="alert"><span
-                                                                aria-hidden="true">×</span><span
+                                                    <div class="alert alert-success" role="alert" style="display:none;" id="success_notify">
+
+                                                        <button type="button" class="close" data-dismiss="alert">
+                                                            <span
+                                                                aria-hidden="true">×</span>
+                                                            <span
                                                                 class="sr-only"><?php Yii::t('app', 'Close'); ?> </span>
                                                         </button>
                                                         <strong>
                                                             <div class="success_notify_content"></div>
                                                         </strong>
                                                     </div>
-                                                    <div class="alert alert-danger" role="alert" style="display:none;"
-                                                         id="danger_notify">
-                                                        <button type="button" class="close" data-dismiss="alert"><span
-                                                                aria-hidden="true">×</span><span
-                                                                class="sr-only"><?php Yii::t('app', 'Close'); ?> </span>
+                                                    <div class="alert alert-danger" role="alert" style="display:none;" id="danger_notify">
+
+                                                        <button type="button" class="close" data-dismiss="alert">
+                                                            <span aria-hidden="true">×</span>
+
+                                                            <span class="sr-only"><?php Yii::t('app', 'Close'); ?> </span>
                                                         </button>
                                                         <strong>
                                                             <div class="danger_notify_content"></div>
@@ -301,9 +303,9 @@ use kartik\file\FileInput;
                     </div>
                 </div>
 
-               <!-- <div class="tab-pane" id="banks_create-from-list">
+                <!-- <div class="tab-pane" id="banks_create-from-list">
 
-                </div>-->
+                 </div>-->
                 <div class="tab-pane" id="banks_create">
 
                     Create

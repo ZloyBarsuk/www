@@ -83,14 +83,16 @@ class BanksController extends Controller
                         if ($model_bank->save(false)) {
 
                             $transaction->commit();
+                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful')];
 
                         } else {
                             $transaction->rollBack();
-                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => ''];
+                            return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful')];
+
                         }
                     } catch (Exception $e) {
                         $transaction->rollBack();
-                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful')];
                     }
                 } else {
                     return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => $model_bank->errors];
@@ -106,9 +108,8 @@ class BanksController extends Controller
 
         } else {
             return $this->render('create_form', [
-                'model_contr' => $model_contr,
-                'model_contr_info' => $model_contr_info,
-                'model_media' => $model_media,
+                'model_bank' => $model_bank,
+
             ]);
 
         }
@@ -165,20 +166,42 @@ class BanksController extends Controller
         $request = Yii::$app->getRequest();
         $banks_model = new Banks();
         if ($request->isAjax) {
+            $post = $request->post();
 
-            if ($banks_model->load($request->post())) {
+            $banks_model = new Banks();
+            if ($request->isAjax) {
 
 
+                if (!empty($post)) {
+
+                    $postModel = $post['Banks'];
+                    $postModelMulti = $postModel['bank_id'];
+                    if (!empty($postModelMulti)) {
+                        foreach ($postModelMulti as $key => $value) {
+                            $bank_model = $this->findModel($value);
+                            if ($bank_model) {
+                                $bank_model->id_contractor = $post['cont_id'];
+                                $bank_model->save(false);
+                            }
+                        }
+
+                    }
+
+                }
+                if ($banks_model->load($request->post())) {
+                    $contractor_ids = $request->post();
+
+
+                }
+                return $this->renderAjax('select_bank_form', [
+                    'data_list' => $data_list,
+                    'banks_model' => $banks_model,
+
+
+                ]);
             }
-            return $this->renderAjax('select_bank_form', [
-                'data_list' => $data_list,
-                'banks_model' => $banks_model,
 
-
-            ]);
         }
-
-
     }
 
     public function actionAjaxValidate()

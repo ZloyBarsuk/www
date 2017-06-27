@@ -48,7 +48,7 @@ $this->registerJsFile('/js/modal_js/add_banks.js', ['position' => $this::POS_END
                                 "change" => 'function() { 
                                  var selected_banks = $(this).val();
                                 
-                                return false;
+                               
                                                         }',
                             ],
                         ])->label(''); ?>
