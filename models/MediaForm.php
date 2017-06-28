@@ -17,6 +17,7 @@ class MediaForm extends Model
      * @var UploadedFile
      */
     public $imageFile;
+    public $uniq_name;
 
     public function rules()
     {
@@ -38,8 +39,12 @@ class MediaForm extends Model
 
     public function upload()
     {
+
+        $unique_filename=uniqid();
+
         if ($this->validate()) {
-            $this->imageFile->saveAs('uploads/signatures/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+           // $this->imageFile->saveAs('uploads/signatures/' . $this->imageFile->baseName . '.' . $this->imageFile->extension);
+            $this->imageFile->saveAs('uploads/signatures/' .  mb_convert_encoding($this->imageFile->baseName, 'Windows-1251', 'UTF-8'). '.' . $this->imageFile->extension);
 
             return true;
         } else {

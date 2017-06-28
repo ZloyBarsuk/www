@@ -23,12 +23,13 @@ class MediaController extends Controller
         if (Yii::$app->request->isPost) {
             $model->imageFile = UploadedFile::getInstance($model, 'imageFile');
             if ($model->upload()) {
+
                 // file is uploaded successfully
                 // return "{'imageFile':$model->imageFile}";
                 //    return '{}';
                 return json_encode([
                     'result' => 'ok',
-                    'uplFile' => $model->imageFile,
+                    'uplFile' => $model->uniq_name,
                 ]);
 
                 // формат ответа для формы загрузки блядь

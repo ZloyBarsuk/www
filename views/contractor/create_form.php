@@ -245,7 +245,7 @@ use kartik\file\FileInput;
 
 
                                                 'pluginEvents' => [
-                                                    "fileuploaded" => "function(event, data, previewId, index) { $('#contractor-signature').val(data.filenames[0]); }",
+                                                    "fileuploaded" => "function(event, data, previewId, index) { $('#contractor-signature').val(data.filenames[0]);}",
 
 
                                                 ]

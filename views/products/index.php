@@ -24,7 +24,7 @@ $this->registerJsFile(
 ?>
 <div class="products-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
+
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
@@ -38,6 +38,7 @@ $this->registerJsFile(
         'id' => 'modal-products',
         'size' => 'modal-lg',
         'toggleButton' => false,
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
 
 
     ]);
@@ -54,11 +55,12 @@ $this->registerJsFile(
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-            'products_id',
+           // 'products_id',
+            'part_number',
             'description_en',
             'description_ua',
-            'part_number',
-            'country_origin_en',
+            'price',
+         //   'country_origin_en',
             // 'country_origin_ua',
             // 'tarif_number_en',
             // 'tarif_number_ua',
@@ -75,7 +77,7 @@ $this->registerJsFile(
                 return $key.'/'.$action;
                 },*/
                 'header' => 'Действия',
-                'template' => '{update}{delete}',
+                'template' => '{update} / {delete} /',
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
@@ -92,6 +94,9 @@ $this->registerJsFile(
                             'class' => 'delete_poducts',
                             'data-model-id' => $model->products_id,
                             'data-pjax' => 1,
+                            'data-method' => 'post',
+
+                            // 'action' => $url,
                         ]);
                     },
 

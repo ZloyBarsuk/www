@@ -203,6 +203,8 @@ return [
     'Create' => 'Создать',
     'The action was unsuccessful' => 'Ошибка сохранения',
     'The action was successful' => 'Запись прошла удачно',
+    'The update was unsuccessful' => 'Ошибка обновления',
+    'The update was successful' => 'Обновление прошло удачно',
     'Delete unsuccessful' => 'Ошибка удаления',
     'Delete successful' => 'Запись удалена удачно',
     'Create' => 'Запись',
@@ -212,7 +214,7 @@ return [
     'Reset Grid' => 'обновить таблицу',
     'New record is written to DB' => 'запись добавлена в базу',
     'Create more' => 'добавить еще',
-
+    'Create Products' => 'Добавить товар',
 
     /* Форма аторизации*/
     'Password' => 'Пароль',

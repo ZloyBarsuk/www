@@ -44,7 +44,7 @@ alert(JSON.stringify(contractor_id));
                 },
 
                 error: function (response) {
-                    var n = Noty('id2');
+                    var n = Noty('id');
                     $.noty.setText(n.options.id, JSON.stringify(response));
                     $.noty.setType(n.options.id, 'error');
 

@@ -42,7 +42,7 @@ class Products extends \yii\db\ActiveRecord
     {
         return [
             [['description_en', 'description_ua', 'part_number'], 'required'],
-            [['description_en', 'description_ua',], 'unique'],
+       //     [['description_en', 'description_ua', 'part_number'], 'unique'],
             [['price'], 'number'],
             [['active'], 'string'],
             [['created_at'], 'safe'],

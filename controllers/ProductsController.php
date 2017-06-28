@@ -66,40 +66,42 @@ class ProductsController extends Controller
     public function actionCreate()
     {
         $model = new Products();
-        // Ajax
+        $model->loadDefaultValues();
         $request = Yii::$app->getRequest();
-        if ($request->isAjax && $model->load($request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
-        }
-        // General use
-        if ($model->load($request->post()) && $model->save()) {
-            return $this->redirect(['index']);
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        // если AJAX
+        if ($request->isAjax) {
+
+            if ($model->load($request->post()) && $model->validate()) {
+
+                if ($model->save(false)) {
+                    return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful')];
+
+                } else {
+                    return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful')];
+
+
+                }
+
+
+            } else {
+                return $this->renderAjax('_form', [
+                    'model' => $model,
+
+
+                ]);
+            }
+
+
         } else {
-            return $this->renderAjax('create', [
-                'model' => $model,
-            ]);
+            return $this->render('_form', ['model' => $model]);
+
         }
     }
 
-    /**
-     * Updates an existing Products model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
-    /* public function actionUpdate($id)
-     {
-         $model = $this->findModel($id);
 
-         if ($model->load(Yii::$app->request->post()) && $model->save()) {
-             return $this->redirect(['view', 'id' => $model->products_id]);
-         } else {
-             return $this->render('update', [
-                 'model' => $model,
-             ]);
-         }
-     }*/
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -111,10 +113,10 @@ class ProductsController extends Controller
             $ajaxValidate = ActiveForm::validate($model);
 
             if (count($ajaxValidate) > 0) {
-                return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => $ajaxValidate];
+                return ['notify' => 0, 'notify_text' => Yii::t('app', 'The update was unsuccessful'), 'validate' => $ajaxValidate];
             }
 
-            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => $ajaxValidate, 'result' => $model->save()];
+            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The update was successful'), 'validate' => $ajaxValidate, 'result' => $model->save()];
 
 
         } /*// General use
@@ -132,27 +134,26 @@ class ProductsController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Products model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        return $this->redirect(['index']);
+        if ($request->isAjax && $request->isPost) {
+
+            if ($this->findModel($id)->delete()) {
+                return ['notify' => 1, 'flag' => 'success', 'notify_text' => Yii::t('app', 'Delete successful'),];
+
+            } else {
+                return ['notify' => 0, 'flag' => 'error', 'notify_text' => Yii::t('app', 'Delete unsuccessful'),];
+            }
+
+        }
     }
 
-    /**
-     * Finds the Products model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Products the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Products::findOne($id)) !== null) {
             return $model;
@@ -161,10 +162,10 @@ class ProductsController extends Controller
         }
     }
 
-    public function actionAjaxValidate()
+    public function actionValidate()
     {
         $model = new Products();
-        $request = \Yii::$app->getRequest();
+        $request = Yii::$app->getRequest();
         if ($request->isAjax && $model->load($request->post())) {
             Yii::$app->response->format = Response::FORMAT_JSON;
             return ActiveForm::validate($model);

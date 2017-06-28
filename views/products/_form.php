@@ -15,9 +15,9 @@ use yii\helpers\Url;
         'id' => 'products-form',
 
         //  'options' => ['enctype' => 'multipart/form-data'],
-        //  'enableAjaxValidation' => true,
+          'enableAjaxValidation' => true,
         //  'validationUrl' => Url::toRoute(['/contractor/ajaxvalidate']),
-         'validationUrl' => Url::toRoute(['products/ajax-validate',/* 'scenario' => $model_contr->scenario, 'model_id' => $model_contr->contractor_id */]),
+         'validationUrl' => Url::toRoute(['products/validate',/* 'scenario' => $model_contr->scenario, 'model_id' => $model_contr->contractor_id */]),
 
     ]); ?>
     <div class="row">
@@ -41,7 +41,7 @@ use yii\helpers\Url;
 
 
             <div class="form-group">
-                <div class="col-md-10 col-xs-12">
+                <div class="col-md-6 col-xs-12">
                     <?= $form->field($model, 'part_number')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>                </div>
             </div>
 
@@ -65,38 +65,38 @@ use yii\helpers\Url;
 
                         </div>
                         <div class="form-group">
-                            <div class="col-md-6 col-xs-10">
+                            <div class="col-md-3 col-xs-10">
                                 <?= $form->field($model, 'weight')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                             </div>
                             <div class="form-group">
-                                <div class="col-md-6 col-xs-10">
+                                <div class="col-md-3 col-xs-10">
                                     <?= $form->field($model, 'height')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                                 </div>
                                 <div class="form-group">
-                                    <div class="col-md-6 col-xs-10">
+                                    <div class="col-md-3 col-xs-10">
                                         <?= $form->field($model, 'width')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                                     </div>
                                     <div class="form-group">
-                                        <div class="col-md-6 col-xs-10">
+                                        <div class="col-md-3 col-xs-10">
                                             <?= $form->field($model, 'length')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-md-6 col-xs-10">
+                                            <div class="col-md-3 col-xs-10">
                                                 <?= $form->field($model, 'price')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                                             </div>
                                             <div class="form-group">
-                                                <div class="col-md-6 col-xs-10">
+                                                <div class="col-md-3 col-xs-10">
                                                     <?= $form->field($model, 'active')->dropDownList(['y' => 'да', 'n' => 'нет',], ['prompt' => 'актуальность товара']) ?>
 
                                                 </div>
                                                 <div class="form-group">
                                                     <div class="col-md-6 col-xs-10">
-                                                        <?= $form->field($model, 'created_at')->textInput() ?>
+                                                        <?= $form->field($model, 'created_at')->textInput()->hiddenInput()->label(false) ?>
 
                                                     </div>
 

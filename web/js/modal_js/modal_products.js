@@ -54,24 +54,27 @@ $(document).on('ready', function () {
                 success: function (data) {
 
                     if (data === Object(data)) {
-                        // Если success значит валидация не прошла
+
                         if (data.notify == 0) {
                             //Выводим ошибки валидации
                             /* $.each(data.validate, function(key, val) {
                              $("#example-form").yiiActiveForm("updateAttribute", key, "");
                              $("#example-form").yiiActiveForm("updateAttribute", key, [val]);
                              });*/
-
-                            notification('danger', data);
+                            var n = Noty('id');
+                            $.noty.setText(n.options.id, data.notify_text);
+                            $.noty.setType(n.options.id, 'error');
 
                         } else {
                             if (data.notify == 1) {
-                                notification('success', data);
+                                var n = Noty('id');
+                                $.noty.setText(n.options.id, data.notify_text);
+                                $.noty.setType(n.options.id, 'information');
 
                                 $.pjax.reload({container: '#pjax_products', timeout: 3000});
 
                                 //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
-
+                                return false;
                             }
                             else {
                                 notification('danger', data);
@@ -99,7 +102,6 @@ $(document).on('ready', function () {
 
     // обновление твоара блядь
     $('body').on('click', 'td>a.update_poducts', function (event) {
-        alert('form#products-form');
         event.stopPropagation();
         var href = $(this).attr('href');
         var data_id = $(this).attr('data-model-id');
@@ -109,19 +111,6 @@ $(document).on('ready', function () {
         var modal_content = modal.find('#modalContent');
         modal_content.html('');
         $.post(href).done(function (data) {
-
-            if (data.notify == 1) {
-                notification('success', data);
-
-                $.pjax.reload({container: '#pjax_products', timeout: 3000});
-
-                //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
-
-            }
-            else {
-                notification('danger', data);
-            }
-
 
             modal_content.html(data);
             modal.modal('show');
@@ -136,14 +125,14 @@ $(document).on('ready', function () {
     // удаление товара
 
     $('body').on('click', 'td>a.delete_poducts', function (event) {
-
+        if (confirm("Уверен, что хочешь удалить?")) {
         event.stopPropagation();
 
         var url = $(this).attr("href");
         $.ajax({
             'url': url,
             'type': 'POST',
-           // 'data': form.serialize(),
+            // 'data': form.serialize(),
             'cache': false,
             success: function (data) {
 
@@ -156,11 +145,15 @@ $(document).on('ready', function () {
                          $("#example-form").yiiActiveForm("updateAttribute", key, [val]);
                          });*/
 
-                        notyfy_alert(data);
+                        var n = Noty('id');
+                        $.noty.setText(n.options.id, data.notify_text);
+                        $.noty.setType(n.options.id, 'error');
 
                     } else {
                         if (data.notify == 1) {
-                            notyfy_alert(data);
+                            var n = Noty('id');
+                            $.noty.setText(n.options.id, data.notify_text);
+                            $.noty.setType(n.options.id, 'information');
 
                             $.pjax.reload({container: '#pjax_products', timeout: 3000});
 
@@ -168,7 +161,9 @@ $(document).on('ready', function () {
 
                         }
                         else {
-                            notyfy_alert(data);
+                            var n = Noty('id');
+                            $.noty.setText(n.options.id, data.notify_text);
+                            $.noty.setType(n.options.id, 'error');
                         }
 
 
@@ -181,15 +176,18 @@ $(document).on('ready', function () {
             error: function (data) {
 
                 console.log(JSON.stringify(data));
-                notyfy_alert(data);
-                // do something with response
+                var n = Noty('id');
+                $.noty.setText(n.options.id, data.notify_text);
+                $.noty.setType(n.options.id, 'error');
             }
         });
 
 
-
         return false;
-
+        }
+        else {
+            return false;
+        }
 
     });
     function notification(flag, response) {
@@ -202,9 +200,9 @@ $(document).on('ready', function () {
 
 
     function notyfy_alert(response) {
-        alert(JSON.stringify(response));
-        var notify = $('#noty_'+response.flag);
-        var notify_text=notify.find('.noty_text');
+
+        var notify = $('#noty_' + response.flag);
+        var notify_text = notify.find('.noty_text');
         notify_text.text('');
         notify_text.text(response.notify_text);
         notify.css('display', 'inline-block');
@@ -215,8 +213,6 @@ $(document).on('ready', function () {
     }
 
     return false;
-
-
 
 
 })
