@@ -65,7 +65,7 @@ class ProductsController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Products();
+        $model = new Products(['scenario' => "create"]);
         $model->loadDefaultValues();
         $request = Yii::$app->getRequest();
         Yii::$app->response->format = Response::FORMAT_JSON;
@@ -101,10 +101,10 @@ class ProductsController extends Controller
     }
 
 
-
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
+        $model->scenario = 'update';
         $request = Yii::$app->getRequest();
 
         if ($request->isAjax && $model->load($request->post())) {
@@ -152,8 +152,7 @@ class ProductsController extends Controller
         }
     }
 
-    protected
-    function findModel($id)
+    protected function findModel($id)
     {
         if (($model = Products::findOne($id)) !== null) {
             return $model;
@@ -162,14 +161,17 @@ class ProductsController extends Controller
         }
     }
 
-    public function actionValidate()
+    public function actionAjaxValidate($scenario = false, $model_id = false)
     {
-        $model = new Products();
-        $request = Yii::$app->getRequest();
-        if ($request->isAjax && $model->load($request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            return ActiveForm::validate($model);
+        if ($scenario == 'create') {
+            $model = new Products(['scenario' => $scenario]);
+        } else {
+            $model = $this->findModel($model_id);
+            $model->scenario = $scenario;
         }
+        $model->load(Yii::$app->request->post());
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ActiveForm::validate($model);
     }
 
 

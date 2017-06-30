@@ -12,7 +12,6 @@ $(document).on('ready', function () {
         var modal_content = modal.find('#modalContent');
         modal_content.html('');
 
-
         $.post(href).done(function (data) {
             modal_content.html(data);
             modal.modal('show');

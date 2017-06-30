@@ -25,7 +25,6 @@ $(document).ready(function () {
         var format_url = href_controller.replace('_', '/');
        // var url = '/' + format_url + '/' + contractor_id + '/';
            var   url = '/' + format_url;
-         alert(url);
 
         //   var url = '/' + href_controller + '/' + 'infobycontractor' + '/' + contractor_id;
 

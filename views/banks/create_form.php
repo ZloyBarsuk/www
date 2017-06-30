@@ -9,8 +9,7 @@ use yii\helpers\Url;
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <?php
-$this->registerJsFile('/js/modal_js/add_banks.js', ['position' => $this::POS_END]);
-
+$this->registerJsFile('/js/modal_js/banks/add_banks.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 // $this->registerJsFile(Yii::$app->request->BaseUrl . '/js/custom.js', ['position' => $this::POS_END]);
 ?>
 <div class="banks-form">

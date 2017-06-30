@@ -9,7 +9,13 @@ use kartik\file\FileInput;
 /* @var $model_contr app\models\Contractor */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php
 
+$this->registerJsFile('@web/js/modal_js/contractor/create_update.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+$this->registerJsFile('@web/js/modal_js/banks/add_banks.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+?>
 <div class="row">
     <div class="col-md-12">
 

@@ -8,6 +8,13 @@ use yii\helpers\Url;
 /* @var $model app\models\Products */
 /* @var $form yii\widgets\ActiveForm */
 ?>
+<?php
+// добавление
+$this->registerJsFile('@web/js/modal_js/products/create_update.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+
+?>
+
 
 <div class="products-form">
     <?php yii\widgets\Pjax::begin(['id' => 'pjax_add_product']) ?>
@@ -17,7 +24,7 @@ use yii\helpers\Url;
         //  'options' => ['enctype' => 'multipart/form-data'],
           'enableAjaxValidation' => true,
         //  'validationUrl' => Url::toRoute(['/contractor/ajaxvalidate']),
-         'validationUrl' => Url::toRoute(['products/validate',/* 'scenario' => $model_contr->scenario, 'model_id' => $model_contr->contractor_id */]),
+         'validationUrl' => Url::toRoute(['products/ajax-validate', 'scenario' => $model->scenario, 'model_id' => $model->products_id ]),
 
     ]); ?>
     <div class="row">

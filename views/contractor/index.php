@@ -16,18 +16,24 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 
 $this->registerJsFile(
-    '@web/js/modal_js/modal_contractor.js',
-    ['depends' => [\yii\web\JqueryAsset::className()],
+    '@web/js/modal_js/common/tabs_loader.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 
-    ]
 );
 $this->registerJsFile(
-    '@web/js/modal_js/tabs_loader.js',
-    ['depends' => [\yii\web\JqueryAsset::className()],
+    '@web/js/modal_js/contractor/add.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 
-    ]
 );
 
+
+// обновление контрагента
+$this->registerJsFile(
+    '@web/js/modal_js/contractor/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]
+);
+
+// удаление контрагента
+$this->registerJsFile(
+    '@web/js/modal_js/contractor/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]
+);
 
 
 

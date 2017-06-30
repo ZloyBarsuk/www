@@ -215,6 +215,8 @@ return [
     'New record is written to DB' => 'запись добавлена в базу',
     'Create more' => 'добавить еще',
     'Create Products' => 'Добавить товар',
+    'Dogovors' => 'Договора',
+    'Create Dogovor' => '+ Добавить договор',
 
     /* Форма аторизации*/
     'Password' => 'Пароль',
