@@ -10,7 +10,7 @@ use yii\helpers\Url;
 ?>
 <?php
 // добавление
-$this->registerJsFile('@web/js/modal_js/products/create_update.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/products/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 
 ?>

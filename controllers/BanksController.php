@@ -71,6 +71,8 @@ class BanksController extends Controller
         //   $model_media = new MediaForm();
         $request = Yii::$app->getRequest();
         Yii::$app->response->format = Response::FORMAT_JSON;
+        $contractor_id = !empty($request->post('contractor_id')) ? $request->post('contractor_id') : '';
+        $model_bank->contractor_id = $contractor_id;
         // если AJAX
         if ($request->isAjax) {
 
@@ -78,7 +80,7 @@ class BanksController extends Controller
 
                 if ($model_bank->validate()) {
 
-                    $transaction = \Yii::$app->db->beginTransaction();
+                    $transaction = Yii::$app->db->beginTransaction();
                     try {
                         if ($model_bank->save(false)) {
 
@@ -101,6 +103,7 @@ class BanksController extends Controller
             } else {
                 return $this->renderAjax('create_form', [
                     'model_bank' => $model_bank,
+                    // 'contractor_flag'=>$contractor_id,
 
                 ]);
             }
@@ -109,6 +112,7 @@ class BanksController extends Controller
         } else {
             return $this->render('create_form', [
                 'model_bank' => $model_bank,
+                //  'contractor_flag'=>$contractor_id,
 
             ]);
 
@@ -118,16 +122,35 @@ class BanksController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model_bank = $this->findModel($id);
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->bank_id]);
+        // если AJAX
+        if ($request->isAjax) {
+            if ($model_bank->load($request->post()) && $model_bank->validate()) {
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($model_bank->save(false)) {
+                        $transaction->commit();
+                        return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => '', /*'result' => $model->save()*/];
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+                }
+            } else {
+                return $this->renderAjax('create_form', [
+                    'model_bank' => $model_bank,]);
+            }
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->renderAjax('create_form', [
+                'model_bank' => $model_bank,]);
         }
+
+
     }
+
 
     /**
      * Deletes an existing Banks model.
@@ -135,11 +158,22 @@ class BanksController extends Controller
      * @param integer $id
      * @return mixed
      */
-    public function actionDelete($id)
+    public
+    function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        return $this->redirect(['index']);
+        if ($request->isAjax && $request->isPost) {
+
+            if ($this->findModel($id)->delete()) {
+                return ['notify' => 1, 'flag' => 'success', 'notify_text' => Yii::t('app', 'Delete successful'),];
+
+            } else {
+                return ['notify' => 0, 'flag' => 'error', 'notify_text' => Yii::t('app', 'Delete unsuccessful'),];
+            }
+
+        }
     }
 
     /**
@@ -149,7 +183,8 @@ class BanksController extends Controller
      * @return Banks the loaded model
      * @throws NotFoundHttpException if the model cannot be found
      */
-    protected function findModel($id)
+    protected
+    function findModel($id)
     {
         if (($model = Banks::findOne($id)) !== null) {
             return $model;
@@ -159,7 +194,8 @@ class BanksController extends Controller
     }
 
 
-    public function actionCreateFromList()
+    public
+    function actionCreateFromList()
     {
 
         $data_list = Banks::AllBanks();
@@ -204,7 +240,8 @@ class BanksController extends Controller
         }
     }
 
-    public function actionAjaxValidate()
+    public
+    function actionAjaxValidate()
     {
         $model = new Banks();
         $model->load(Yii::$app->request->post());

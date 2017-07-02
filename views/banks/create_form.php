@@ -3,15 +3,20 @@
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 use yii\helpers\Url;
+use yii\helpers\ArrayHelper;
+use kartik\widgets\Select2;
+use app\models\Contractor;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Banks */
 /* @var $form yii\widgets\ActiveForm */
 ?>
 <?php
-$this->registerJsFile('/js/modal_js/banks/add_banks.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-// $this->registerJsFile(Yii::$app->request->BaseUrl . '/js/custom.js', ['position' => $this::POS_END]);
+
+$this->registerJsFile('/js/modal_js/banks/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
 ?>
+
 <div class="banks-form">
     <div class="row">
         <div class="col-md-12">
@@ -32,23 +37,45 @@ $this->registerJsFile('/js/modal_js/banks/add_banks.js', ['depends' => [\yii\web
 
 
                     <?= Html::activeHiddenInput($model_bank, 'bank_id') ?>
-                    <?= Html::activeHiddenInput($model_bank, 'contractor_id', ['value' => $model_bank->contractor_id]) ?>
+                    <?php /* echo Html::activeHiddenInput($model_bank, 'contractor_id', ['value' => $model_bank->contractor_id]); */ ?>
+
+                    <div class="form-group">
+                        <div class="col-md-6 col-xs-6">
+                            <?= $form->field($model_bank, 'contractor_id')->widget(Select2::classname(), [
+                                //    'data' => ArrayHelper::map(\app\models\Banks::find()->all(), 'bank_id', 'name_en'),
+                                'data' => ArrayHelper::map(Contractor::find()->all(), 'contractor_id', 'name_ua'),
+                                'value' => $model_bank->contractor_id,
+                                'language' => 'ru',
+                                'options' => ['placeholder' => 'Выбери контрагента...'],
+                                'pluginOptions' => [
+                                    'allowClear' => true,
+                                    'multiple' => false,
+                                ],
+                                'pluginEvents' => [
+                                    "change" => '',
+
+
+                                ],
+                            ])->label('Контрагент') ?>
+                        </div>
+                    </div>
+
 
                     <div class="form-group">
                         <div class="col-md-10 col-xs-12">
-                            <?= $form->field($model_bank, 'name_en')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                            <?= $form->field($model_bank, 'name_en')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-10 col-xs-12">
-                            <?= $form->field($model_bank, 'name_ua')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                            <?= $form->field($model_bank, 'name_ua')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'by_default')->dropDownList(['y' => 'да', 'n' => 'нет',], ['prompt' => 'Использовать по умолчанию в договоре','class'=>'form-control input-sm']) ?>
+                            <?= $form->field($model_bank, 'by_default')->dropDownList(['y' => 'да', 'n' => 'нет',], ['prompt' => 'Использовать по умолчанию в договоре', 'class' => 'form-control input-sm']) ?>
                         </div>
                     </div>
 
@@ -69,43 +96,37 @@ $this->registerJsFile('/js/modal_js/banks/add_banks.js', ['depends' => [\yii\web
 
 
                     <div class="form-group">
-                        <div class="col-md-10 col-xs-12">
-                            <?= $form->field($model_bank, 'contractor_id')->hiddenInput()->label(false) ?>
-
+                        <div class="col-md-6 col-xs-10">
+                            <?= $form->field($model_bank, 'adress_official_en')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'adress_official_en')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                            <?= $form->field($model_bank, 'adress_official_ua')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'adress_official_ua')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'adress_post_en')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                            <?= $form->field($model_bank, 'adress_post_en')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                         </div>
                     </div>
 
 
                     <div class="form-group">
                         <div class="col-md-6 col-xs-10">
-                            <?= $form->field($model_bank, 'adress_post_ua')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                            <?= $form->field($model_bank, 'adress_post_ua')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <div class="col-md-3 col-xs-10">
-                            <?= $form->field($model_bank, 'inn')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                            <?= $form->field($model_bank, 'inn')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                         </div>
                     </div>
                     <div class="form-group">
                         <div class="col-md-3 col-xs-10">
-                            <?= $form->field($model_bank, 'kpp')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                            <?= $form->field($model_bank, 'kpp')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                         </div>
                     </div>
@@ -113,7 +134,7 @@ $this->registerJsFile('/js/modal_js/banks/add_banks.js', ['depends' => [\yii\web
 
                     <div class="form-group">
                         <div class="col-md-3 col-xs-10">
-                            <?= $form->field($model_bank, 'ogrm')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                            <?= $form->field($model_bank, 'ogrm')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
                         </div>
 
@@ -139,30 +160,30 @@ $this->registerJsFile('/js/modal_js/banks/add_banks.js', ['depends' => [\yii\web
 
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'r_s')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                                <?= $form->field($model_bank, 'r_s')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'k_s')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                                <?= $form->field($model_bank, 'k_s')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'bic')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                                <?= $form->field($model_bank, 'bic')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'swift')->textInput(['maxlength' => true,'class'=>'form-control input-sm']) ?>
+                                <?= $form->field($model_bank, 'swift')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                             </div>
                         </div>
                         <div class="form-group">
                             <div class="col-md-6 col-xs-10">
-                                <?= $form->field($model_bank, 'account_type')->dropDownList(['rub' => 'Rub', 'eur' => 'Eur', 'usd' => 'Usd', 'uah' => 'Uah',], ['prompt' => 'Выбор валюты счета','class'=>'form-control input-sm']) ?>
+                                <?= $form->field($model_bank, 'account_type')->dropDownList(['rub' => 'Rub', 'eur' => 'Eur', 'usd' => 'Usd', 'uah' => 'Uah',], ['prompt' => 'Выбор валюты счета', 'class' => 'form-control input-sm']) ?>
                             </div>
                         </div>
                         <div class="form-group">
@@ -222,8 +243,7 @@ $this->registerJsFile('/js/modal_js/banks/add_banks.js', ['depends' => [\yii\web
             </div>
 
 
-
-
             <?php ActiveForm::end(); ?>
             <?php yii\widgets\Pjax::end() ?>
         </div>
+    </div>

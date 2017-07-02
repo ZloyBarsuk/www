@@ -140,7 +140,7 @@ return [
     'Comment' => 'Комментарий',
     'Net Weight' => 'Вес нетто',
     'Gross Weight' => 'Вес брутто',
-    'Doc Template ID' => 'Шаблон инвойса',
+    'Doc Template ID' => 'Шаблон документа',
     'Paletts Info' => 'Данные паллеты',
     'Payment Item' => 'Payment Item',
     'Shipment' => 'Shipment',

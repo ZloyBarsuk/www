@@ -3,6 +3,9 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
+use yii\bootstrap\Modal;
+
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DogovorSearch */
 /* @var $dataProvider yii\data\ActiveDataProvider */
@@ -10,15 +13,44 @@ use yii\widgets\Pjax;
 $this->title = Yii::t('app', 'Dogovors');
 $this->params['breadcrumbs'][] = $this->title;
 ?>
+
+<?php
+
+$this->registerJsFile('@web/js/modal_js/dogovor/add.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/dogovor/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/dogovor/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+
+?>
 <div class="dogovor-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
-    <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Dogovor'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button(Yii::t('app', 'Create Dogovor'), ['value' => Url::to('/dogovor/create'), 'class' => 'btn btn-success', 'id' => 'modalButtonDogovor']) ?>
     </p>
-<?php Pjax::begin(); ?>    <?= GridView::widget([
+    <?php
+    Modal::begin([
+        'options' => [
+            'id' => 'modal-dogovor',
+            'tabindex' => false // important for Select2 to work properly
+        ],
+        'header' => '<h5>' . Yii::t('app', 'Заполнение данных договора') . '</h5>',
+        //   'footer' => '<div class="form-group"><div class="col-md-5 col-xs-10"></div></div>',
+        'size' => 'modal-lg',
+        'toggleButton' => false,
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+    ]);
+
+    echo "<div id='modalContentDogovor'> </div>";
+    Modal::end();
+    ?>
+
+    <?php Pjax::begin(
+        [
+            'id' => 'pjax_dogovors',
+        ]
+
+    ); ?>   <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
@@ -41,7 +73,36 @@ $this->params['breadcrumbs'][] = $this->title;
             // 'status',
             // 'folder_path:ntext',
 
-            ['class' => 'yii\grid\ActionColumn'],
+            ['class' => 'yii\grid\ActionColumn',
+                /*'urlCreator'=>function ( $action,  $model,  $key,  $index,  $this) {
+                return $key.'/'.$action;
+                },*/
+                'header' => 'Действия',
+                'template' => '{update} / {delete} /',
+                'buttons' => [
+                    'update' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                            'title' => Yii::t('yii', 'Update'),
+                            'class' => 'update_dogovors',
+                            'data-model-id' => $model->dogovor_id,
+                            'data-pjax' => 1,
+                            // 'action' => $url,
+                        ]);
+                    },
+                    'delete' => function ($url, $model) {
+                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                            'title' => Yii::t('yii', 'Delete'),
+                            'class' => 'delete_dogovors',
+                            'data-model-id' => $model->dogovor_id,
+                            'data-pjax' => 1,
+                            'data-method' => 'post',
+
+                            // 'action' => $url,
+                        ]);
+                    },
+
+                ]
+            ],
         ],
     ]); ?>
-<?php Pjax::end(); ?></div>
+    <?php Pjax::end(); ?></div>

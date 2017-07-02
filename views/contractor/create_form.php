@@ -11,12 +11,12 @@ use kartik\file\FileInput;
 ?>
 <?php
 
-$this->registerJsFile('@web/js/modal_js/contractor/create_update.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/contractor/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
-$this->registerJsFile('@web/js/modal_js/banks/add_banks.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/banks/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
-<div class="row">
+ <div class="row">
     <div class="col-md-12">
 
         <!-- START TABS -->
@@ -32,7 +32,7 @@ $this->registerJsFile('@web/js/modal_js/banks/add_banks.js', ['depends' => [\yii
 
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Банковские реквизиты <b
-                            class="caret"></b></a>
+                                class="caret"></b></a>
                     <ul class="dropdown-menu">
                         <!-- <li><a href="#banks_create-from-list" role="tab" data-toggle="tab" class="ajax_loader">Выбрать из
                                  списка существующих</a></li>-->
@@ -98,8 +98,8 @@ $this->registerJsFile('@web/js/modal_js/banks/add_banks.js', ['depends' => [\yii
                                     <div class="col-md-12">
                                         <div class="alert alert-success" role="alert">
                                             <button type="button" class="close" data-dismiss="alert"><span
-                                                    aria-hidden="true">×</span><span
-                                                    class="sr-only">Close</span>
+                                                        aria-hidden="true">×</span><span
+                                                        class="sr-only">Close</span>
                                             </button>
                                             <strong>Реквизиты контрагента</strong>
                                         </div>
@@ -166,8 +166,8 @@ $this->registerJsFile('@web/js/modal_js/banks/add_banks.js', ['depends' => [\yii
                                     <div class="col-md-12">
                                         <div class="alert alert-success" role="alert">
                                             <button type="button" class="close" data-dismiss="alert"><span
-                                                    aria-hidden="true">×</span><span
-                                                    class="sr-only">Close</span>
+                                                        aria-hidden="true">×</span><span
+                                                        class="sr-only">Close</span>
                                             </button>
                                             <strong>Прочее</strong>
                                         </div>
@@ -268,19 +268,21 @@ $this->registerJsFile('@web/js/modal_js/banks/add_banks.js', ['depends' => [\yii
                                                     <?= Html::submitButton($model_contr->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_contr->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                                                 </div>
                                                 <div class="col-md-10">
-                                                    <div class="alert alert-success" role="alert" style="display:none;" id="success_notify">
+                                                    <div class="alert alert-success" role="alert" style="display:none;"
+                                                         id="success_notify">
 
                                                         <button type="button" class="close" data-dismiss="alert">
                                                             <span
-                                                                aria-hidden="true">×</span>
+                                                                    aria-hidden="true">×</span>
                                                             <span
-                                                                class="sr-only"><?php Yii::t('app', 'Close'); ?> </span>
+                                                                    class="sr-only"><?php Yii::t('app', 'Close'); ?> </span>
                                                         </button>
                                                         <strong>
                                                             <div class="success_notify_content"></div>
                                                         </strong>
                                                     </div>
-                                                    <div class="alert alert-danger" role="alert" style="display:none;" id="danger_notify">
+                                                    <div class="alert alert-danger" role="alert" style="display:none;"
+                                                         id="danger_notify">
 
                                                         <button type="button" class="close" data-dismiss="alert">
                                                             <span aria-hidden="true">×</span>
@@ -314,7 +316,6 @@ $this->registerJsFile('@web/js/modal_js/banks/add_banks.js', ['depends' => [\yii
                  </div>-->
                 <div class="tab-pane" id="banks_create">
 
-                    Create
 
                 </div>
 
@@ -327,3 +328,4 @@ $this->registerJsFile('@web/js/modal_js/banks/add_banks.js', ['depends' => [\yii
     </div>
 
 
+ </div>

@@ -25,14 +25,18 @@ $this->registerJsFile('@web/js/modal_js/products/delete.js',['depends' => [\yii\
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::button(Yii::t('app', 'Create Products'),  ['value'=>Url::to('/products/create'),'class' => 'btn btn-success','id'=>'modalButton']) ?>
+        <?= Html::button(Yii::t('app', 'Create Products'),  ['value'=>Url::to('/products/create'),'class' => 'btn btn-success','id'=>'modalButtonProducts']) ?>
 
     </p>
 
     <?php
     Modal::begin([
+        'options' => [
+            'id' => 'modal-products',
+            'tabindex' => false // important for Select2 to work properly
+        ],
+
         'header' => '<h4>' . Yii::t('app', 'Product') . '</h4>',
-        'id' => 'modal-products',
         'size' => 'modal-lg',
         'toggleButton' => false,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],

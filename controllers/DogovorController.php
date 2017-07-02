@@ -63,15 +63,67 @@ class DogovorController extends Controller
      */
     public function actionCreate()
     {
-        $model = new Dogovor();
+        $model_dogovor = new Dogovor(); // ['scenario' => "create"]
+        $request = Yii::$app->getRequest();
+        // если AJAX
+        if ($request->isAjax) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->dogovor_id]);
+            if ($model_dogovor->load($request->post())) {
+
+
+                $model_dogovor->load($request->post());
+                $valid = $model_dogovor->validate();
+                $valid = $model_dogovor->validate() && $valid;
+                if ($valid) {
+                    // добавляем картинку
+                    empty($model_dogovor->signature) ? $model_dogovor->signature = 'empty.png' : '';
+                    $transaction = \Yii::$app->db->beginTransaction();
+                    try {
+                        if ($flag = $model_dogovor->save(false)) {
+
+                            $model_dogovor->id_contractor = $model_dogovor->contractor_id;
+                            if (!($flag = $model_dogovor->save(false))) {
+                                $transaction->rollBack();
+
+                            }
+
+                        }
+                        if ($flag) {
+                            $transaction->commit();
+                            Yii::$app->response->format = Response::FORMAT_JSON;
+                            // success message flash
+                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => '', 'contractor_id' => $model_contr->contractor_id];
+
+                            // Yii::$app->session->setFlash('success', 'This is the message');
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
+                        Yii::$app->response->format = Response::FORMAT_JSON;
+                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+
+                    }
+                } else {
+
+
+                }
+            } else {
+                return $this->renderAjax('create_form', [
+                    'model_dogovor' => $model_dogovor,
+
+
+                ]);
+            }
+
+
         } else {
-            return $this->render('create', [
-                'model' => $model,
+            return $this->render('create_form', [
+                'model_dogovor' => $model_dogovor,
+
             ]);
+
         }
+
+
     }
 
     /**

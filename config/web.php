@@ -13,7 +13,7 @@ $config = [
     'components' => [
 
         'assetManager' => [
-            'linkAssets' => true
+         //   'linkAssets' => true
         ],
         'i18n'         => [
             'translations' => [

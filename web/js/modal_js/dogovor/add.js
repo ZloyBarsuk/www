@@ -2,11 +2,11 @@ $(document).on('ready', function () {
 
     // index.php
 
-    $('#modalButtonContractor').click(function () {
+    $('#modalButtonDogovor').click(function () {
 
-        var modal = $('#modal-contractor');
+        var modal = $('#modal-dogovor');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalContentContractor');
+        var modal_content = modal.find('#modalContentDogovor');
         modal_content.html('');
         var index_highest = 0;
         modal.each(function () {
@@ -24,7 +24,7 @@ $(document).on('ready', function () {
         });
 
         modal.on('hidden.bs.modal', function (event) {
-            $.pjax.reload({container: '#pjax_contractor'});
+            $.pjax.reload({container: '#pjax_dogovors'});
             modal_content.html('');
             return false;
             event.stopPropagation();

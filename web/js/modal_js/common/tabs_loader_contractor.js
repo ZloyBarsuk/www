@@ -17,7 +17,6 @@ $(document).ready(function () {
             var n = Noty('id');
             $.noty.setText(n.options.id, "Вы не заполнили и не сохранили данные контраента !");
             $.noty.setType(n.options.id, 'error');
-
             return false;
         }
 
@@ -44,7 +43,11 @@ $(document).ready(function () {
 
             error: function (response) {
 
-                console.log(JSON.stringify(response));
+                var n = Noty('id');
+                $.noty.setText(n.options.id, JSON.stringify(response) );
+                $.noty.setType(n.options.id, 'error');
+
+                return false;
 
             }
         });

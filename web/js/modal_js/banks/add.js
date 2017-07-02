@@ -1,12 +1,12 @@
-/**
- * Created by ZloyBarsuk on 30.06.2017.
- */
 $(document).on('ready', function () {
 
-    $('#modalButtonProducts').click(function () {
-        var modal = $('#modal-products');
+    // index.php
+
+
+    $('#modalButtonBanks').click(function () {
+        var modal = $('#modal-banks');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalContent');
+        var modal_content = modal.find('#modalContentBanks');
         modal_content.html('');
 
         $.post(href).done(function (data) {
@@ -26,4 +26,7 @@ $(document).on('ready', function () {
 
 
     });
-});
+
+
+})
+

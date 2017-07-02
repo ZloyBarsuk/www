@@ -11,7 +11,7 @@ use kartik\widgets\Select2;
 ?>
 
 <?php
-$this->registerJsFile('/js/modal_js/add_banks.js', ['position' => $this::POS_END]);
+$this->registerJsFile('/js/modal_js/create.js', ['position' => $this::POS_END]);
 
 // $this->registerJsFile(Yii::$app->request->BaseUrl . '/js/custom.js', ['position' => $this::POS_END]);
 ?>

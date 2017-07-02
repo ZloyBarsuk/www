@@ -114,11 +114,14 @@ CREATE TABLE IF NOT EXISTS `banks` (
   KEY `FK_banks_contractor` (`contractor_id`),
   CONSTRAINT `FK_banks_contractor` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_banks_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.banks: ~0 rows (приблизительно)
+-- Дамп данных таблицы inwiz.banks: ~3 rows (приблизительно)
 DELETE FROM `banks`;
 /*!40000 ALTER TABLE `banks` DISABLE KEYS */;
+INSERT INTO `banks` (`bank_id`, `contractor_id`, `name_ua`, `name_en`, `inn`, `kpp`, `ogrm`, `adress_official_ua`, `adress_official_en`, `adress_post_ua`, `adress_post_en`, `r_s`, `k_s`, `bic`, `swift`, `comments`, `account_type`, `created_at`, `created_by`, `by_default`) VALUES
+	(3, 218, 'fuck', 'fuck', 'asdsad', 'asdasd', 'asdsad', 'fuck', 'fuck', '', '', 'fuck', 'fuck', '', '', '', 'rub', '2017-07-01 23:31:51', 1, 'y'),
+	(5, 220, 'xcvcxv', 'cv', '', '', '', 'xcvcxv', 'xcvccv', '', '', 'zxcxcxz', 'cxcxzc', '', '', '', 'usd', '2017-07-02 00:16:59', 1, 'n');
 /*!40000 ALTER TABLE `banks` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.contractor
@@ -134,9 +137,9 @@ CREATE TABLE IF NOT EXISTS `contractor` (
   PRIMARY KEY (`contractor_id`),
   KEY `FK_contractor_user_accounts` (`created_by`),
   CONSTRAINT `FK_contractor_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=219 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.contractor: ~18 rows (приблизительно)
+-- Дамп данных таблицы inwiz.contractor: ~19 rows (приблизительно)
 DELETE FROM `contractor`;
 /*!40000 ALTER TABLE `contractor` DISABLE KEYS */;
 INSERT INTO `contractor` (`contractor_id`, `name_ua`, `name_en`, `signature`, `created_at`, `created_by`, `contractor_type`) VALUES
@@ -155,9 +158,9 @@ INSERT INTO `contractor` (`contractor_id`, `name_ua`, `name_en`, `signature`, `c
 	(213, 'test', 'test', NULL, '2017-06-11 19:06:18', 1, 'client'),
 	(214, 'xcvcxv', 'vcxvxcvv', 'empty.png', '2017-06-11 19:10:53', 1, 'client'),
 	(215, 'wqe', 'werererr', 'empty.png', '2017-06-12 00:18:23', 1, 'client'),
-	(216, 'wqe12', 'werererr12', 'empty.png', '2017-06-12 00:18:59', 1, 'client'),
 	(217, 'wqe12wer', 'werererr12wer', 'empty.png', '2017-06-12 00:19:13', 1, 'client'),
-	(218, 'test255', 'test255', 'empty.png', '2017-06-24 14:59:01', 1, 'owner');
+	(218, 'test255', 'test255', 'empty.png', '2017-06-24 14:59:01', 1, 'owner'),
+	(220, 'xvvvvxcv', 'cxzxzxz', 'empty.png', '2017-07-02 00:15:19', 1, 'owner');
 /*!40000 ALTER TABLE `contractor` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.contractor_info
@@ -186,9 +189,9 @@ CREATE TABLE IF NOT EXISTS `contractor_info` (
   KEY `FK_contractor_info_user_accounts` (`created_by`),
   CONSTRAINT `FK_contractor_info_contractor` FOREIGN KEY (`id_contractor`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_contractor_info_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=200 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Дамп данных таблицы inwiz.contractor_info: ~18 rows (приблизительно)
+-- Дамп данных таблицы inwiz.contractor_info: ~19 rows (приблизительно)
 DELETE FROM `contractor_info`;
 /*!40000 ALTER TABLE `contractor_info` DISABLE KEYS */;
 INSERT INTO `contractor_info` (`contr_info_id`, `id_contractor`, `adress_official_ua`, `adress_official_en`, `adress_post_ua`, `adress_post_en`, `director_ua`, `director_en`, `email`, `phone`, `fax`, `contact_person`, `tax_number`, `vat_reg_no`, `rep`, `customer_number`, `created_at`, `created_by`) VALUES
@@ -207,9 +210,9 @@ INSERT INTO `contractor_info` (`contr_info_id`, `id_contractor`, `adress_officia
 	(194, 213, 'test', 'test', 'test', 'test', 'test', 'test', 'test@sdf.rys', 'test', 'test', 'test', 'test', 'test', 'test', 'test', NULL, 1),
 	(195, 214, 'xcv', 'xcvcxv', 'xcv', 'xcv', 'xcv', 'xcv', 'dfg2222222222222@fg.ru', '$model_contr->signature', '$model_contr->signature', '', '$model_contr->signature', '$model_contr->signature', '$model_contr->signature', '$model_contr->signature', NULL, 1),
 	(196, 215, 'qwe', 'qwe', 'wqe', 'qwqe', 'ewr', 'wqe', 'er@sdf.ru', 'ewr', 'werr', 'ewr', '', 'ewr', 'ewr', 'ewr', NULL, 1),
-	(197, 216, 'qwe', 'qwe', 'wqe', 'qwqe', 'ewr', 'wqe', 'er@sdf.ru', 'ewr', 'werr', 'ewr', '', 'ewr', 'ewr', 'ewr', NULL, 1),
 	(198, 217, 'qwe', 'qwe', 'wqe', 'qwqe', 'ewr', 'wqe', 'er@sdf.ru', 'ewr', 'werr', 'ewr', '', 'ewr', 'ewr', 'ewr', NULL, 1),
-	(199, 218, 'test255', 'test255', 'test255', 'test255', 'test255', 'test255', 'test255@hj.ru', 'test255', 'test255', 'test255', 'test255', 'test255', 'test255', 'test255', NULL, 1);
+	(199, 218, 'test255', 'test255', 'test255', 'test255', 'test255', 'test255', 'test255@hj.ru', 'test255', 'test255', 'test255', 'test255', 'test255', 'test255', 'test255', NULL, 1),
+	(201, 220, 'cv', 'cxv', 'cvv', 'cv', '', '', '', '', '', '', '', '', '', '', NULL, 1);
 /*!40000 ALTER TABLE `contractor_info` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.document_template
@@ -218,6 +221,7 @@ CREATE TABLE IF NOT EXISTS `document_template` (
   `doc_templ_id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `path_to_template` varchar(255) DEFAULT NULL,
+  `html_template` text,
   `contractor_id` int(11) DEFAULT NULL,
   `document_type` enum('dogovor','invoice') DEFAULT NULL,
   `date` timestamp NULL DEFAULT NULL,
@@ -248,7 +252,7 @@ CREATE TABLE IF NOT EXISTS `dogovor` (
   `created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'дата создания',
   `closed_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'дата закрытия',
   `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-  `status` enum('','в работе','на подписании','не заключили','расторгнут','закрыт','приостановлен','не оплачен','оплачен') DEFAULT NULL COMMENT 'статус',
+  `status` enum('в работе','на подписании','не заключили','расторгнут','закрыт','приостановлен','не оплачен','оплачен') NOT NULL DEFAULT 'в работе' COMMENT 'статус',
   `folder_path` text,
   PRIMARY KEY (`dogovor_id`),
   KEY `FK_dogovor_contractor` (`id_executor`),
@@ -469,7 +473,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   `active` enum('y','n') DEFAULT 'y',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`products_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=228 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы inwiz.products: ~100 rows (приблизительно)
 DELETE FROM `products`;
@@ -572,9 +576,7 @@ INSERT INTO `products` (`products_id`, `description_en`, `description_ua`, `part
 	(95, 'AXCELA-H 41x1,8/2', 'AXCELA-H 41x1,8/2', 'CH00004113108201000', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 23.32, 'y', '2017-04-05 12:01:21'),
 	(96, 'AXCELA-34x3920x1,8/2 (1pc=3.92m)', 'AXCELA-34x3920x1,8/2 (1pc=3.92m)', 'EH00003411018203920', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 22.78, 'y', '2017-04-05 12:01:21'),
 	(97, 'AXCELA-H 41x4715x1,8/2(1pc=4.715m)', 'AXCELA-H 41x4715x1,8/2(1pc=4.715m)', 'EH00004113018204715', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 25.66, 'y', '2017-04-05 12:01:21'),
-	(98, 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'EG00005416018206100', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 39.78, 'y', '2017-04-05 12:01:21'),
-	(225, '1', '1', '1', '', '', '', '', '', '', '', '', 1.00, 'y', '2017-04-12 14:48:14'),
-	(227, '2', '12', '12', '', '', '', '', '', '', '', '', 2.00, 'y', '2017-04-12 14:48:36');
+	(98, 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'EG00005416018206100', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 39.78, 'y', '2017-04-05 12:01:21');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.products_to_invoice

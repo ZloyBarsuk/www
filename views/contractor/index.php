@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 
 $this->registerJsFile(
-    '@web/js/modal_js/common/tabs_loader.js', ['depends' => [\yii\web\JqueryAsset::className()]]
+    '@web/js/modal_js/common/tabs_loader_contractor.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 
 );
 $this->registerJsFile(
@@ -50,11 +50,15 @@ $this->registerJsFile(
 
     <?php
     Modal::begin([
+        'options' => [
+            'id' => 'modal-contractor',
+            'tabindex' => false // important for Select2 to work properly
+        ],
         'header' => '<h5>' . Yii::t('app', 'Заполнение данных Контрагента') . '</h5>',
         //   'footer' => '<div class="form-group"><div class="col-md-5 col-xs-10"></div></div>',
 
 
-        'id' => 'modal-contractor',
+
         'size' => 'modal-lg',
         'toggleButton' => false,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
