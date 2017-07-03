@@ -1,7 +1,5 @@
 $(document).on('ready', function () {
 
-    // index.php
-
     $('#modalButtonDogovor').click(function () {
 
         var modal = $('#modal-dogovor');

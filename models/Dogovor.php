@@ -40,31 +40,36 @@ class Dogovor extends \yii\db\ActiveRecord
         return 'dogovor';
     }
 
-    /**
-     * @inheritdoc
-     */
+    public function scenarios()
+    {
+        $attr = $this->attributes();
+        return [
+            'create' => $attr,
+            'update' => $attr,
+        ];
+    }
+
     public function rules()
     {
         return [
-            [['id_executor', 'doc_template_id', 'id_contractor','id_bank_executor', 'id_bank_contractor'], 'required'],
+            [['id_executor', 'doc_template_id', 'id_contractor', 'id_bank_executor', 'id_bank_contractor', 'dogovor_number'], 'required'],
             [['id_executor', 'doc_template_id', 'id_contractor', 'id_bank_contractor', 'id_bank_executor', 'id_author'], 'integer'],
             [['delivery_date', 'created_date', 'closed_date', 'updated_date'], 'safe'],
             [['comments', 'status', 'folder_path'], 'string'],
             [['total_summ'], 'number'],
             [['dogovor_number'], 'string', 'max' => 255],
+            [['id_bank_contractor'], 'exist', 'skipOnError' => true, 'targetClass' => Banks::className(), 'targetAttribute' => ['id_bank_contractor' => 'bank_id']],
             [['id_executor'], 'exist', 'skipOnError' => true, 'targetClass' => Contractor::className(), 'targetAttribute' => ['id_executor' => 'contractor_id']],
             [['id_contractor'], 'exist', 'skipOnError' => true, 'targetClass' => Contractor::className(), 'targetAttribute' => ['id_contractor' => 'contractor_id']],
             [['doc_template_id'], 'exist', 'skipOnError' => true, 'targetClass' => DocumentTemplate::className(), 'targetAttribute' => ['doc_template_id' => 'doc_templ_id']],
             [['id_author'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['id_author' => 'id']],
             [['id_bank_executor'], 'exist', 'skipOnError' => true, 'targetClass' => Banks::className(), 'targetAttribute' => ['id_bank_executor' => 'bank_id']],
-            [['id_bank_contractor'], 'exist', 'skipOnError' => true, 'targetClass' => Banks::className(), 'targetAttribute' => ['id_bank_contractor' => 'bank_id']],
+            [['doc_template_id', 'id_bank_executor', 'id_bank_contractor',], 'safe', 'on' => ['update']],
 
         ];
     }
 
-    /**
-     * @inheritdoc
-     */
+
     public function attributeLabels()
     {
         return [
