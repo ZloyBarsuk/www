@@ -8,7 +8,8 @@ use app\models\DocumentTemplateSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 /**
  * DocumenttemplateController implements the CRUD actions for DocumentTemplate model.
  */
@@ -44,11 +45,7 @@ class DocumenttemplateController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single DocumentTemplate model.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionView($id)
     {
         return $this->render('view', [
@@ -56,11 +53,7 @@ class DocumenttemplateController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new DocumentTemplate model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate()
     {
         $model = new DocumentTemplate();
@@ -74,12 +67,7 @@ class DocumenttemplateController extends Controller
         }
     }
 
-    /**
-     * Updates an existing DocumentTemplate model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -93,12 +81,7 @@ class DocumenttemplateController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing DocumentTemplate model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -106,13 +89,7 @@ class DocumenttemplateController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the DocumentTemplate model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return DocumentTemplate the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = DocumentTemplate::findOne($id)) !== null) {
@@ -121,4 +98,71 @@ class DocumenttemplateController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
+
+
+
+
+
+    public function actionTemplatesByContractor()
+    {
+
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $contractor_id = $parents[0];
+                $out = DocumentTemplate::AllTemplatesContractorDropdown($contractor_id,'dogovor');
+                $out = ArrayHelper::map($out, 'doc_templ_id', 'name');
+                $result = [];
+                $tmp_arr = [];
+                foreach($out as $key => $value)
+                {
+                    $tmp_arr = ['id' => $key, 'name' => $value];
+                    $result[] = $tmp_arr;
+                }
+
+                echo Json::encode(['output' => $result, 'selected' => '']);
+                return;
+                //  return ['output' => $result, 'selected' => ''];
+
+
+
+
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+        return;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

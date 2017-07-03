@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "products".
  *
@@ -35,7 +36,7 @@ class Products extends \yii\db\ActiveRecord
 
     public function scenarios()
     {
-        $attr=$this->attributes();
+        $attr = $this->attributes();
         return [
             'create' => $attr,
             'update' => $attr,
@@ -46,13 +47,13 @@ class Products extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['description_en', 'description_ua', 'part_number'], 'required', 'on' => ['create','update']],
+            [['description_en', 'description_ua', 'part_number'], 'required', 'on' => ['create', 'update']],
             [['price'], 'number'],
             [['active'], 'string'],
             [['created_at'], 'safe'],
             [['description_en', 'description_ua'], 'unique', 'on' => ['create']],
             [['price'], 'required', 'on' => ['update']],
-            [['description_en', 'description_ua', 'part_number', 'country_origin_en', 'country_origin_ua', 'tarif_number_en', 'tarif_number_ua'], 'safe','on' => ['update']],
+            [['description_en', 'description_ua', 'part_number', 'country_origin_en', 'country_origin_ua', 'tarif_number_en', 'tarif_number_ua'], 'safe', 'on' => ['update']],
             [['description_en', 'description_ua', 'part_number', 'country_origin_en', 'country_origin_ua', 'tarif_number_en', 'tarif_number_ua'], 'string', 'max' => 255],
             [['weight', 'height', 'width', 'length'], 'string', 'max' => 50],
         ];

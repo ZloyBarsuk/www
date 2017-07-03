@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\widgets\ActiveForm;
 use yii\web\Response;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 /**
  * BanksController implements the CRUD actions for Banks model.
@@ -30,6 +32,41 @@ class BanksController extends Controller
             ],
         ];
     }
+
+
+    public function actionDropdownByContractor()
+    {
+      //  Yii::$app->response->format = Response::FORMAT_JSON;
+
+        $out = [];
+        if (isset($_POST['depdrop_parents'])) {
+            $parents = $_POST['depdrop_parents'];
+            if ($parents != null) {
+                $contractor_id = $parents[0];
+                $out = Banks::AllBanksContractorDropdown($contractor_id);
+                $out = ArrayHelper::map($out, 'bank_id', 'name_ua');
+                $result = [];
+                $tmp_arr = [];
+                foreach($out as $key => $value)
+                {
+                    $tmp_arr = ['id' => $key, 'name' => $value];
+                    $result[] = $tmp_arr;
+                }
+
+                echo Json::encode(['output' => $result, 'selected' => '']);
+                return;
+              //  return ['output' => $result, 'selected' => ''];
+
+
+
+
+            }
+        }
+        echo Json::encode(['output' => '', 'selected' => '']);
+        return;
+       // return ['output' => '', 'selected' => ''];
+    }
+
 
     /**
      * Lists all Banks models.
@@ -194,8 +231,7 @@ class BanksController extends Controller
     }
 
 
-    public
-    function actionCreateFromList()
+    public function actionCreateFromList()
     {
 
         $data_list = Banks::AllBanks();
@@ -240,8 +276,7 @@ class BanksController extends Controller
         }
     }
 
-    public
-    function actionAjaxValidate()
+    public function actionAjaxValidate()
     {
         $model = new Banks();
         $model->load(Yii::$app->request->post());

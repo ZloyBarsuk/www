@@ -3,7 +3,7 @@
  */
 
 // add controller
-$('body').on('beforeSubmit', 'form#contractor-form', function (event) {
+$('body').on('beforeSubmit', 'form#dogovor-form', function (event) {
     event.stopPropagation();
     var form = $(this);
     //  alert("pjax_add_product");
@@ -38,7 +38,7 @@ $('body').on('beforeSubmit', 'form#contractor-form', function (event) {
                             var n = Noty('id');
                             $.noty.setText(n.options.id, data.notify_text);
                             $.noty.setType(n.options.id, 'information');
-                            $.pjax.reload({container: '#pjax_contractor', timeout: 3000});
+                            $.pjax.reload({container: '#pjax_dogovors', timeout: 3000});
                             //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
                         }
                         else {

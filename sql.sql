@@ -1,21 +1,20 @@
 -- --------------------------------------------------------
 -- Хост:                         127.0.0.1
--- Версия сервера:               10.1.21-MariaDB - mariadb.org binary distribution
--- Операционная система:         Win32
--- HeidiSQL Версия:              9.4.0.5169
+-- Версия сервера:               10.1.16-MariaDB - mariadb.org binary distribution
+-- ОС Сервера:                   Win32
+-- HeidiSQL Версия:              9.3.0.4984
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET NAMES utf8 */;
-/*!50503 SET NAMES utf8mb4 */;
+/*!40101 SET NAMES utf8mb4 */;
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-
 
 -- Дамп структуры базы данных inwiz
 DROP DATABASE IF EXISTS `inwiz`;
 CREATE DATABASE IF NOT EXISTS `inwiz` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `inwiz`;
+
 
 -- Дамп структуры для таблица inwiz.auth_assignment
 DROP TABLE IF EXISTS `auth_assignment`;
@@ -31,6 +30,7 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 DELETE FROM `auth_assignment`;
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.auth_item
 DROP TABLE IF EXISTS `auth_item`;
@@ -55,6 +55,7 @@ INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `cr
 	('superadmin', 1, '', NULL, NULL, 1493478657, 1493478657);
 /*!40000 ALTER TABLE `auth_item` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.auth_item_child
 DROP TABLE IF EXISTS `auth_item_child`;
 CREATE TABLE IF NOT EXISTS `auth_item_child` (
@@ -71,6 +72,7 @@ DELETE FROM `auth_item_child`;
 /*!40000 ALTER TABLE `auth_item_child` DISABLE KEYS */;
 /*!40000 ALTER TABLE `auth_item_child` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.auth_rule
 DROP TABLE IF EXISTS `auth_rule`;
 CREATE TABLE IF NOT EXISTS `auth_rule` (
@@ -85,6 +87,7 @@ CREATE TABLE IF NOT EXISTS `auth_rule` (
 DELETE FROM `auth_rule`;
 /*!40000 ALTER TABLE `auth_rule` DISABLE KEYS */;
 /*!40000 ALTER TABLE `auth_rule` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.banks
 DROP TABLE IF EXISTS `banks`;
@@ -114,15 +117,17 @@ CREATE TABLE IF NOT EXISTS `banks` (
   KEY `FK_banks_contractor` (`contractor_id`),
   CONSTRAINT `FK_banks_contractor` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_banks_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы inwiz.banks: ~3 rows (приблизительно)
 DELETE FROM `banks`;
 /*!40000 ALTER TABLE `banks` DISABLE KEYS */;
 INSERT INTO `banks` (`bank_id`, `contractor_id`, `name_ua`, `name_en`, `inn`, `kpp`, `ogrm`, `adress_official_ua`, `adress_official_en`, `adress_post_ua`, `adress_post_en`, `r_s`, `k_s`, `bic`, `swift`, `comments`, `account_type`, `created_at`, `created_by`, `by_default`) VALUES
 	(3, 218, 'fuck', 'fuck', 'asdsad', 'asdasd', 'asdsad', 'fuck', 'fuck', '', '', 'fuck', 'fuck', '', '', '', 'rub', '2017-07-01 23:31:51', 1, 'y'),
-	(5, 220, 'xcvcxv', 'cv', '', '', '', 'xcvcxv', 'xcvccv', '', '', 'zxcxcxz', 'cxcxzc', '', '', '', 'usd', '2017-07-02 00:16:59', 1, 'n');
+	(5, 220, 'xcvcxv', 'cv', '', '', '', 'xcvcxv', 'xcvccv', '', '', 'zxcxcxz', 'cxcxzc', '', '', '', 'usd', '2017-07-02 00:16:59', 1, 'n'),
+	(6, 212, 'fgfgdfgff', 'dfgfg', '234234', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'rub', '2017-07-03 16:17:22', 1, 'y');
 /*!40000 ALTER TABLE `banks` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.contractor
 DROP TABLE IF EXISTS `contractor`;
@@ -139,7 +144,7 @@ CREATE TABLE IF NOT EXISTS `contractor` (
   CONSTRAINT `FK_contractor_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.contractor: ~19 rows (приблизительно)
+-- Дамп данных таблицы inwiz.contractor: ~18 rows (приблизительно)
 DELETE FROM `contractor`;
 /*!40000 ALTER TABLE `contractor` DISABLE KEYS */;
 INSERT INTO `contractor` (`contractor_id`, `name_ua`, `name_en`, `signature`, `created_at`, `created_by`, `contractor_type`) VALUES
@@ -162,6 +167,7 @@ INSERT INTO `contractor` (`contractor_id`, `name_ua`, `name_en`, `signature`, `c
 	(218, 'test255', 'test255', 'empty.png', '2017-06-24 14:59:01', 1, 'owner'),
 	(220, 'xvvvvxcv', 'cxzxzxz', 'empty.png', '2017-07-02 00:15:19', 1, 'owner');
 /*!40000 ALTER TABLE `contractor` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.contractor_info
 DROP TABLE IF EXISTS `contractor_info`;
@@ -191,7 +197,7 @@ CREATE TABLE IF NOT EXISTS `contractor_info` (
   CONSTRAINT `FK_contractor_info_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Дамп данных таблицы inwiz.contractor_info: ~19 rows (приблизительно)
+-- Дамп данных таблицы inwiz.contractor_info: ~18 rows (приблизительно)
 DELETE FROM `contractor_info`;
 /*!40000 ALTER TABLE `contractor_info` DISABLE KEYS */;
 INSERT INTO `contractor_info` (`contr_info_id`, `id_contractor`, `adress_official_ua`, `adress_official_en`, `adress_post_ua`, `adress_post_en`, `director_ua`, `director_en`, `email`, `phone`, `fax`, `contact_person`, `tax_number`, `vat_reg_no`, `rep`, `customer_number`, `created_at`, `created_by`) VALUES
@@ -215,6 +221,7 @@ INSERT INTO `contractor_info` (`contr_info_id`, `id_contractor`, `adress_officia
 	(201, 220, 'cv', 'cxv', 'cvv', 'cv', '', '', '', '', '', '', '', '', '', '', NULL, 1);
 /*!40000 ALTER TABLE `contractor_info` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.document_template
 DROP TABLE IF EXISTS `document_template`;
 CREATE TABLE IF NOT EXISTS `document_template` (
@@ -228,12 +235,18 @@ CREATE TABLE IF NOT EXISTS `document_template` (
   PRIMARY KEY (`doc_templ_id`),
   KEY `FK_document_template_contractor` (`contractor_id`),
   CONSTRAINT `FK_document_template_contractor` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Дамп данных таблицы inwiz.document_template: ~0 rows (приблизительно)
+-- Дамп данных таблицы inwiz.document_template: ~4 rows (приблизительно)
 DELETE FROM `document_template`;
 /*!40000 ALTER TABLE `document_template` DISABLE KEYS */;
+INSERT INTO `document_template` (`doc_templ_id`, `name`, `path_to_template`, `html_template`, `contractor_id`, `document_type`, `date`) VALUES
+	(1, 'dogovor 212', NULL, NULL, 212, 'dogovor', NULL),
+	(2, 'invoice 212', NULL, NULL, 212, 'invoice', NULL),
+	(3, 'dogovor 218', NULL, NULL, 218, 'dogovor', NULL),
+	(4, 'invoice  218', NULL, NULL, 218, 'invoice', NULL);
 /*!40000 ALTER TABLE `document_template` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.dogovor
 DROP TABLE IF EXISTS `dogovor`;
@@ -249,9 +262,9 @@ CREATE TABLE IF NOT EXISTS `dogovor` (
   `delivery_date` date DEFAULT NULL COMMENT 'дата доставки товара по договору',
   `comments` text,
   `total_summ` decimal(10,2) unsigned DEFAULT '0.00' COMMENT 'сумма договора',
-  `created_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'дата создания',
-  `closed_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP COMMENT 'дата закрытия',
-  `updated_date` timestamp NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  `created_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'дата создания',
+  `closed_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'дата закрытия',
+  `updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
   `status` enum('в работе','на подписании','не заключили','расторгнут','закрыт','приостановлен','не оплачен','оплачен') NOT NULL DEFAULT 'в работе' COMMENT 'статус',
   `folder_path` text,
   PRIMARY KEY (`dogovor_id`),
@@ -274,6 +287,7 @@ DELETE FROM `dogovor`;
 /*!40000 ALTER TABLE `dogovor` DISABLE KEYS */;
 /*!40000 ALTER TABLE `dogovor` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.dogovor_numeration
 DROP TABLE IF EXISTS `dogovor_numeration`;
 CREATE TABLE IF NOT EXISTS `dogovor_numeration` (
@@ -290,6 +304,7 @@ CREATE TABLE IF NOT EXISTS `dogovor_numeration` (
 DELETE FROM `dogovor_numeration`;
 /*!40000 ALTER TABLE `dogovor_numeration` DISABLE KEYS */;
 /*!40000 ALTER TABLE `dogovor_numeration` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.invoice
 DROP TABLE IF EXISTS `invoice`;
@@ -339,6 +354,7 @@ DELETE FROM `invoice`;
 /*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
 /*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.inv_ext_lot_number
 DROP TABLE IF EXISTS `inv_ext_lot_number`;
 CREATE TABLE IF NOT EXISTS `inv_ext_lot_number` (
@@ -360,6 +376,7 @@ CREATE TABLE IF NOT EXISTS `inv_ext_lot_number` (
 DELETE FROM `inv_ext_lot_number`;
 /*!40000 ALTER TABLE `inv_ext_lot_number` DISABLE KEYS */;
 /*!40000 ALTER TABLE `inv_ext_lot_number` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.inv_sales_ord_conf
 DROP TABLE IF EXISTS `inv_sales_ord_conf`;
@@ -383,6 +400,7 @@ CREATE TABLE IF NOT EXISTS `inv_sales_ord_conf` (
 DELETE FROM `inv_sales_ord_conf`;
 /*!40000 ALTER TABLE `inv_sales_ord_conf` DISABLE KEYS */;
 /*!40000 ALTER TABLE `inv_sales_ord_conf` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.migration
 DROP TABLE IF EXISTS `migration`;
@@ -412,6 +430,7 @@ INSERT INTO `migration` (`version`, `apply_time`) VALUES
 	('m160929_103127_add_last_login_at_to_user_table', 1493478296);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.po
 DROP TABLE IF EXISTS `po`;
 CREATE TABLE IF NOT EXISTS `po` (
@@ -434,6 +453,7 @@ INSERT INTO `po` (`id`, `po_no`, `description`) VALUES
 	(15, '123', '123123');
 /*!40000 ALTER TABLE `po` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.po_item
 DROP TABLE IF EXISTS `po_item`;
 CREATE TABLE IF NOT EXISTS `po_item` (
@@ -453,6 +473,7 @@ INSERT INTO `po_item` (`id`, `po_item_no`, `quantity`, `po_id`) VALUES
 	(1, 'rwerer', 34, 15),
 	(2, 'cvbvb', 5, 15);
 /*!40000 ALTER TABLE `po_item` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.products
 DROP TABLE IF EXISTS `products`;
@@ -475,7 +496,7 @@ CREATE TABLE IF NOT EXISTS `products` (
   PRIMARY KEY (`products_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.products: ~100 rows (приблизительно)
+-- Дамп данных таблицы inwiz.products: ~98 rows (приблизительно)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`products_id`, `description_en`, `description_ua`, `part_number`, `country_origin_en`, `country_origin_ua`, `tarif_number_en`, `tarif_number_ua`, `weight`, `height`, `width`, `length`, `price`, `active`, `created_at`) VALUES
@@ -579,6 +600,7 @@ INSERT INTO `products` (`products_id`, `description_en`, `description_ua`, `part
 	(98, 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'EG00005416018206100', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 39.78, 'y', '2017-04-05 12:01:21');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.products_to_invoice
 DROP TABLE IF EXISTS `products_to_invoice`;
 CREATE TABLE IF NOT EXISTS `products_to_invoice` (
@@ -605,6 +627,7 @@ DELETE FROM `products_to_invoice`;
 /*!40000 ALTER TABLE `products_to_invoice` DISABLE KEYS */;
 /*!40000 ALTER TABLE `products_to_invoice` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.profile
 DROP TABLE IF EXISTS `profile`;
 CREATE TABLE IF NOT EXISTS `profile` (
@@ -627,6 +650,7 @@ DELETE FROM `profile`;
 INSERT INTO `profile` (`user_id`, `name`, `public_email`, `gravatar_email`, `gravatar_id`, `location`, `website`, `bio`, `timezone`) VALUES
 	(1, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 /*!40000 ALTER TABLE `profile` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.social_account
 DROP TABLE IF EXISTS `social_account`;
@@ -652,6 +676,7 @@ DELETE FROM `social_account`;
 /*!40000 ALTER TABLE `social_account` DISABLE KEYS */;
 /*!40000 ALTER TABLE `social_account` ENABLE KEYS */;
 
+
 -- Дамп структуры для таблица inwiz.token
 DROP TABLE IF EXISTS `token`;
 CREATE TABLE IF NOT EXISTS `token` (
@@ -669,6 +694,7 @@ DELETE FROM `token`;
 INSERT INTO `token` (`user_id`, `code`, `created_at`, `type`) VALUES
 	(1, 'XhJ-Ymji3g2pTc_p_ITgKJ_0qe1qm7KT', 1493478529, 0);
 /*!40000 ALTER TABLE `token` ENABLE KEYS */;
+
 
 -- Дамп структуры для таблица inwiz.user
 DROP TABLE IF EXISTS `user`;
@@ -697,7 +723,6 @@ DELETE FROM `user`;
 INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
 	(1, 'Andrew', 'dombrovskiyandrej@gmail.com', '$2y$10$USrXS2TZzzBHevogdoLzJufkQNfCHTA0C8bsnKUxdrRVYe46XwAGS', 'neuWvoB9_re-QrKWkcFk_NSbp3JczwZI', 1493478691, NULL, NULL, '127.0.0.1', 1493478529, 1493478529, 0, 1493478607);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

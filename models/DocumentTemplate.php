@@ -3,7 +3,7 @@
 namespace app\models;
 
 use Yii;
-
+use yii\helpers\ArrayHelper;
 /**
  * This is the model class for table "document_template".
  *
@@ -80,4 +80,17 @@ class DocumentTemplate extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Invoice::className(), ['doc_template_id' => 'doc_templ_id']);
     }
+
+
+
+
+    public static function AllTemplatesContractorDropdown($contr_id,$template_type='dogovor')
+    {
+        $templates_model_list = self::find()->orderBy('name')->where(['contractor_id' => (int)$contr_id,'document_type'=>$template_type])->asArray()->all();
+        return $templates_model_list;
+    }
+
+
+
+
 }

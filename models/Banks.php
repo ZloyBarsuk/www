@@ -117,6 +117,10 @@ class Banks extends \yii\db\ActiveRecord
         $banks_model_list = ArrayHelper::map(self::find()->orderBy('name_ua')->asArray()->all(), 'bank_id', 'name_ua');
         return $banks_model_list;
     }
-
+    public static function AllBanksContractorDropdown($contr_id)
+    {
+        $banks_model_list = self::find()->orderBy('name_ua')->where(['contractor_id' => (int)$contr_id])->asArray()->all();
+        return $banks_model_list;
+    }
 
 }

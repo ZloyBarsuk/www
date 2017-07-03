@@ -8,7 +8,8 @@ use app\models\DogovorSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
-
+use yii\widgets\ActiveForm;
+use yii\web\Response;
 /**
  * DogovorController implements the CRUD actions for Dogovor model.
  */
@@ -64,6 +65,7 @@ class DogovorController extends Controller
     public function actionCreate()
     {
         $model_dogovor = new Dogovor(); // ['scenario' => "create"]
+        $model_dogovor->loadDefaultValues();
         $request = Yii::$app->getRequest();
         // если AJAX
         if ($request->isAjax) {
@@ -173,4 +175,16 @@ class DogovorController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+
+
+    public function actionAjaxValidate()
+    {
+        $model = new Dogovor();
+        $model->load(Yii::$app->request->post());
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ActiveForm::validate($model);
+    }
+
+
 }
