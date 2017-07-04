@@ -56,7 +56,7 @@ class Dogovor extends \yii\db\ActiveRecord
             [['id_executor', 'doc_template_id', 'id_contractor', 'id_bank_contractor', 'id_bank_executor', 'id_author'], 'integer'],
             [['delivery_date', 'created_date', 'closed_date', 'updated_date'], 'safe'],
             [['comments', 'status', 'folder_path'], 'string'],
-            [['total_summ'], 'number'],
+            [['total_summ'], 'double'],
             [['dogovor_number'], 'string', 'max' => 255],
             [['id_bank_contractor'], 'exist', 'skipOnError' => true, 'targetClass' => Banks::className(), 'targetAttribute' => ['id_bank_contractor' => 'bank_id']],
             [['id_executor'], 'exist', 'skipOnError' => true, 'targetClass' => Contractor::className(), 'targetAttribute' => ['id_executor' => 'contractor_id']],

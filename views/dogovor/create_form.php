@@ -8,6 +8,7 @@ use yii\helpers\Url;
 use kartik\widgets\DepDrop;
 use yii\helpers\ArrayHelper;
 use kartik\widgets\Select2;
+use kartik\datecontrol\DateControl;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Dogovor */
@@ -70,8 +71,8 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                                     <div class="col-md-12">
                                         <div class="alert alert-success" role="alert">
                                             <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span
-                                                        class="sr-only">Close</span>
+                                                    aria-hidden="true">×</span><span
+                                                    class="sr-only">Close</span>
                                             </button>
                                             <strong>Данные договора</strong>
                                         </div>
@@ -80,47 +81,38 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
 
 
                                         <div class="form-group">
-                                            <div class="col-md-3 col-xs-3">
+                                            <div class="col-md-2 col-xs-2">
                                                 <?= $form->field($model_dogovor, 'dogovor_number')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-md-3 col-xs-3">
+                                            <div class="col-md-2 col-xs-2">
                                                 <?= $form->field($model_dogovor, 'status')->dropDownList(['в работе' => 'в работе', 'на подписании' => 'на подписании', 'не заключили' => 'не заключили', 'расторгнут' => 'расторгнут', 'закрыт' => 'закрыт', 'приостановлен' => 'приостановлен', 'не оплачен' => 'не оплачен', 'оплачен' => 'оплачен',], ['prompt' => 'Выбор статуса договора']) ?>
 
                                             </div>
                                         </div>
                                         <div class="form-group">
-                                            <div class="col-md-3 col-xs-3">
-                                                <?= $form->field($model_dogovor, 'created_date')->widget(DatePicker::classname(), [
-                                                    'language' => 'ru',
-                                                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                                                    'options' => [
-                                                        'placeholder' => 'Дата создания',
-                                                        'value' => $model_dogovor->created_date,
-                                                    ],
-                                                    'pluginOptions' => [
-                                                        'autoclose' => true,
-                                                        'format' => 'dd-mm-yyyy'
-                                                    ]
-                                                ]); ?>
+                                            <div class="col-md-4 col-xs-4">
+
+
+                                                <?=
+                                                   $form->field($model_dogovor, 'created_date')->widget(DateControl::classname(), [
+                                                      'type'=>DateControl::FORMAT_DATE,
+                                                      'ajaxConversion'=>false,
+
+                                                  ]);
+                                                  ?>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
-                                            <div class="col-md-3 col-xs-3">
-                                                <?= $form->field($model_dogovor, 'closed_date')->textInput(['class' => 'form-control input-sm'])->widget(DatePicker::classname(), [
-                                                    'language' => 'ru',
-                                                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                                                    'options' => [
-                                                        'placeholder' => 'Дата закрытия',
-                                                        'value' => $model_dogovor->closed_date,
-                                                    ],
-                                                    'pluginOptions' => [
-                                                        'autoclose' => true,
-                                                        'format' => 'dd-mm-yyyy'
-                                                    ]
-                                                ]); ?>
+                                            <div class="col-md-4 col-xs-4">
+
+                                                <?= $form->field($model_dogovor, 'closed_date')->widget(DateControl::classname(), [
+                                                    'type'=>DateControl::FORMAT_DATE,
+                                                    'ajaxConversion'=>false,
+
+                                                ]);?>
 
                                             </div>
                                         </div>
@@ -141,8 +133,8 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                                     <div class="col-md-12">
                                         <div class="alert alert-success" role="alert">
                                             <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span
-                                                        class="sr-only">Close</span>
+                                                    aria-hidden="true">×</span><span
+                                                    class="sr-only">Close</span>
                                             </button>
                                             <strong>Данные поставщика</strong>
                                         </div>
@@ -195,7 +187,7 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                                                     'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                                                     'pluginOptions' => [
                                                         'initialize' => true,
-                                                        'initDepends' =>[Html::getInputId($model_dogovor, 'id_contractor')],
+                                                        'initDepends' => [Html::getInputId($model_dogovor, 'id_contractor')],
                                                         //  'depends' => ['dogovor-id_contractor'],
                                                         'depends' => [Html::getInputId($model_dogovor, 'id_contractor')],
                                                         'url' => Url::to(['/banks/dropdown-by-contractor']),
@@ -219,7 +211,7 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                                                     'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                                                     'pluginOptions' => [
                                                         'initialize' => true,
-                                                        'initDepends' =>[Html::getInputId($model_dogovor, 'id_contractor')],
+                                                        'initDepends' => [Html::getInputId($model_dogovor, 'id_contractor')],
 
                                                         // 'depends'=>['dogovor-id_executor'],
                                                         // 'depends' => [Html::getInputId($model_dogovor, 'id_contractor')],
@@ -248,8 +240,8 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                                     <div class="col-md-12">
                                         <div class="alert alert-success" role="alert">
                                             <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span
-                                                        class="sr-only">Close</span>
+                                                    aria-hidden="true">×</span><span
+                                                    class="sr-only">Close</span>
                                             </button>
                                             <strong>Данные покупателя</strong>
                                         </div>
@@ -304,8 +296,8 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                                                     'select2Options' => ['pluginOptions' => ['allowClear' => true]],
                                                     'pluginOptions' => [
                                                         'initialize' => true,
-                                                         // 'depends' => ['id_executor'],
-                                                        'initDepends' =>[Html::getInputId($model_dogovor, 'id_executor')],
+                                                        // 'depends' => ['id_executor'],
+                                                        'initDepends' => [Html::getInputId($model_dogovor, 'id_executor')],
 
                                                         'depends' => [Html::getInputId($model_dogovor, 'id_executor')],
                                                         'url' => Url::to(['/banks/dropdown-by-contractor']),
@@ -337,8 +329,8 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                                     <div class="col-md-12">
                                         <div class="alert alert-success" role="alert">
                                             <button type="button" class="close" data-dismiss="alert"><span
-                                                        aria-hidden="true">×</span><span
-                                                        class="sr-only">Close</span>
+                                                    aria-hidden="true">×</span><span
+                                                    class="sr-only">Close</span>
                                             </button>
                                             <strong>Общее</strong>
                                         </div>
@@ -346,35 +338,19 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
 
                                         <div class="form-group">
                                             <div class="col-md-4 col-xs-4">
-                                                <?= $form->field($model_dogovor, 'delivery_date')->textInput(['class' => 'form-control input-sm'])->widget(DatePicker::classname(), [
-                                                    'language' => 'ru',
-                                                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                                                    'options' => [
-                                                        'placeholder' => 'Дата доставки',
-                                                        'value' => $model_dogovor->delivery_date,
-                                                    ],
-                                                    'pluginOptions' => [
-                                                        'autoclose' => true,
-                                                        'format' => 'dd-mm-yyyy'
-                                                    ]
-                                                ]); ?>
 
+                                                <?= $form->field($model_dogovor, 'delivery_date')->widget(DateControl::classname(), [
+                                                    'type'=>DateControl::FORMAT_DATE,
+                                                ]);?>
                                             </div>
                                         </div>
                                         <div class="form-group">
                                             <div class="col-md-4 col-xs-4">
-                                                <?= $form->field($model_dogovor, 'updated_date')->textInput(['class' => 'form-control input-sm'])->widget(DatePicker::classname(), [
-                                                    'language' => 'ru',
-                                                    'type' => DatePicker::TYPE_COMPONENT_APPEND,
-                                                    'options' => [
-                                                        'placeholder' => 'Дата доставки',
-                                                        'value' => $model_dogovor->delivery_date,
-                                                    ],
-                                                    'pluginOptions' => [
-                                                        'autoclose' => true,
-                                                        'format' => 'dd-mm-yyyy'
-                                                    ]
-                                                ]); ?>
+
+
+                                                <?= $form->field($model_dogovor, 'updated_date')->widget(DateControl::classname(), [
+                                                    'type'=>DateControl::FORMAT_DATE,
+                                                ]);?>
 
                                             </div>
                                         </div>
@@ -404,7 +380,7 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                                     <div class="col-md-12">
 
                                         <div class="form-group">
-                                            <div class="col-md-3 col-xs-5">
+                                            <div class="col-md-3 col-xs-3">
                                                 <?= Html::submitButton($model_dogovor->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_dogovor->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                                             </div>
 

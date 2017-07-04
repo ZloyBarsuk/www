@@ -159,7 +159,7 @@ class DogovorController extends Controller
         }
         $model->load(Yii::$app->request->post());
         Yii::$app->response->format = Response::FORMAT_JSON;
-        return ActiveForm::validate($model);
+                                           return ActiveForm::validate($model);
     }
 
 
