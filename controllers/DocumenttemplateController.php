@@ -10,6 +10,9 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
+use yii\web\Response;
+use yii\widgets\ActiveForm;
+
 /**
  * DocumenttemplateController implements the CRUD actions for DocumentTemplate model.
  */
@@ -56,14 +59,54 @@ class DocumenttemplateController extends Controller
 
     public function actionCreate()
     {
-        $model = new DocumentTemplate();
+        $model_template = new DocumentTemplate();
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $contractor_id = !empty($request->post('contractor_id')) ? $request->post('contractor_id') : '';
+        $model_template->contractor_id = $contractor_id;
+        // если AJAX
+        if ($request->isAjax) {
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->doc_templ_id]);
+            if ($model_template->load($request->post())) {
+
+                if ($model_template->validate()) {
+
+                    $transaction = Yii::$app->db->beginTransaction();
+                    try {
+                        if ($model_template->save(false)) {
+
+                            $transaction->commit();
+                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful')];
+
+                        } else {
+                            $transaction->rollBack();
+                            return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful')];
+
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
+                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful')];
+                    }
+                } else {
+                    return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => $model_template->errors];
+
+                }
+            } else {
+                return $this->renderAjax('create_form', [
+                    'model_template' => $model_template,
+                    // 'contractor_flag'=>$contractor_id,
+
+                ]);
+            }
+
+
         } else {
-            return $this->render('create', [
-                'model' => $model,
+            return $this->render('create_form', [
+                'model_template' => $model_template,
+                //  'contractor_flag'=>$contractor_id,
+
             ]);
+
         }
     }
 
@@ -100,11 +143,6 @@ class DocumenttemplateController extends Controller
     }
 
 
-
-
-
-
-
     public function actionTemplatesByContractor()
     {
 
@@ -113,12 +151,11 @@ class DocumenttemplateController extends Controller
             $parents = $_POST['depdrop_parents'];
             if ($parents != null) {
                 $contractor_id = $parents[0];
-                $out = DocumentTemplate::AllTemplatesContractorDropdown($contractor_id,'dogovor');
+                $out = DocumentTemplate::AllTemplatesContractorDropdown($contractor_id, 'dogovor');
                 $out = ArrayHelper::map($out, 'doc_templ_id', 'name');
                 $result = [];
                 $tmp_arr = [];
-                foreach($out as $key => $value)
-                {
+                foreach ($out as $key => $value) {
                     $tmp_arr = ['id' => $key, 'name' => $value];
                     $result[] = $tmp_arr;
                 }
@@ -128,41 +165,23 @@ class DocumenttemplateController extends Controller
                 //  return ['output' => $result, 'selected' => ''];
 
 
-
-
             }
         }
         echo Json::encode(['output' => '', 'selected' => '']);
         return;
     }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    public function actionAjaxValidate($scenario = false, $model_id = false)
+    {
+        if ($scenario == 'create') {
+            $model = new DocumentTemplate(['scenario' => $scenario]);
+        } else {
+            $model = $this->findModel($model_id);
+            $model->scenario = $scenario;
+        }
+        $model->load(Yii::$app->request->post());
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        return ActiveForm::validate($model);
+    }
 
 }

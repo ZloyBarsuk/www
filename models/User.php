@@ -97,4 +97,14 @@ class User extends \yii\db\ActiveRecord
     {
         return $this->hasMany(Token::className(), ['user_id' => 'id']);
     }
+
+
+
+    public static function findByUsername($username)
+    {
+
+       return $user=self::find()->where(['username'=>'Andrew'])->one();
+
+    }
+
 }

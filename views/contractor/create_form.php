@@ -40,9 +40,10 @@ $this->registerJsFile('@web/js/modal_js/banks/create.js', ['depends' => [\yii\we
                                 банк</a></li>
                     </ul>
                 </li>
+                <li><a href="#documenttemplate_create" role="tab" data-toggle="tab" class="ajax_loader">Шаблоны документов</a></li>
 
             </ul>
-            </li>
+
 
             <!-- Tab panes -->
             <div class="tab-content">
@@ -318,7 +319,10 @@ $this->registerJsFile('@web/js/modal_js/banks/create.js', ['depends' => [\yii\we
 
 
                 </div>
+                <div class="tab-pane" id="documenttemplate_create">
 
+
+                </div>
 
             </div>
             <!-- END TABS -->

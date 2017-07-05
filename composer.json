@@ -32,7 +32,6 @@
         "drsdre/yii2-wizardwidget": "1.2.3",
         "shifrin/yii2-noty": "v1.0.2",
         "kartik-v/yii2-datecontrol": "1.9.0.x-dev"
-
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",

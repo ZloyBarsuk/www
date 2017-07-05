@@ -1,43 +1,55 @@
 <?php
 use \kartik\datecontrol\Module;
+
 $params = require(__DIR__ . '/params.php');
 
 $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
-    'bootstrap' => ['log'],
+    'bootstrap' => [
+        'log',
+      //  'admin',
+    ],
     'sourceLanguage' => 'en',
     'language' => 'ru-RU',
-    'name'=>'Inwiz',
+    'name' => 'Inwiz',
     // 'baseUrl'=> '',
+    'aliases' => [
+      //  '@mdm/admin' =>'@vendor/mdmsoft/yii2-admin',
+        // for example: '@mdm/admin' => '@app/extensions/mdm/yii2-admin-2.0.0',
+
+    ],
     'components' => [
 
         'assetManager' => [
-         //   'linkAssets' => true
+            //   'linkAssets' => true
         ],
-        'i18n'         => [
+        'authManager' => [
+            'class' => 'yii\rbac\DbManager', // or use 'yii\rbac\PhpManager '
+        ],
+        'i18n' => [
             'translations' => [
 
 
-                'app*'   => [
-                    'class'    => 'yii\i18n\PhpMessageSource',
+                'app*' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages',
 
 
                 ],
-                'user'   => [
-                    'class'    => 'yii\i18n\PhpMessageSource',
+               /* 'user' => [
+                    'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages',
 
 
-                ],
+                ],*/
                 /* 'menu*'  => [
                      'class'    => 'yii\i18n\PhpMessageSource',
                      'basePath' => '@app/messages',
                  ],*/
 
                 'kvgrid' => [
-                    'class'    => 'yii\i18n\PhpMessageSource',
+                    'class' => 'yii\i18n\PhpMessageSource',
                     'basePath' => '@app/messages', //'@vendor/kartik-v/yii2-grid/messages',
 
                 ],
@@ -88,7 +100,12 @@ $config = [
 
     ],
     'modules' => [
-        'datecontrol' =>  [
+
+      /*  'admin' => [
+            'class' => 'mdm\admin\Module',
+        ],*/
+
+        'datecontrol' => [
             'class' => 'kartik\datecontrol\Module',
 
             // format settings for displaying each date attribute (ICU format example)
@@ -106,17 +123,17 @@ $config = [
             ],
 
             // set your display timezone
-           // 'displayTimezone' => 'Asia/Kolkata',
+            // 'displayTimezone' => 'Asia/Kolkata',
 
             // set your timezone for date saved to db
-          //  'saveTimezone' => 'UTC',
+            //  'saveTimezone' => 'UTC',
 
             // automatically use kartik\widgets for each of the above formats
             'autoWidget' => true,
 
             // default settings for each widget from kartik\widgets used when autoWidget is true
             'autoWidgetSettings' => [
-                Module::FORMAT_DATE => ['type'=>2, 'pluginOptions'=>['autoclose'=>true]], // example
+                Module::FORMAT_DATE => ['type' => 2, 'pluginOptions' => ['autoclose' => true]], // example
                 Module::FORMAT_DATETIME => [], // setup if needed
                 Module::FORMAT_TIME => [], // setup if needed
             ],
@@ -128,13 +145,22 @@ $config = [
                     'class' => 'yii\jui\DatePicker', // example
                     'options' => [
                         'dateFormat' => 'php:d-M-Y',
-                        'options' => ['class'=>'form-control'],
+                        'options' => ['class' => 'form-control'],
                     ]
                 ]
             ]
             // other settings
         ]
     ],
+  /*  'as access' => [
+        'class' => 'mdm\admin\classes\AccessControl',
+        'allowActions' => [
+            'site/*',
+            'admin/*',
+            'some-controller/some-action',
+
+        ]
+    ],*/
     'params' => $params,
 ];
 

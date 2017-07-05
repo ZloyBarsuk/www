@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\helpers\ArrayHelper;
+
 /**
  * This is the model class for table "document_template".
  *
@@ -28,6 +29,15 @@ class DocumentTemplate extends \yii\db\ActiveRecord
         return 'document_template';
     }
 
+    public function scenarios()
+    {
+        $attr = $this->attributes();
+        return [
+            'create' => $attr,
+            'update' => $attr,
+        ];
+    }
+
     /**
      * @inheritdoc
      */
@@ -35,8 +45,11 @@ class DocumentTemplate extends \yii\db\ActiveRecord
     {
         return [
             [['contractor_id'], 'integer'],
+            [['contractor_id'], 'required'],
+            [['name'], 'unique', 'on' => ['create']],
+            [['name'], 'required', 'on' => ['create']],
             [['document_type'], 'string'],
-            [['date'], 'safe'],
+            [['date', 'path_to_template'], 'safe'],
             [['name', 'path_to_template'], 'string', 'max' => 255],
             [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contractor::className(), 'targetAttribute' => ['contractor_id' => 'contractor_id']],
         ];
@@ -82,15 +95,11 @@ class DocumentTemplate extends \yii\db\ActiveRecord
     }
 
 
-
-
-    public static function AllTemplatesContractorDropdown($contr_id,$template_type='dogovor')
+    public static function AllTemplatesContractorDropdown($contr_id, $template_type = 'dogovor')
     {
-        $templates_model_list = self::find()->orderBy('name')->where(['contractor_id' => (int)$contr_id,'document_type'=>$template_type])->asArray()->all();
+        $templates_model_list = self::find()->orderBy('name')->where(['contractor_id' => (int)$contr_id, 'document_type' => $template_type])->asArray()->all();
         return $templates_model_list;
     }
-
-
 
 
 }
