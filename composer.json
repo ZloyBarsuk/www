@@ -31,7 +31,10 @@
         "demogorgorn/yii2-ajax-submit-button": "1.0",
         "drsdre/yii2-wizardwidget": "1.2.3",
         "shifrin/yii2-noty": "v1.0.2",
-        "kartik-v/yii2-datecontrol": "1.9.0.x-dev"
+        "kartik-v/yii2-datecontrol": "1.9.0.x-dev",
+        "mdmsoft/yii2-admin": "^3.2"
+      
+       
     },
     "require-dev": {
         "yiisoft/yii2-debug": "~2.0.0",
@@ -50,7 +53,7 @@
             "yii\\composer\\Installer::postCreateProject"
         ]
     },
-    "extra": {
+    "fxp-asset": {
         "yii\\composer\\Installer::postCreateProject": {
             "setPermission": [
                 {
@@ -63,7 +66,7 @@
                 "config/web.php"
             ]
         },
-        "asset-installer-paths": {
+        "installer-paths": {
             "npm-asset-library": "vendor/npm",
             "bower-asset-library": "vendor/bower"
         }
