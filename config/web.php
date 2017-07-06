@@ -109,10 +109,11 @@ $config = [
                'assignment' => [
                    'class' => 'mdm\admin\controllers\AssignmentController',
                    /* 'userClassName' => 'app\models\User', */
+                   'userClassName' => 'mdm\admin\models\User',
                    'idField' => 'id',
                    'usernameField' => 'username',
-                   'fullnameField' => 'profile.name',
-                   'extraColumns' => [
+                  // 'fullnameField' => 'profile.name',
+                  /* 'extraColumns' => [
                        [
                            'attribute' => 'name',
                            'label' => 'Full Name',
@@ -134,8 +135,9 @@ $config = [
                                return $model->profile->post->name;
                            },
                        ],
-                   ],
-                   'searchClass' => 'app\models\UserSearch'
+                   ],*/
+                  // 'searchClass' => 'app\models\UserSearch'
+                   'searchClass' => 'mdm\admin\models\searchs\User',
                ],
            ],
 
@@ -199,7 +201,17 @@ $config = [
         'allowActions' => [
             'site/*',
             'admin/*',
-            'some-controller/some-action',
+            'admin/user/logout',
+            'admin/user/security/logout',
+                'gii/*',
+                'user/*',
+                'debug/*',
+            'site/index', // home
+        'site/captcha', // captcha in contact
+        'user/security/*', // login and logout
+        'user/recovery/*', // change password
+        'user/settings/*', // edit self infos
+        'user/profile/*', // user Profile
 
         ]
     ],

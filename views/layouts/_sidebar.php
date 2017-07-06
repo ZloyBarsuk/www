@@ -26,9 +26,14 @@ $controller = Yii::$app->controller;
         </div>
     </div>
     <?php
-
-    echo Nav::widget(['items' => MenuHelper::getAssignedMenu(Yii::$app->user->id)
-    ]);
+    $items = MenuHelper::getAssignedMenu(Yii::$app->user->id);
+    var_dump($items);
+    $items[] = [
+        'label' => 'Logout',
+        'url' => ['admin/user/logout'],
+        'options' => ['data-method' => 'post'],
+    ];
+    echo Nav::widget(['items' => $items]);
     ?>
     <ul class="nav nav-list">
         <li class="">
@@ -43,7 +48,7 @@ $controller = Yii::$app->controller;
         <li class="<?php echo ($controller && $controller->module->id == 'user' && $controller->id == 'admin') || ($controller && $controller->module->id == 'rbac') ? 'open active' : '' ?>">
             <a href="#" class="dropdown-toggle">
                 <i class="menu-icon fa fa-users"></i>
-                    <span class="menu-text">
+                <span class="menu-text">
                         Users
                     </span>
                 <b class="arrow fa fa-angle-down"></b>
@@ -85,7 +90,8 @@ $controller = Yii::$app->controller;
 
     </ul>
     <div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
+        <i class="ace-icon fa fa-angle-double-left" data-icon1="ace-icon fa fa-angle-double-left"
+           data-icon2="ace-icon fa fa-angle-double-right"></i>
     </div>
     <script>
         try {
