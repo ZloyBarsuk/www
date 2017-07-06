@@ -8,7 +8,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
-      //  'admin',
+        'admin',
     ],
     'sourceLanguage' => 'en',
     'language' => 'ru-RU',
@@ -64,8 +64,8 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'identityClass' => 'mdm\admin\models\User',
+            'loginUrl' => ['admin/user/login'],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -101,9 +101,18 @@ $config = [
     ],
     'modules' => [
 
-      /*  'admin' => [
-            'class' => 'mdm\admin\Module',
-        ],*/
+       'admin' => [
+           'class' => 'mdm\admin\Module',
+           'layout' => 'left-menu',
+           'mainLayout' => '@app/views/layouts/main.php',
+
+       ],
+        'menus' => [
+            'assignment' => [
+                'label' => 'Grand Access' // change label
+            ],
+           // 'route' => null, // disable menu route
+        ],
 
         'datecontrol' => [
             'class' => 'kartik\datecontrol\Module',
@@ -152,15 +161,15 @@ $config = [
             // other settings
         ]
     ],
-  /*  'as access' => [
-        'class' => 'mdm\admin\classes\AccessControl',
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'site/*',
             'admin/*',
             'some-controller/some-action',
 
         ]
-    ],*/
+    ],
     'params' => $params,
 ];
 

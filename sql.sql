@@ -30,6 +30,8 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
 -- Дамп данных таблицы inwiz.auth_assignment: ~0 rows (приблизительно)
 DELETE FROM `auth_assignment`;
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
+INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
+	('superadmin', '1', 1499358015);
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.auth_item
@@ -48,10 +50,24 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
   CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы inwiz.auth_item: ~0 rows (приблизительно)
+-- Дамп данных таблицы inwiz.auth_item: ~14 rows (приблизительно)
 DELETE FROM `auth_item`;
 /*!40000 ALTER TABLE `auth_item` DISABLE KEYS */;
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
+	('/dogovor-numeration/*', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor-numeration/create', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor-numeration/delete', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor-numeration/index', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor-numeration/update', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor-numeration/view', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor/*', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor/ajax-validate', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor/create', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor/delete', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor/index', 2, NULL, NULL, NULL, 1499357100, 1499357100),
+	('/dogovor/update', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('/dogovor/view', 2, NULL, NULL, NULL, 1499357101, 1499357101),
+	('DogovorAdmin', 2, NULL, NULL, NULL, 1499358054, 1499358054),
 	('superadmin', 1, '', NULL, NULL, 1493478657, 1493478657);
 /*!40000 ALTER TABLE `auth_item` ENABLE KEYS */;
 
@@ -66,9 +82,14 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
   CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы inwiz.auth_item_child: ~0 rows (приблизительно)
+-- Дамп данных таблицы inwiz.auth_item_child: ~4 rows (приблизительно)
 DELETE FROM `auth_item_child`;
 /*!40000 ALTER TABLE `auth_item_child` DISABLE KEYS */;
+INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
+	('DogovorAdmin', '/dogovor/create'),
+	('DogovorAdmin', '/dogovor/delete'),
+	('DogovorAdmin', '/dogovor/update'),
+	('superadmin', 'DogovorAdmin');
 /*!40000 ALTER TABLE `auth_item_child` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.auth_rule
@@ -113,7 +134,7 @@ CREATE TABLE IF NOT EXISTS `banks` (
   KEY `FK_banks_user` (`created_by`),
   KEY `FK_banks_contractor` (`contractor_id`),
   CONSTRAINT `FK_banks_contractor` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_banks_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `FK_banks_user` FOREIGN KEY (`created_by`) REFERENCES `user_old` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы inwiz.banks: ~3 rows (приблизительно)
@@ -137,7 +158,7 @@ CREATE TABLE IF NOT EXISTS `contractor` (
   `contractor_type` enum('client','owner') DEFAULT 'client',
   PRIMARY KEY (`contractor_id`),
   KEY `FK_contractor_user_accounts` (`created_by`),
-  CONSTRAINT `FK_contractor_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `FK_contractor_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user_old` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы inwiz.contractor: ~18 rows (приблизительно)
@@ -189,7 +210,7 @@ CREATE TABLE IF NOT EXISTS `contractor_info` (
   KEY `FK_contractor_info_contractor` (`id_contractor`),
   KEY `FK_contractor_info_user_accounts` (`created_by`),
   CONSTRAINT `FK_contractor_info_contractor` FOREIGN KEY (`id_contractor`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_contractor_info_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+  CONSTRAINT `FK_contractor_info_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user_old` (`id`) ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
 -- Дамп данных таблицы inwiz.contractor_info: ~18 rows (приблизительно)
@@ -272,7 +293,7 @@ CREATE TABLE IF NOT EXISTS `dogovor` (
   CONSTRAINT `FK_dogovor_contractor` FOREIGN KEY (`id_executor`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_dogovor_contractor_2` FOREIGN KEY (`id_contractor`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_dogovor_doc_template_to_contractor` FOREIGN KEY (`doc_template_id`) REFERENCES `document_template` (`doc_templ_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_dogovor_user` FOREIGN KEY (`id_author`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+  CONSTRAINT `FK_dogovor_user` FOREIGN KEY (`id_author`) REFERENCES `user_old` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы inwiz.dogovor: ~0 rows (приблизительно)
@@ -339,8 +360,8 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   CONSTRAINT `FK_invoice_contractor_2` FOREIGN KEY (`executor_id`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_invoice_doc_template_to_contractor` FOREIGN KEY (`doc_template_id`) REFERENCES `document_template` (`doc_templ_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_invoice_dogovor` FOREIGN KEY (`dogovor_id`) REFERENCES `dogovor` (`dogovor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_invoice_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_invoice_user_2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_invoice_user` FOREIGN KEY (`created_by`) REFERENCES `user_old` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_invoice_user_2` FOREIGN KEY (`updated_by`) REFERENCES `user_old` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы inwiz.invoice: ~0 rows (приблизительно)
@@ -393,6 +414,27 @@ DELETE FROM `inv_sales_ord_conf`;
 /*!40000 ALTER TABLE `inv_sales_ord_conf` DISABLE KEYS */;
 /*!40000 ALTER TABLE `inv_sales_ord_conf` ENABLE KEYS */;
 
+-- Дамп структуры для таблица inwiz.menu
+DROP TABLE IF EXISTS `menu`;
+CREATE TABLE IF NOT EXISTS `menu` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(128) NOT NULL,
+  `parent` int(11) DEFAULT NULL,
+  `route` varchar(256) DEFAULT NULL,
+  `order` int(11) DEFAULT NULL,
+  `data` text,
+  PRIMARY KEY (`id`),
+  KEY `parent` (`parent`),
+  CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `menu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+-- Дамп данных таблицы inwiz.menu: ~0 rows (приблизительно)
+DELETE FROM `menu`;
+/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+INSERT INTO `menu` (`id`, `name`, `parent`, `route`, `order`, `data`) VALUES
+	(1, 'Договор', NULL, '/dogovor/create', NULL, NULL);
+/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
+
 -- Дамп структуры для таблица inwiz.migration
 DROP TABLE IF EXISTS `migration`;
 CREATE TABLE IF NOT EXISTS `migration` (
@@ -401,24 +443,11 @@ CREATE TABLE IF NOT EXISTS `migration` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.migration: ~14 rows (приблизительно)
+-- Дамп данных таблицы inwiz.migration: ~1 rows (приблизительно)
 DELETE FROM `migration`;
 /*!40000 ALTER TABLE `migration` DISABLE KEYS */;
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
-	('m000000_000000_base', 1493478253),
-	('m140209_132017_init', 1493478260),
-	('m140403_174025_create_account_table', 1493478262),
-	('m140504_113157_update_tables', 1493478272),
-	('m140504_130429_create_token_table', 1493478274),
-	('m140506_102106_rbac_init', 1493478455),
-	('m140830_171933_fix_ip_field', 1493478276),
-	('m140830_172703_change_account_table_name', 1493478277),
-	('m141222_110026_update_ip_field', 1493478281),
-	('m141222_135246_alter_username_length', 1493478284),
-	('m150614_103145_update_social_account_table', 1493478292),
-	('m150623_212711_fix_username_notnull', 1493478292),
-	('m151218_234654_add_timezone_to_profile', 1493478294),
-	('m160929_103127_add_last_login_at_to_user_table', 1493478296);
+	('m160312_050000_create_user', 1499351922);
 /*!40000 ALTER TABLE `migration` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.po
@@ -627,7 +656,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   `bio` text COLLATE utf8_unicode_ci,
   `timezone` varchar(40) COLLATE utf8_unicode_ci DEFAULT NULL,
   PRIMARY KEY (`user_id`),
-  CONSTRAINT `fk_user_profile` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  CONSTRAINT `fk_user_profile` FOREIGN KEY (`user_id`) REFERENCES `user_old` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Дамп данных таблицы inwiz.profile: ~0 rows (приблизительно)
@@ -653,7 +682,7 @@ CREATE TABLE IF NOT EXISTS `social_account` (
   UNIQUE KEY `account_unique` (`provider`,`client_id`),
   UNIQUE KEY `account_unique_code` (`code`),
   KEY `fk_user_account` (`user_id`),
-  CONSTRAINT `fk_user_account` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  CONSTRAINT `fk_user_account` FOREIGN KEY (`user_id`) REFERENCES `user_old` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Дамп данных таблицы inwiz.social_account: ~0 rows (приблизительно)
@@ -669,7 +698,7 @@ CREATE TABLE IF NOT EXISTS `token` (
   `created_at` int(11) NOT NULL,
   `type` smallint(6) NOT NULL,
   UNIQUE KEY `token_unique` (`user_id`,`code`,`type`),
-  CONSTRAINT `fk_user_token` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE CASCADE
+  CONSTRAINT `fk_user_token` FOREIGN KEY (`user_id`) REFERENCES `user_old` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 -- Дамп данных таблицы inwiz.token: ~0 rows (приблизительно)
@@ -682,6 +711,28 @@ INSERT INTO `token` (`user_id`, `code`, `created_at`, `type`) VALUES
 -- Дамп структуры для таблица inwiz.user
 DROP TABLE IF EXISTS `user`;
 CREATE TABLE IF NOT EXISTS `user` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `username` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
+  `password_hash` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `password_reset_token` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
+  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
+  `status` smallint(6) NOT NULL DEFAULT '10',
+  `created_at` int(11) NOT NULL,
+  `updated_at` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
+
+-- Дамп данных таблицы inwiz.user: ~0 rows (приблизительно)
+DELETE FROM `user`;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
+	(1, 'andrew', '8gG9R-wZJQvmgg7DpuEwMHhFRd1ZoQLU', '$2y$13$boIYMN54glrP2hNoYX8zoOiebT4MqQdPKnSm/PJZk2eF1YUEcQOqW', NULL, 'dombrovskiyandrej@gmail.com', 10, 1499352129, 1499352129);
+/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+-- Дамп структуры для таблица inwiz.user_old
+DROP TABLE IF EXISTS `user_old`;
+CREATE TABLE IF NOT EXISTS `user_old` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
@@ -700,12 +751,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   UNIQUE KEY `user_unique_email` (`email`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы inwiz.user: ~0 rows (приблизительно)
-DELETE FROM `user`;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-INSERT INTO `user` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
+-- Дамп данных таблицы inwiz.user_old: ~0 rows (приблизительно)
+DELETE FROM `user_old`;
+/*!40000 ALTER TABLE `user_old` DISABLE KEYS */;
+INSERT INTO `user_old` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
 	(1, 'Andrew', 'dombrovskiyandrej@gmail.com', '$2y$10$USrXS2TZzzBHevogdoLzJufkQNfCHTA0C8bsnKUxdrRVYe46XwAGS', 'neuWvoB9_re-QrKWkcFk_NSbp3JczwZI', 1493478691, NULL, NULL, '127.0.0.1', 1493478529, 1493478529, 0, 1493478607);
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+/*!40000 ALTER TABLE `user_old` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

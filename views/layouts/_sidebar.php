@@ -1,6 +1,9 @@
 <?php
 use yii\helpers\Html;
 use yii\helpers\Url;
+use mdm\admin\components\MenuHelper;
+use yii\bootstrap\Nav;
+
 
 /* @var $this \yii\web\View */
 
@@ -22,7 +25,12 @@ $controller = Yii::$app->controller;
             <?php echo Html::a('', ['/'], ['class' => 'btn btn-danger']); ?>
         </div>
     </div>
-
+    <?php
+    $menu=mdm\admin\components\MenuHelper::getAssignedMenu();
+    echo Nav::widget([
+        'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id,$menu)
+    ]);
+    ?>
     <ul class="nav nav-list">
         <li class="">
             <a href="<?= Yii::$app->homeUrl ?>">
