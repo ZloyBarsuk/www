@@ -26,9 +26,8 @@ $controller = Yii::$app->controller;
         </div>
     </div>
     <?php
-    $menu=mdm\admin\components\MenuHelper::getAssignedMenu();
-    echo Nav::widget([
-        'items' => MenuHelper::getAssignedMenu(Yii::$app->user->id,$menu)
+
+    echo Nav::widget(['items' => MenuHelper::getAssignedMenu(Yii::$app->user->id)
     ]);
     ?>
     <ul class="nav nav-list">

@@ -105,13 +105,46 @@ $config = [
            'class' => 'mdm\admin\Module',
            'layout' => 'left-menu',
            'mainLayout' => '@app/views/layouts/main.php',
+           'controllerMap' => [
+               'assignment' => [
+                   'class' => 'mdm\admin\controllers\AssignmentController',
+                   /* 'userClassName' => 'app\models\User', */
+                   'idField' => 'id',
+                   'usernameField' => 'username',
+                   'fullnameField' => 'profile.name',
+                   'extraColumns' => [
+                       [
+                           'attribute' => 'name',
+                           'label' => 'Full Name',
+                           'value' => function($model, $key, $index, $column) {
+                               return $model->profile->full_name;
+                           },
+                       ],
+                       [
+                           'attribute' => 'dept_name',
+                           'label' => 'Department',
+                           'value' => function($model, $key, $index, $column) {
+                               return $model->profile->dept->name;
+                           },
+                       ],
+                       [
+                           'attribute' => 'post_name',
+                           'label' => 'Post',
+                           'value' => function($model, $key, $index, $column) {
+                               return $model->profile->post->name;
+                           },
+                       ],
+                   ],
+                   'searchClass' => 'app\models\UserSearch'
+               ],
+           ],
 
        ],
         'menus' => [
             'assignment' => [
-                'label' => 'Grand Access' // change label
+                'label' => 'FUCKER MOTHER' // change label
             ],
-           // 'route' => null, // disable menu route
+            'route' => true, // disable menu route
         ],
 
         'datecontrol' => [
