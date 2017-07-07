@@ -8,7 +8,7 @@ $config = [
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
         'log',
-      //  'admin',
+        'admin',
     ],
     'sourceLanguage' => 'en',
     'language' => 'ru-RU',
@@ -64,8 +64,8 @@ $config = [
             'class' => 'yii\caching\FileCache',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
-            'enableAutoLogin' => true,
+            'identityClass' => 'mdm\admin\models\User',
+            'loginUrl' => ['admin/user/login'],
         ],
         'errorHandler' => [
             'errorAction' => 'site/error',
@@ -101,9 +101,53 @@ $config = [
     ],
     'modules' => [
 
-      /*  'admin' => [
-            'class' => 'mdm\admin\Module',
-        ],*/
+       'admin' => [
+           'class' => 'mdm\admin\Module',
+           'layout' => 'left-menu',
+           'mainLayout' => '@app/views/layouts/main.php',
+           'controllerMap' => [
+               'assignment' => [
+                   'class' => 'mdm\admin\controllers\AssignmentController',
+                   /* 'userClassName' => 'app\models\User', */
+                   'userClassName' => 'mdm\admin\models\User',
+                   'idField' => 'id',
+                   'usernameField' => 'username',
+                  // 'fullnameField' => 'profile.name',
+                  /* 'extraColumns' => [
+                       [
+                           'attribute' => 'name',
+                           'label' => 'Full Name',
+                           'value' => function($model, $key, $index, $column) {
+                               return $model->profile->full_name;
+                           },
+                       ],
+                       [
+                           'attribute' => 'dept_name',
+                           'label' => 'Department',
+                           'value' => function($model, $key, $index, $column) {
+                               return $model->profile->dept->name;
+                           },
+                       ],
+                       [
+                           'attribute' => 'post_name',
+                           'label' => 'Post',
+                           'value' => function($model, $key, $index, $column) {
+                               return $model->profile->post->name;
+                           },
+                       ],
+                   ],*/
+                  // 'searchClass' => 'app\models\UserSearch'
+                   'searchClass' => 'mdm\admin\models\searchs\User',
+               ],
+           ],
+
+       ],
+        'menus' => [
+            'assignment' => [
+                'label' => 'FUCKER MOTHER' // change label
+            ],
+            'route' => true, // disable menu route
+        ],
 
         'datecontrol' => [
             'class' => 'kartik\datecontrol\Module',
@@ -152,15 +196,25 @@ $config = [
             // other settings
         ]
     ],
-  /*  'as access' => [
-        'class' => 'mdm\admin\classes\AccessControl',
+    'as access' => [
+        'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
             'site/*',
             'admin/*',
-            'some-controller/some-action',
+            'admin/user/logout',
+            'admin/user/security/logout',
+                'gii/*',
+                'user/*',
+                'debug/*',
+            'site/index', // home
+        'site/captcha', // captcha in contact
+        'user/security/*', // login and logout
+        'user/recovery/*', // change password
+        'user/settings/*', // edit self infos
+        'user/profile/*', // user Profile
 
         ]
-    ],*/
+    ],
     'params' => $params,
 ];
 
