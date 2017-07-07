@@ -1,5 +1,5 @@
 <?php
-use \kartik\datecontrol\Module;
+use kartik\datecontrol\Module;
 
 $params = require(__DIR__ . '/params.php');
 
@@ -14,11 +14,7 @@ $config = [
     'language' => 'ru-RU',
     'name' => 'Inwiz',
     // 'baseUrl'=> '',
-    'aliases' => [
-      //  '@mdm/admin' =>'@vendor/mdmsoft/yii2-admin',
-        // for example: '@mdm/admin' => '@app/extensions/mdm/yii2-admin-2.0.0',
 
-    ],
     'components' => [
 
         'assetManager' => [
@@ -37,12 +33,12 @@ $config = [
 
 
                 ],
-               /* 'user' => [
-                    'class' => 'yii\i18n\PhpMessageSource',
-                    'basePath' => '@app/messages',
+                /* 'user' => [
+                     'class' => 'yii\i18n\PhpMessageSource',
+                     'basePath' => '@app/messages',
 
 
-                ],*/
+                 ],*/
                 /* 'menu*'  => [
                      'class'    => 'yii\i18n\PhpMessageSource',
                      'basePath' => '@app/messages',
@@ -92,6 +88,7 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<scenario:\w+>/<model_id:\d+>' => '<controller>/<action>',
 
@@ -101,56 +98,28 @@ $config = [
     ],
     'modules' => [
 
-       'admin' => [
-           'class' => 'mdm\admin\Module',
-           'layout' => 'left-menu',
-           'mainLayout' => '@app/views/layouts/main.php',
-           'controllerMap' => [
-               'assignment' => [
-                   'class' => 'mdm\admin\controllers\AssignmentController',
-                   /* 'userClassName' => 'app\models\User', */
-                   'userClassName' => 'mdm\admin\models\User',
-                   'idField' => 'id',
-                   'usernameField' => 'username',
-                  // 'fullnameField' => 'profile.name',
-                  /* 'extraColumns' => [
-                       [
-                           'attribute' => 'name',
-                           'label' => 'Full Name',
-                           'value' => function($model, $key, $index, $column) {
-                               return $model->profile->full_name;
-                           },
-                       ],
-                       [
-                           'attribute' => 'dept_name',
-                           'label' => 'Department',
-                           'value' => function($model, $key, $index, $column) {
-                               return $model->profile->dept->name;
-                           },
-                       ],
-                       [
-                           'attribute' => 'post_name',
-                           'label' => 'Post',
-                           'value' => function($model, $key, $index, $column) {
-                               return $model->profile->post->name;
-                           },
-                       ],
-                   ],*/
-                  // 'searchClass' => 'app\models\UserSearch'
-                   'searchClass' => 'mdm\admin\models\searchs\User',
-               ],
-           ],
+      /*  'gridview' => [
+            'class' => '\kartik\grid\Module'
 
-       ],
+        ],*/
+
+        'admin' => [
+            'class' => 'mdm\admin\Module',
+            'layout' => 'left-menu',
+            'mainLayout' => '@app/views/layouts/main.php',
+
+
+        ],
         'menus' => [
             'assignment' => [
                 'label' => 'FUCKER MOTHER' // change label
             ],
-            'route' => true, // disable menu route
+            'route' => null, // disable menu route
         ],
 
         'datecontrol' => [
             'class' => 'kartik\datecontrol\Module',
+
 
             // format settings for displaying each date attribute (ICU format example)
             'displaySettings' => [
@@ -199,19 +168,27 @@ $config = [
     'as access' => [
         'class' => 'mdm\admin\components\AccessControl',
         'allowActions' => [
-            'site/*',
+            '*',
             'admin/*',
-            'admin/user/logout',
-            'admin/user/security/logout',
-                'gii/*',
-                'user/*',
-                'debug/*',
-            'site/index', // home
-        'site/captcha', // captcha in contact
-        'user/security/*', // login and logout
-        'user/recovery/*', // change password
-        'user/settings/*', // edit self infos
-        'user/profile/*', // user Profile
+           // 'banks/*',
+            'site/*',
+            'debug/*',
+            'gii/*',
+            'user/*',
+            /* 'site/*',
+             'admin/*',
+             'banks/*',
+             'admin/user/logout',
+             'admin/user/security/logout',
+             'gii/*',
+             'user/*',
+             'debug/*',
+             'site/index',
+             'site/captcha',
+             'user/security/*',
+             'user/recovery/*',
+             'user/settings/*',
+             'user/profile/*', */
 
         ]
     ],

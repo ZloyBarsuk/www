@@ -72,4 +72,6 @@ class ContractorSearch extends Contractor
 
         return $dataProvider;
     }
+
+
 }

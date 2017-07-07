@@ -23,7 +23,6 @@ use yii\widgets\ActiveForm;
 
     <?= $form->field($model, 'signature') ?>
 
-    <?= $form->field($model, 'filename') ?>
 
     <?php // echo $form->field($model, 'created_at') ?>
 

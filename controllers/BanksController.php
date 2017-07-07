@@ -36,7 +36,7 @@ class BanksController extends Controller
 
     public function actionDropdownByContractor()
     {
-      //  Yii::$app->response->format = Response::FORMAT_JSON;
+        //  Yii::$app->response->format = Response::FORMAT_JSON;
 
         $out = [];
         if (isset($_POST['depdrop_parents'])) {
@@ -47,31 +47,24 @@ class BanksController extends Controller
                 $out = ArrayHelper::map($out, 'bank_id', 'name_ua');
                 $result = [];
                 $tmp_arr = [];
-                foreach($out as $key => $value)
-                {
+                foreach ($out as $key => $value) {
                     $tmp_arr = ['id' => $key, 'name' => $value];
                     $result[] = $tmp_arr;
                 }
 
                 echo Json::encode(['output' => $result, 'selected' => '']);
                 return;
-              //  return ['output' => $result, 'selected' => ''];
-
-
+                //  return ['output' => $result, 'selected' => ''];
 
 
             }
         }
         echo Json::encode(['output' => '', 'selected' => '']);
         return;
-       // return ['output' => '', 'selected' => ''];
+        // return ['output' => '', 'selected' => ''];
     }
 
 
-    /**
-     * Lists all Banks models.
-     * @return mixed
-     */
     public function actionIndex()
     {
         $searchModel = new BanksSearch();
@@ -83,11 +76,7 @@ class BanksController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Banks model.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionView($id)
     {
         return $this->render('view', [
@@ -95,11 +84,7 @@ class BanksController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Banks model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate()
     {
         $model_bank = new Banks();
@@ -163,12 +148,12 @@ class BanksController extends Controller
         $request = Yii::$app->getRequest();
         Yii::$app->response->format = Response::FORMAT_JSON;
 
-        // если AJAX
+
         if ($request->isAjax) {
             if ($model_bank->load($request->post()) && $model_bank->validate()) {
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
-                    if ($model_bank->save(false)) {
+                    if ($model_bank->save()) {
                         $transaction->commit();
                         return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => '', /*'result' => $model->save()*/];
                     }
@@ -189,12 +174,6 @@ class BanksController extends Controller
     }
 
 
-    /**
-     * Deletes an existing Banks model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
     public
     function actionDelete($id)
     {
@@ -213,13 +192,7 @@ class BanksController extends Controller
         }
     }
 
-    /**
-     * Finds the Banks model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Banks the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected
     function findModel($id)
     {
@@ -274,6 +247,19 @@ class BanksController extends Controller
             }
 
         }
+    }
+
+    public function actionBanksListForContractor()
+    {
+
+        $searchModel = new BanksSearch();
+        $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
+
+        return $this->render('index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
     }
 
     public function actionAjaxValidate()

@@ -26,14 +26,14 @@ $controller = Yii::$app->controller;
         </div>
     </div>
     <?php
-    $items = MenuHelper::getAssignedMenu(Yii::$app->user->id);
+   /* $items = MenuHelper::getAssignedMenu(Yii::$app->user->id);
     var_dump($items);
     $items[] = [
         'label' => 'Logout',
         'url' => ['admin/user/logout'],
         'options' => ['data-method' => 'post'],
     ];
-    echo Nav::widget(['items' => $items]);
+    echo Nav::widget(['items' => $items]);*/
     ?>
     <ul class="nav nav-list">
         <li class="">

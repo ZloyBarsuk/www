@@ -94,9 +94,9 @@ class Contractor extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getBankToContractors()
+    public function getBanks()
     {
-        return $this->hasMany(BankToContractor::className(), ['id_contractor' => 'contractor_id']);
+        return $this->hasMany(Banks::className(), ['contractor_id' => 'contractor_id']);
     }
 
     /**
@@ -126,7 +126,7 @@ class Contractor extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDogovors()
+    public function getDogovorsExecutor()
     {
         return $this->hasMany(Dogovor::className(), ['id_executor' => 'contractor_id']);
     }
@@ -134,7 +134,7 @@ class Contractor extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getDogovors0()
+    public function getDogovorsContractor()
     {
         return $this->hasMany(Dogovor::className(), ['id_contractor' => 'contractor_id']);
     }
@@ -150,7 +150,7 @@ class Contractor extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getInvoices()
+    public function getInvoicesContractor()
     {
         return $this->hasMany(Invoice::className(), ['contractor_id' => 'contractor_id']);
     }
@@ -158,7 +158,7 @@ class Contractor extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getInvoices0()
+    public function getInvoicesExecutor()
     {
         return $this->hasMany(Invoice::className(), ['executor_id' => 'contractor_id']);
     }

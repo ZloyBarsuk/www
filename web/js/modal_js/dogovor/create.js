@@ -29,7 +29,7 @@ $('body').on('beforeSubmit', 'form#dogovor-form', function (event) {
                          $("#example-form").yiiActiveForm("updateAttribute", key, [val]);
                          });*/
                         var n = Noty('id');
-                        $.noty.setText(n.options.id, data.notify_text);
+                        $.noty.setText(n.options.id, response.responseText);
                         $.noty.setType(n.options.id, 'error');
                     } else {
                         if (data.notify == 1) {
@@ -43,7 +43,7 @@ $('body').on('beforeSubmit', 'form#dogovor-form', function (event) {
                         }
                         else {
                             var n = Noty('id');
-                            $.noty.setText(n.options.id, data.notify_text);
+                            $.noty.setText(n.options.id, response.responseText);
                             $.noty.setType(n.options.id, 'error');
                         }
                     }
@@ -54,7 +54,7 @@ $('body').on('beforeSubmit', 'form#dogovor-form', function (event) {
             error: function (data) {
                 console.log(JSON.stringify(data));
                 var n = Noty('id');
-                $.noty.setText(n.options.id, data.notify_text);
+                $.noty.setText(n.options.id, response.responseText);
                 $.noty.setType(n.options.id, 'error');
             }
         });

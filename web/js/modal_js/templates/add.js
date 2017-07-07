@@ -1,12 +1,12 @@
+/**
+ * Created by ZloyBarsuk on 30.06.2017.
+ */
 $(document).on('ready', function () {
 
-    // index.php
-
-
-    $('#modalButtonBanks').click(function () {
-        var modal = $('#modal-banks');
+    $('#modalButtonProducts').click(function () {
+        var modal = $('#modal-products');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalContentBanks');
+        var modal_content = modal.find('#modalContent');
         modal_content.html('');
 
         $.post(href, function (data) {
@@ -20,7 +20,7 @@ $(document).on('ready', function () {
         })
 
         modal.on('hidden.bs.modal', function (event) {
-            $.pjax.reload({container: '#pjax_products'});
+            $.pjax.reload({container: '#pjax_templates'});
             modal_content.html('');
             return false;
             /* $('#pjax_add_product').on('pjax:end', function () {
@@ -31,7 +31,4 @@ $(document).on('ready', function () {
 
 
     });
-
-
-})
-
+});

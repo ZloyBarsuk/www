@@ -76,8 +76,8 @@ $this->registerJsFile(
         ]
 
     ); ?>    <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
+        'dataProvider' => $dataProvider_banks,
+        'filterModel' => $searchModel_banks,
 
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
@@ -89,17 +89,16 @@ $this->registerJsFile(
             //  'signature',
 
             [
-                'attribute' => 'Печать',
-                'format' => 'raw',
-                'value' => function ($model) {
-                    if ($model->signature != '')
-                        //   return '<img src="/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати';
-                        return '<div class="signature"  style="text-align:center;"><img src="/uploads/signatures/' . $model->signature . '" width="50px" height="auto">'; else return 'нет печати' . "</div>";
+                'attribute' => 'name_ua',
+               // 'format' => 'raw',
+                'value' =>'banks.name_ua'
 
-
-                },
             ],
-
+            [
+                'attribute' => 'name_en',
+                'format' => 'raw',
+                'value' =>'banks.name_en'
+            ],
             // 'created_at',
             // 'created_by',
             // 'contractor_type',
@@ -116,7 +115,7 @@ $this->registerJsFile(
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                             'title' => Yii::t('yii', 'Update'),
                             'class' => 'update_contractor',
-                            'data-model-id' => $model->contractor_id,
+                          //  'data-model-id' => $model->contractor_id,
                             'data-pjax' => 1,
                             // 'action' => $url,
                         ]);
@@ -126,7 +125,7 @@ $this->registerJsFile(
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                             'title' => Yii::t('yii', 'Delete'),
                             'class' => 'delete_contractor',
-                            'data-model-id' => $model->contractor_id,
+                          //  'data-model-id' => $model->contractor_id,
                             'data-pjax' => 1,
                             'data-method' => 'post',
 

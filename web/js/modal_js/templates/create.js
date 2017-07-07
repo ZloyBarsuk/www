@@ -34,7 +34,7 @@ $('body').on('beforeSubmit', 'form#template-form', function (event) {
             },
             error: function (response) {
                 var n = Noty('id');
-                $.noty.setText(n.options.id, JSON.stringify(response));
+                $.noty.setText(n.options.id, response.responseText);
                 $.noty.setType(n.options.id, 'error');
             }
         });

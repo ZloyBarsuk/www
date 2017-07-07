@@ -3,14 +3,13 @@
  */
 $(document).on('ready', function () {
 
-// обновление контрагента и его инфы
-    $('body').on('click', 'td>a.update_contractor', function (event) {
-
+    // обновление твоара блядь
+    $('body').on('click', 'td>a.update_templates', function (event) {
         event.stopPropagation();
         var href = $(this).attr('href');
         var data_id = $(this).attr('data-model-id');
-        var modal = $('#modal-contractor');
-        var modal_content = modal.find('#modalContentContractor');
+        var modal = $('#modal-products');
+        var modal_content = modal.find('#modalContent');
         modal_content.html('');
         $.post(href, function (data) {
             modal_content.html(data);
@@ -22,6 +21,5 @@ $(document).on('ready', function () {
 
         })
         return false;
-
     });
 });

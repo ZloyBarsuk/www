@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\Banks;
+use app\models\BanksSearchByContractor;
 use app\models\ContractorInfo;
 use app\models\Model;
 use Yii;
@@ -123,7 +124,7 @@ class ContractorController extends Controller
 
                 }
             } else {
-                return $this->renderAjax('create_form', [
+                return $this->renderAjax('update_form', [
                     'model_contr' => $model_contr,
                     'model_contr_info' => $model_contr_info,
                     'model_media' => $model_media,
@@ -134,7 +135,7 @@ class ContractorController extends Controller
 
 
         } else {
-            return $this->render('create_form', [
+            return $this->render('update_form', [
                 'model_contr' => $model_contr,
                 'model_contr_info' => $model_contr_info,
                 'model_media' => $model_media,
@@ -159,6 +160,23 @@ class ContractorController extends Controller
             }
 
         }
+    }
+
+
+    public function actionBanksList()
+    {
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $contractor_id = !empty($request->post('contractor_id')) ? $request->post('contractor_id') : '';
+        $searchModel = new BanksSearchByContractor($contractor_id);
+        $dataProvider = $searchModel->SearchBanks(Yii::$app->request->queryParams);
+        $dataProvider->pagination->pageSize = 10;
+        return $this->renderPartial('banks/index', [
+            'searchModel' => $searchModel,
+            'dataProvider' => $dataProvider,
+        ]);
+
+
     }
 
 

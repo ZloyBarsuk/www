@@ -34,8 +34,9 @@ $('body').on('beforeSubmit', 'form#banks-form', function (event) {
                 },
 
                 error: function (response) {
+                    // check error from RBAC and
                     var n = Noty('id');
-                    $.noty.setText(n.options.id, JSON.stringify(response));
+                    $.noty.setText(n.options.id, response.responseText);
                     $.noty.setType(n.options.id, 'error');
 
                 }
