@@ -59,7 +59,7 @@ class DocumenttemplateController extends Controller
 
     public function actionCreate()
     {
-        $model_template = new DocumentTemplate();
+        $model_template = new DocumentTemplate(['scenario'=>'create']);
         $request = Yii::$app->getRequest();
         Yii::$app->response->format = Response::FORMAT_JSON;
         $contractor_id = !empty($request->post('contractor_id')) ? $request->post('contractor_id') : '';

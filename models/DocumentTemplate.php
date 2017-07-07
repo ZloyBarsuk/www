@@ -47,9 +47,9 @@ class DocumentTemplate extends \yii\db\ActiveRecord
             [['contractor_id'], 'integer'],
             [['contractor_id'], 'required'],
             [['name'], 'unique', 'on' => ['create']],
-            [['name'], 'required', 'on' => ['create']],
+            [['name'], 'required', 'on' => ['create','update']],
             [['document_type'], 'string'],
-            [['date', 'path_to_template'], 'safe'],
+            [['date','html_template'], 'safe'],
             [['name', 'path_to_template'], 'string', 'max' => 255],
             [['contractor_id'], 'exist', 'skipOnError' => true, 'targetClass' => Contractor::className(), 'targetAttribute' => ['contractor_id' => 'contractor_id']],
         ];

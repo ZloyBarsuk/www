@@ -2,7 +2,9 @@
  * Created by ZloyBarsuk on 26.06.2017.
  */
 
+
 $('body').on('beforeSubmit', 'form#template-form', function (event) {
+    alert("sdf");
     event.stopPropagation();
     //  var contractor_id = $('#contractor-contractor_id').val();
 
@@ -28,7 +30,7 @@ $('body').on('beforeSubmit', 'form#template-form', function (event) {
                 var n = Noty('id');
                 $.noty.setText(n.options.id, data.notify_text);
                 $.noty.setType(n.options.id, 'information');
-                $.pjax.reload({container: '#pjax_template', timeout: 3000});
+                $.pjax.reload({container: '#pjax_templates', timeout: 3000});
             },
             error: function (response) {
                 var n = Noty('id');
