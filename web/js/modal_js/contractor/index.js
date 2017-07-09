@@ -24,4 +24,27 @@ $(document).on('ready', function () {
         return false;
 
     });
+
+    // показать список банков контрагента блядь
+    $('body').on('click', 'td>a.banks_by_contractor', function (event) {
+        event.stopPropagation();
+        var href = $(this).attr('href');
+
+        var modal = $('#modal-universal');
+        var modal_content = modal.find('#modalUniversalContent');
+        modal_content.html('');
+        $.post(href, function (data) {
+            modal_content.html(data);
+            modal.modal('show');
+        }).fail(function (data) {
+            var n = Noty('id');
+            $.noty.setText(n.options.id, data.responseText);
+            $.noty.setType(n.options.id, 'error');
+
+        })
+        return false;
+
+    });
+
+
 });

@@ -1,9 +1,10 @@
 /**
  * Created by ZloyBarsuk on 30.06.2017.
  */
-$(document).on('ready', function () {
+
 
 // обновление контрагента и его инфы
+$(document).on('ready', function () {
     $('body').on('click', 'td>a.update_banks', function (event) {
 
         event.stopPropagation();
@@ -51,4 +52,5 @@ $(document).on('ready', function () {
         return false;
 
     });
+
 });

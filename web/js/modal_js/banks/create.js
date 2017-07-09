@@ -29,7 +29,16 @@ $('body').on('beforeSubmit', 'form#banks-form', function (event) {
                     var n = Noty('id');
                     $.noty.setText(n.options.id, data.notify_text);
                     $.noty.setType(n.options.id, 'information');
-                    $.pjax.reload({container: '#pjax_banks', timeout: 3000});
+/*
+                    $("#pjax_banks").on("pjax:end", function() {
+                        alert('pjax:end pjax_banks');
+                        //  $.pjax.reload({container: '#pjax_banks', timeout: 3000});
+
+                    });*/
+                 //   $.pjax.reload({container: '#pjax_banks', timeout: 3000});
+                   // $.pjax.reload('#pjax_banks', {timeout : false});
+                    event.preventDefault();
+                    return false;
 
                 },
 
@@ -38,7 +47,7 @@ $('body').on('beforeSubmit', 'form#banks-form', function (event) {
                     var n = Noty('id');
                     $.noty.setText(n.options.id, response.responseText);
                     $.noty.setType(n.options.id, 'error');
-
+                    return false;
                 }
             });
         }
@@ -48,7 +57,7 @@ $('body').on('beforeSubmit', 'form#banks-form', function (event) {
         $.noty.setText(n.options.id, 'контрагент не сохранен или не указан');
         $.noty.setType(n.options.id, 'error');
     }*/
-
+    event.preventDefault();
     return false;
 
 });

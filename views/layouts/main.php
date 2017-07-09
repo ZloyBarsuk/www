@@ -42,11 +42,24 @@ AppAsset::register($this);
         'id' => 'modal-universal',
         'size' => 'modal-lg',
         'toggleButton' => false,
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
     ]);
     echo "<div id='modalUniversalContent'> </div>";
     Modal::end();
     ?>
 
+    <?php
+    /*  universal modal windows for edit and create */
+    Modal::begin([
+        'header' => '<h4><div id="modalUniversalHeader2"> </div></h4>',
+        'id' => 'modal-universal2',
+        'size' => 'modal-lg',
+        'toggleButton' => false,
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+    ]);
+    echo "<div id='modalUniversal2Content'> </div>";
+    Modal::end();
+    ?>
     <div class="main-container" id="main-container">
 
         <?= $this->render($viewSidebar) ?>

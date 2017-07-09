@@ -3,7 +3,7 @@
 namespace app\controllers;
 
 use app\models\Banks;
-use app\models\BanksSearchByContractor;
+use app\models\BanksSearch;
 use app\models\ContractorInfo;
 use app\models\Model;
 use Yii;
@@ -46,6 +46,31 @@ class ContractorController extends Controller
             'dataProvider' => $dataProvider,
         ]);
     }
+
+
+    public function actionBankslist($id)
+    {
+
+        $searchModel = new BanksSearch();
+        //   $dataProvider = $searchModel->BanksByContractor(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(\yii\helpers\ArrayHelper::merge(
+        // Yii::$app->request->queryParams,
+            Yii::$app->request->post(),
+            [$searchModel->formName() => ['contractor_id' => $id]]
+        ));
+
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if ($request->isAjax) {
+            // contractor_banks
+            return $this->renderAjax('contractor_banks', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+
+    }
+
 
 
     public function actionView($id)
@@ -163,21 +188,6 @@ class ContractorController extends Controller
     }
 
 
-    public function actionBanksList()
-    {
-        $request = Yii::$app->getRequest();
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $contractor_id = !empty($request->post('contractor_id')) ? $request->post('contractor_id') : '';
-        $searchModel = new BanksSearchByContractor($contractor_id);
-        $dataProvider = $searchModel->SearchBanks(Yii::$app->request->queryParams);
-        $dataProvider->pagination->pageSize = 10;
-        return $this->renderPartial('banks/index', [
-            'searchModel' => $searchModel,
-            'dataProvider' => $dataProvider,
-        ]);
-
-
-    }
 
 
     protected function findModel($id)

@@ -88,9 +88,10 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
-                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<id:\d+>' => '<controller>/<action>',
                 '<controller:\w+>/<action:\w+>/<scenario:\w+>/<model_id:\d+>' => '<controller>/<action>',
+                '<controller:\w+>/<action:\w+>' => '<controller>/<action>',
+
 
             ],
         ],
@@ -98,10 +99,10 @@ $config = [
     ],
     'modules' => [
 
-      /*  'gridview' => [
+        'gridview' => [
             'class' => '\kartik\grid\Module'
 
-        ],*/
+        ],
 
         'admin' => [
             'class' => 'mdm\admin\Module',

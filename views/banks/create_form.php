@@ -20,12 +20,21 @@ $this->registerJsFile('/js/modal_js/banks/create.js', ['depends' => [\yii\web\Jq
 <div class="banks-form">
     <div class="row">
         <div class="col-md-12">
-            <?php yii\widgets\Pjax::begin(['id' => 'pjax_add_banks']) ?>
+            <?php  yii\widgets\Pjax::begin([
+                    'id' => 'pjax_add_banks',
+                'timeout' => false,
+                'enablePushState' => false,
+            ]) ?>
             <?php $form = ActiveForm::begin([
 
+                'method' => 'post',
                 'id' => 'banks-form',
-                'options' => ['enctype' => 'multipart/form-data'], // important
-                'enableAjaxValidation' => true,
+                'options' => [
+                    //   'enctype' => 'multipart/form-data'
+                    'data-pjax' => true,
+
+                ], // important
+                  'enableAjaxValidation' => true,
                 //  'validationUrl' => Url::toRoute(['/contractor/ajaxvalidate']),
                 'validationUrl' => Url::toRoute(['banks/ajax-validate'  /*, 'scenario' => $model_bank->scenario, 'model_id' => $model_bank->contractor_id */]),
 
@@ -244,6 +253,6 @@ $this->registerJsFile('/js/modal_js/banks/create.js', ['depends' => [\yii\web\Jq
 
 
             <?php ActiveForm::end(); ?>
-            <?php yii\widgets\Pjax::end() ?>
+            <?php  yii\widgets\Pjax::end() ?>
         </div>
     </div>

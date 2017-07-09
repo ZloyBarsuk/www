@@ -33,6 +33,36 @@ class BanksController extends Controller
         ];
     }
 
+    public function actionBankslist($id)
+    {
+
+        $searchModel = new BanksSearch();
+        //   $dataProvider = $searchModel->BanksByContractor(Yii::$app->request->queryParams);
+        $dataProvider = $searchModel->search(\yii\helpers\ArrayHelper::merge(
+           // Yii::$app->request->queryParams,
+            Yii::$app->request->post(),
+            [$searchModel->formName() => ['contractor_id' => $id]]
+        ));
+
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        if ($request->isAjax) {
+            // contractor_banks
+            return $this->renderAjax('contractor_banks', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        if ($request->isPjax) {
+            // contractor_banks
+            return $this->renderPartial('contractor_banks', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+
+
+    }
 
     public function actionDropdownByContractor()
     {
@@ -74,6 +104,7 @@ class BanksController extends Controller
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
     }
 
 

@@ -48,11 +48,11 @@ class Banks extends \yii\db\ActiveRecord
     {
         return [
             [['account_type', 'by_default'], 'string'],
-            [['created_at','created_by'], 'safe'],
+            [['created_at', 'created_by'], 'safe'],
             [['name_ua', 'name_en', 'contractor_id'], 'required'],
-            [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en','r_s', 'k_s','account_type', 'by_default'], 'required'],
+            [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en', 'r_s', 'k_s', 'account_type', 'by_default'], 'required'],
             [['created_by', 'contractor_id'], 'integer'],
-            [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en','comments'], 'string', 'max' => 255],
+            [['name_ua', 'name_en', 'adress_official_ua', 'adress_official_en', 'adress_post_ua', 'adress_post_en', 'comments'], 'string', 'max' => 255],
             [['inn'], 'string', 'max' => 12],
             [['kpp', 'bic', 'swift'], 'string', 'max' => 9],
             [['ogrm'], 'string', 'max' => 13],
@@ -61,7 +61,6 @@ class Banks extends \yii\db\ActiveRecord
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
         ];
     }
-
 
 
     /**
@@ -95,13 +94,14 @@ class Banks extends \yii\db\ActiveRecord
         ];
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
+
+
     public function getContractor()
     {
         return $this->hasOne(Contractor::className(), ['contractor_id' => 'contractor_id']);
     }
+
 
     /**
      * @return \yii\db\ActiveQuery
@@ -117,6 +117,7 @@ class Banks extends \yii\db\ActiveRecord
         $banks_model_list = ArrayHelper::map(self::find()->orderBy('name_ua')->asArray()->all(), 'bank_id', 'name_ua');
         return $banks_model_list;
     }
+
     public static function AllBanksContractorDropdown($contr_id)
     {
         $banks_model_list = self::find()->orderBy('name_ua')->where(['contractor_id' => (int)$contr_id])->asArray()->all();

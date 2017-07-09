@@ -73,5 +73,38 @@ class ContractorSearch extends Contractor
         return $dataProvider;
     }
 
+    public function SearchBanks($params)
+    {
+        $query = Contractor::find();
+        $query->with('banks')->where(['contractor_id'=>$this->contractor_id])->all();
 
+        // add conditions that should always apply here
+
+        $dataProvider = new ActiveDataProvider([
+            'query' => $query,
+        ]);
+
+        $this->load($params);
+
+        if (!$this->validate()) {
+            // uncomment the following line if you do not want to return any records when validation fails
+            // $query->where('0=1');
+            return $dataProvider;
+        }
+
+        // grid filtering conditions
+        $query->andFilterWhere([
+            'contractor_id' => $this->contractor_id,
+            'created_at' => $this->created_at,
+            'created_by' => $this->created_by,
+        ]);
+
+        $query->andFilterWhere(['like', 'name_ua', $this->name_ua])
+            ->andFilterWhere(['like', 'name_en', $this->name_en])
+            ->andFilterWhere(['like', 'signature', $this->signature])
+            //  ->andFilterWhere(['like', 'filename', $this->filename])
+            ->andFilterWhere(['like', 'contractor_type', $this->contractor_type]);
+
+        return $dataProvider;
+    }
 }

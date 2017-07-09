@@ -1,67 +1,67 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\BanksSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('app', 'Banks');
-$this->params['breadcrumbs'][] = $this->title;
+
+
+
+$this->registerJsFile('@web/js/modal_js/banks/add.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/banks/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/banks/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+
 ?>
 <?php
+$this->registerJs(
 
-$this->registerJsFile('@web/js/modal_js/banks/add.js', ['depends' => [yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/modal_js/banks/index.js',['depends' => [yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/modal_js/banks/delete.js',['depends' => [yii\web\JqueryAsset::className()]]);
-
+  "
+  setInterval(
+function refresh()
+{
+    $.pjax.reload({
+    container:'#fuckddd',
+    timeout:6000,
+})
+},10000);
+  "
+);
 ?>
+<?= Html::button(Yii::t('app', 'Create Banks'), ['value' => Url::to('/banks/create'), 'class' => 'btn btn-success', 'id' => 'modalButtonBanks']) ?>
 
 
-<div class="banks-index">
-
-
-    <p>
-        <?= Html::button(Yii::t('app', 'Create Banks'), ['value' => Url::to('/banks/create'), 'class' => 'btn btn-success', 'id' => 'modalButtonBanks']) ?>
-    </p>
-    <?php
-    Modal::begin([
-        'options' => [
-            'id' => 'modal-banks',
-            'tabindex' => false // important for Select2 to work properly
-        ],
-
-        'header' => '<h5>' . Yii::t('app', 'Заполнение данных банка') . '</h5>',
-        //   'footer' => '<div class="form-group"><div class="col-md-5 col-xs-10"></div></div>',
-
-        'size' => 'modal-lg',
-        'toggleButton' => false,
-
-        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
-    ]);
-
-    echo "<div id='modalContentBanks'> </div>";
-    Modal::end();
-    ?>
-
-    <?php Pjax::begin(
-            [
+    <?php /*Pjax::begin(
+        [
             'id' => 'pjax_banks',
+            'clientOptions' => ['method' => 'POST'],
+            'timeout' => false,
+            'enablePushState' => false,
+           'enableReplaceState' => false,
+
         ]
 
-    ); ?>
+    ); */?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'pjax'=>true,
+        'pjaxSettings'=>[
+            'neverTimeout'=>true,
+            'beforeGrid'=>'My fancy content before.',
+            'afterGrid'=>'My fancy content after.',
+            'options'=>[
+                'id'=>'fuckddd',
+            ]
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
-           // 'bank_id',
+            // 'bank_id',
             'name_ua',
             'name_en',
             'inn',
@@ -113,4 +113,4 @@ $this->registerJsFile('@web/js/modal_js/banks/delete.js',['depends' => [yii\web\
             ],
         ],
     ]); ?>
-    <?php Pjax::end(); ?></div>
+    <?php //Pjax::end(); ?></div>
