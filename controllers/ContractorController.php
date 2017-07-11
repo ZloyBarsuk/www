@@ -16,7 +16,8 @@ use yii\widgets\ActiveForm;
 use yii\web\Response;
 use yii\web\UploadedFile;
 use app\models\MediaForm;
-
+use yii\data\ActiveDataProvider;
+use yii\db\Query;
 /**
  * ContractorController implements the CRUD actions for Contractor model.
  */
@@ -60,8 +61,15 @@ class ContractorController extends Controller
         ));
 
         $request = Yii::$app->getRequest();
-        Yii::$app->response->format = Response::FORMAT_JSON;
+      //  Yii::$app->response->format = Response::FORMAT_JSON;
         if ($request->isAjax) {
+            // contractor_banks
+            return $this->renderAjax('contractor_banks', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+            ]);
+        }
+        if ($request->isPjax) {
             // contractor_banks
             return $this->renderAjax('contractor_banks', [
                 'searchModel' => $searchModel,

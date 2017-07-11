@@ -35,7 +35,8 @@ class BanksController extends Controller
 
     public function actionBankslist($id)
     {
-
+        $model_bank = new Banks();
+     //   $model_bank->contractor_id=67;
         $searchModel = new BanksSearch();
         //   $dataProvider = $searchModel->BanksByContractor(Yii::$app->request->queryParams);
         $dataProvider = $searchModel->search(\yii\helpers\ArrayHelper::merge(
@@ -45,21 +46,29 @@ class BanksController extends Controller
         ));
 
         $request = Yii::$app->getRequest();
-        Yii::$app->response->format = Response::FORMAT_JSON;
+        if ($request->isPjax) {
+            // contractor_banks
+            $request = Yii::$app->getRequest();
+            //    Yii::$app->response->format = Response::FORMAT_JSON;
+            return $this->renderAjax('contractor_banks', [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'model_bank' => $model_bank,
+
+            ]);
+        }
+      //  Yii::$app->response->format = Response::FORMAT_JSON;
         if ($request->isAjax) {
+            $request = Yii::$app->getRequest();
+          //  Yii::$app->response->format = Response::FORMAT_JSON;
             // contractor_banks
             return $this->renderAjax('contractor_banks', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
+                'model_bank' => $model_bank,
             ]);
         }
-        if ($request->isPjax) {
-            // contractor_banks
-            return $this->renderPartial('contractor_banks', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-            ]);
-        }
+
 
 
     }
@@ -163,7 +172,7 @@ class BanksController extends Controller
 
 
         } else {
-            return $this->render('create_form', [
+            return $this->renderAjax('create_form', [
                 'model_bank' => $model_bank,
                 //  'contractor_flag'=>$contractor_id,
 

@@ -7,55 +7,72 @@ use yii\helpers\Url;
 use yii\bootstrap\Modal;
 
 
+use yii\widgets\ActiveForm;
+
+use yii\helpers\ArrayHelper;
+use kartik\widgets\Select2;
+use app\models\Contractor;
 
 
-
-$this->registerJsFile('@web/js/modal_js/banks/add.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/modal_js/banks/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/modal_js/banks/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+// $this->registerJsFile('@web/js/modal_js/banks/add.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+// $this->registerJsFile('@web/js/modal_js/banks/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+// $this->registerJsFile('@web/js/modal_js/banks/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+ $this->registerJsFile('@web/js/modal_js/banks/refresh.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 
 ?>
+
+<?= Html::button(Yii::t('app', 'TEST PJAX'), ['value' => '', 'class' => 'btn btn-success', 'id' => 'pjax_button']) ?>
+
 <?php
-$this->registerJs(
 
-  "
-  setInterval(
-function refresh()
-{
-    $.pjax.reload({
-    container:'#fuckddd',
-    timeout:6000,
-})
-},10000);
-  "
-);
+// $this->registerJsFile('/js/modal_js/banks/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
 ?>
-<?= Html::button(Yii::t('app', 'Create Banks'), ['value' => Url::to('/banks/create'), 'class' => 'btn btn-success', 'id' => 'modalButtonBanks']) ?>
 
 
-    <?php /*Pjax::begin(
-        [
-            'id' => 'pjax_banks',
-            'clientOptions' => ['method' => 'POST'],
-            'timeout' => false,
-            'enablePushState' => false,
-           'enableReplaceState' => false,
 
-        ]
 
-    ); */?>
 
     <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
-        'pjax'=>true,
-        'pjaxSettings'=>[
-            'neverTimeout'=>true,
-            'beforeGrid'=>'My fancy content before.',
-            'afterGrid'=>'My fancy content after.',
-            'options'=>[
-                'id'=>'fuckddd',
+        'headerRowOptions'=>['class'=>'kartik-sheet-style'],
+        'panel'=>[
+            'type'=>GridView::TYPE_PRIMARY,
+
+        ],
+        'pjax' => true,
+          'filterUrl'=>Url::to(["banks/bankslist/67"]),
+        'toolbar' => [
+            [
+                'content'=>
+                    Html::button('<i class="glyphicon glyphicon-plus"></i>', [
+                        'type'=>'button',
+                        'title'=>Yii::t('kvgrid', 'Add Book'),
+                        'class'=>'btn btn-success'
+                    ]) . ' '.
+                    Html::a('<i class="glyphicon glyphicon-repeat"></i>', ['banks/bankslist/67'], [
+                        'class' => 'btn btn-default',
+                        'title' => Yii::t('kvgrid', 'Reset Grid')
+                    ]),
+            ],
+            '{export}',
+            '{toggleData}'
+        ],
+        'pjaxSettings' => [
+            'timeout' => false,
+             'neverTimeout'=>false,
+
+            'beforeGrid' => 'My fancy content before.',
+            'afterGrid' => 'My fancy content after.',
+            'enablePushState' => false,
+            'method' => 'POST',
+
+            'options' => [
+                'id' => 'test',
+                'enablePushState' => false,
+
             ]
         ],
         'columns' => [
@@ -113,4 +130,4 @@ function refresh()
             ],
         ],
     ]); ?>
-    <?php //Pjax::end(); ?></div>
+

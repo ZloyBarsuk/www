@@ -99,6 +99,13 @@ class Contractor extends \yii\db\ActiveRecord
         return $this->hasMany(Banks::className(), ['contractor_id' => 'contractor_id']);
     }
 
+    public function getAllBanksByContractor()
+    {
+        $sdf= $this->hasMany(Banks::className(), ['contractor_id' => 'contractor_id'])
+            ->where('contractor_id = :contr_id', [':contr_id' => $this->contractor_id])
+            ->orderBy('bank_id');
+        return $sdf;
+    }
     /**
      * @return \yii\db\ActiveQuery
      */

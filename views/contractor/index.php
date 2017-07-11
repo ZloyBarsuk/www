@@ -34,9 +34,7 @@ $this->registerJsFile(
 $this->registerJsFile(
     '@web/js/modal_js/contractor/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 );
-$this->registerJsFile(
-    '@web/js/modal_js/banks/refresh.js', ['depends' => [\yii\web\JqueryAsset::className()]]
-);
+
 
 ?>
 
@@ -93,7 +91,7 @@ $this->registerJsFile(
                 'attribute' => 'Банки',
                 'format' => 'raw',
                 'value' => function ($model) {
-                   return Html::a(Html::encode('список банков'), ['banks/bankslist/', 'id'=> $model->contractor_id],['class'=>'banks_by_contractor']);
+                    return Html::a(Html::encode('список банков'), ['banks/bankslist/', 'id' => $model->contractor_id], ['class' => 'banks_by_contractor']);
                 },
             ],
             [

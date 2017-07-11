@@ -29,16 +29,36 @@ $('body').on('beforeSubmit', 'form#banks-form', function (event) {
                     var n = Noty('id');
                     $.noty.setText(n.options.id, data.notify_text);
                     $.noty.setType(n.options.id, 'information');
-/*
-                    $("#pjax_banks").on("pjax:end", function() {
-                        alert('pjax:end pjax_banks');
-                        //  $.pjax.reload({container: '#pjax_banks', timeout: 3000});
 
+
+
+
+                  //  $.pjax.reload({container: '#test', timeout: 3000});
+
+
+                   /* $("#test").on("pjax:complete", function(events) {
+                        $(window).on('pjax:popstate', function() {
+                            events.stopPropagation();
+                            events.preventDefault();
+                            return false;
+
+                        });
+                        $(window).on('pjax:popstate', function() {
+                            events.stopPropagation();
+                            events.preventDefault();
+                            return false;
+
+                        });
+                        events.stopPropagation();
+                        events.preventDefault();
+                        return false;
                     });*/
-                 //   $.pjax.reload({container: '#pjax_banks', timeout: 3000});
-                   // $.pjax.reload('#pjax_banks', {timeout : false});
-                    event.preventDefault();
-                    return false;
+
+
+
+
+
+
 
                 },
 
