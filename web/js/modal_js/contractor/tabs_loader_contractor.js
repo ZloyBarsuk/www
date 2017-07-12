@@ -4,8 +4,6 @@
 
 $(document).ready(function () {
 
-    // Загружаем данные по текущему договору в зависимости от нажатия на вкладку. Тоесть, при нажатии на вкладку выбираем из
-// сводных таблиц данные и выводим пользователю.
 
 
     $('body').on('click', '#tabs li>a.ajax_loader', function () {
@@ -15,7 +13,7 @@ $(document).ready(function () {
 
         if (contractor_id == undefined || contractor_id == null || contractor_id == '') {
             var n = Noty('id');
-            $.noty.setText(n.options.id, "Вы не заполнили и не сохранили данные контраента !");
+            $.noty.setText(n.options.id, "Вы не заполнили и не сохранили данные на предыдущей вкладке!");
             $.noty.setType(n.options.id, 'error');
             return false;
         }
@@ -33,7 +31,7 @@ $(document).ready(function () {
 
         $.ajax({
             'url': url,
-            'type': 'POST',
+            'type': 'GET',
             'data': {contractor_id:contractor_id},
             'cache': false,
             success: function (response) {

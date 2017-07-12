@@ -29,52 +29,106 @@ $this->registerJsFile('@web/js/modal_js/templates/create.js', ['depends' => [\yi
     'validationUrl' => Url::toRoute(['documenttemplate/ajax-validate', 'scenario' => $model_template->scenario, 'model_id' => $model_template->doc_templ_id]),
 
 ]); ?>
+<div class="row">
+    <div class="col-md-12">
 
-<?= $form->field($model_template, 'name')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
+        <div class="col-md-10">
+            <div class="form-group">
+                <?= $form->field($model_template, 'name')->textInput(['maxlength' => true, 'class' => 'form-control input-sm']) ?>
 
-<?= $form->field($model_template, 'contractor_id')->widget(Select2::classname(), [
-    'data' => ArrayHelper::map(Contractor::find()->all(), 'contractor_id', 'name_ua'),
-    'value' => $model_template->contractor_id,
-    'language' => 'ru',
-    'options' => ['placeholder' => 'Выбери контрагента...'],
-    'pluginOptions' => [
-        'allowClear' => true,
-        'multiple' => false,
-    ],
-    'pluginEvents' => [
-        "change" => '',
+            </div>
+        </div>
+
+    </div>
+</div>
 
 
-    ],
-])->label('Контрагент') ?>
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="col-md-10">
+            <div class="form-group">
+                <?= $form->field($model_template, 'contractor_id')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(Contractor::find()->all(), 'contractor_id', 'name_ua'),
+                    'value' => $model_template->contractor_id,
+                    'language' => 'ru',
+                    'options' => ['placeholder' => 'Выбери контрагента...'],
+                    'pluginOptions' => [
+                        'allowClear' => true,
+                        'multiple' => false,
+                    ],
+                    'pluginEvents' => [
+                        "change" => '',
 
 
-<?= $form->field($model_template, 'document_type')->dropDownList(['dogovor' => Yii::t('app', 'Dogovor'), 'invoice' => Yii::t('app', 'Invoice'),], ['prompt' => Yii::t('app', 'Choose template')], ['class' => 'form-control input-sm']) ?>
+                    ],
+                ])->label('Контрагент') ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<div class="row">
+
+    <div class="col-md-12">
+        <div class="col-md-4">
+            <div class="form-group">
+                <?= $form->field($model_template, 'document_type')->dropDownList(['dogovor' => Yii::t('app', 'Dogovor'), 'invoice' => Yii::t('app', 'Invoice'),], ['prompt' => Yii::t('app', 'выбери тип шаблона')], ['class' => 'form-control input-sm']) ?>
+
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <?=
+                $form->field($model_template, 'date')->widget(DateControl::classname(), [
+                    'type' => DateControl::FORMAT_DATE,
+                    'ajaxConversion' => false,
+                ]);
+                ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="col-md-12">
+            <div class="form-group">
+                <?php
+                echo $form->field($model_template, 'html_template')->widget(CKEditor::className(), [
+                    'editorOptions' => [
+                        'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
+                        'inline' => false, //по умолчанию false
+                    ],
+                ]);
+                ?>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<div class="row">
+
+    <div class="col-md-12">
+
+        <div class="col-md-4">
+            <div class="form-group">
+                <?= Html::submitButton($model_template->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_template->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
 
 
 
-<?=
-$form->field($model_template, 'date')->widget(DateControl::classname(), [
-    'type' => DateControl::FORMAT_DATE,
-    'ajaxConversion' => false,
-]);
-?>
+            </div>
+        </div>
+    </div>
 
-<?php
-
-
-echo $form->field($model_template, 'html_template')->widget(CKEditor::className(),[
-    'editorOptions' => [
-        'preset' => 'full', //разработанны стандартные настройки basic, standard, full данную возможность не обязательно использовать
-        'inline' => false, //по умолчанию false
-    ],
-]);
-
-
-?>
-
-<?= Html::submitButton($model_template->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_template->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
-
-
+</div>
 <?php ActiveForm::end(); ?>
+
 <?php yii\widgets\Pjax::end() ?>

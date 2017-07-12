@@ -33,42 +33,35 @@ class BanksController extends Controller
         ];
     }
 
-    public function actionBankslist($id)
+    public function actionBanksList()
     {
+
+
+
         $model_bank = new Banks();
-     //   $model_bank->contractor_id=67;
         $searchModel = new BanksSearch();
-        //   $dataProvider = $searchModel->BanksByContractor(Yii::$app->request->queryParams);
-        $dataProvider = $searchModel->search(\yii\helpers\ArrayHelper::merge(
-           // Yii::$app->request->queryParams,
-            Yii::$app->request->post(),
-            [$searchModel->formName() => ['contractor_id' => $id]]
-        ));
+     //   $merged_params = Yii::$app->request->queryParams;
+      //  var_dump($merged_params);
+      //  exit;
+         $request = Yii::$app->getRequest();
+         if ($request->isPost) {
+             $merged_params = Yii::$app->request->post();
+         } else {
+             $merged_params = Yii::$app->request->queryParams;
+         }
 
-        $request = Yii::$app->getRequest();
-        if ($request->isPjax) {
-            // contractor_banks
-            $request = Yii::$app->getRequest();
-            //    Yii::$app->response->format = Response::FORMAT_JSON;
-            return $this->renderAjax('contractor_banks', [
+         $dataProvider = $searchModel->search(\yii\helpers\ArrayHelper::merge(
+             $merged_params,
+             [$searchModel->formName() => ['contractor_id' =>$merged_params['contractor_id'] ]]
+         ));
+
+        return $this->renderAjax('contractor_banks',
+            [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
                 'model_bank' => $model_bank,
-
+                'contractor_id' => Yii::$app->request->post('contractor_id'),
             ]);
-        }
-      //  Yii::$app->response->format = Response::FORMAT_JSON;
-        if ($request->isAjax) {
-            $request = Yii::$app->getRequest();
-          //  Yii::$app->response->format = Response::FORMAT_JSON;
-            // contractor_banks
-            return $this->renderAjax('contractor_banks', [
-                'searchModel' => $searchModel,
-                'dataProvider' => $dataProvider,
-                'model_bank' => $model_bank,
-            ]);
-        }
-
 
 
     }

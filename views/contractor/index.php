@@ -1,7 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
+use kartik\grid\GridView;
 use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 
 $this->registerJsFile(
-    '@web/js/modal_js/common/tabs_loader_contractor.js', ['depends' => [\yii\web\JqueryAsset::className()]]
+    '@web/js/modal_js/contractor/tabs_loader_contractor.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 
 );
 $this->registerJsFile(
@@ -38,47 +38,59 @@ $this->registerJsFile(
 
 ?>
 
-<div class="contractor-index">
+    <div class="contractor-index">
 
     <!-- <h1><? /*= Html::encode($this->title) */ ?></h1>-->
-    <?php
-    //  echo $this->render('_search', ['model' => $searchModel]); ?>
+<?php
+//  echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::button(Yii::t('app', 'Create Contractor'), ['value' => Url::to('/contractor/create'), 'class' => 'btn btn-success', 'id' => 'modalButtonContractor']) ?>
+        <?= Html::button(Yii::t('app', 'Create Contractor'), ['value' => Url::to('/contractor/create'), 'class' => 'btn btn-success', 'id' => 'CreateContractor']) ?>
     </p>
 
-    <?php
-    Modal::begin([
-        'options' => [
-            'id' => 'modal-contractor',
-            'tabindex' => false // important for Select2 to work properly
-        ],
-        'header' => '<h5>' . Yii::t('app', 'Заполнение данных Контрагента') . '</h5>',
-        //   'footer' => '<div class="form-group"><div class="col-md-5 col-xs-10"></div></div>',
 
+<?php
+/*Pjax::begin(
 
-        'size' => 'modal-lg',
-        'toggleButton' => false,
-        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+    [
+        'id' => 'contractors-index-pjax',
+        'timeout' => false,
+        'enablePushState' => false,
+        // 'clientOptions' => ['method' => 'POST']
+    ]
+)*/
+?>
 
-    ]);
+<?= GridView::widget(
 
-    echo "<div id='modalContentContractor'> </div>";
-    Modal::end();
-    ?>
+    [
 
-
-    <?php Pjax::begin([
-
-            'id' => 'pjax_contractor',
-
-        ]
-
-    ); ?>    <?= GridView::widget([
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
+        'captionOptions' =>
+            [
+              //  'data-method' => 'post'
+            ],
+        'panel' => [
+            'type' => GridView::TYPE_PRIMARY,
 
+        ],
+        'pjax' => true,
+        'pjaxSettings' => [
+            'timeout' => false,
+            'neverTimeout' => false,
+
+
+            'enablePushState' => true,
+           // 'method' => 'POST',
+
+            'options' => [
+                'id' => 'contractors_grid',
+                'enablePushState' => true,
+                'timeout' => false,
+
+            ]
+        ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
 
@@ -91,7 +103,7 @@ $this->registerJsFile(
                 'attribute' => 'Банки',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::a(Html::encode('список банков'), ['banks/bankslist/', 'id' => $model->contractor_id], ['class' => 'banks_by_contractor']);
+                    return Html::a(Html::encode('список банков'), ['/banks/bankslist/', 'id' => $model->contractor_id], ['class' => 'banks_by_contractor']);
                 },
             ],
             [
@@ -145,4 +157,5 @@ $this->registerJsFile(
             ],
         ],
     ]); ?>
-    <?php Pjax::end(); ?></div>
+
+<?php // yii\widgets\Pjax::end() ?>

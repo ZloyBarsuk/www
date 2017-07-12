@@ -8,15 +8,21 @@
 // alert('ready');
 
 $('body').on('click', '#pjax_button', function (event) {
-    event.stopPropagation();
+  //  event.stopPropagation();
    // $.pjax.defaults.timeout = 5000;//IMPORTANT
-   //  $.pjax.reload({container:'#test',timeout: false});
 
+   // $( "#refresh_grid" ).trigger( "click" );
+   // event.stopPropagation();
+// $( "body" ).data(); // { foo: 52, bar: { myType: "test", count: 40 }, baz: [ 1, 2, 3 ] }
 
-    $.pjax.reload({
-        container: '#test', // '#test',
+    var grid_data=$('#contractor_banks_modal').data();
+
+   // alert(JSON.stringify(grid_data));
+
+  /*  $.pjax.reload({
+        container: '#contractor-banks-grid',
         push: true,
-      //  url:'banks/bankslist/67',
+        url:grid_data.controller,
         history: false,
         replaceRedirect: true,
         replace: true,
@@ -24,8 +30,8 @@ $('body').on('click', '#pjax_button', function (event) {
         timeout: 5000
     });
 
-
-
+    return false;
+*/
 
 
 });

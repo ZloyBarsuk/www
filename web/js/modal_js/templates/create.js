@@ -4,7 +4,7 @@
 
 
 $('body').on('beforeSubmit', 'form#template-form', function (event) {
-    alert("sdf");
+
     event.stopPropagation();
     //  var contractor_id = $('#contractor-contractor_id').val();
 
@@ -26,9 +26,9 @@ $('body').on('beforeSubmit', 'form#template-form', function (event) {
             'data': form.serialize(),
             // 'data': data,
             'cache': false,
-            success: function (data) {
+            success: function (response) {
                 var n = Noty('id');
-                $.noty.setText(n.options.id, data.notify_text);
+                $.noty.setText(n.options.id, response.responseText);
                 $.noty.setType(n.options.id, 'information');
                 $.pjax.reload({container: '#pjax_templates', timeout: 3000});
             },

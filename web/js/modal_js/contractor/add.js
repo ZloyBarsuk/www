@@ -2,20 +2,19 @@ $(document).on('ready', function () {
 
     // index.php
 
-    $('#modalButtonContractor').click(function () {
+    $('body').on('click', '#CreateContractor', function () {
 
-        var modal = $('#modal-contractor');
+        var modal = $('#modal-first');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalContentContractor');
+        var modal_content = modal.find('#modalFirstContent');
         modal_content.html('');
         var index_highest = 0;
-        modal.each(function () {
-            // always use a radix when using parseInt
-            var index_current = parseInt($(this).css("zIndex"), 1);
-            if (index_current > index_highest) {
-                index_highest = index_current;
-            }
-        });
+        /* modal.each(function () {
+         var index_current = parseInt($(this).css("zIndex"), 1);
+         if (index_current > index_highest) {
+         index_highest = index_current;
+         }
+         });*/
 
         $.post(href, function (data) {
             modal_content.html(data);
@@ -28,8 +27,9 @@ $(document).on('ready', function () {
         })
 
         modal.on('hidden.bs.modal', function (event) {
-            $.pjax.reload({container: '#pjax_contractor'});
             modal_content.html('');
+            $.pjax.reload({container: '#contractors_grid'});
+
             return false;
             event.stopPropagation();
             /* $('#pjax_add_product').on('pjax:end', function () {

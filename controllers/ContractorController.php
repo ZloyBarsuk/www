@@ -49,29 +49,33 @@ class ContractorController extends Controller
     }
 
 
-    public function actionBankslist($id)
+    public function actionBanksList()
     {
+
+        $request = Yii::$app->request;
+        $contractor_id = $request->post('contractor_id');
+
 
         $searchModel = new BanksSearch();
         //   $dataProvider = $searchModel->BanksByContractor(Yii::$app->request->queryParams);
         $dataProvider = $searchModel->search(\yii\helpers\ArrayHelper::merge(
         // Yii::$app->request->queryParams,
             Yii::$app->request->post(),
-            [$searchModel->formName() => ['contractor_id' => $id]]
+            [$searchModel->formName() => ['contractor_id' => $contractor_id]]
         ));
 
         $request = Yii::$app->getRequest();
       //  Yii::$app->response->format = Response::FORMAT_JSON;
         if ($request->isAjax) {
             // contractor_banks
-            return $this->renderAjax('contractor_banks', [
+            return $this->renderAjax('/banks/contractor_banks', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
             ]);
         }
         if ($request->isPjax) {
             // contractor_banks
-            return $this->renderAjax('contractor_banks', [
+            return $this->renderAjax('/banks/contractor_banks', [
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
             ]);
@@ -142,14 +146,14 @@ class ContractorController extends Controller
                             // success message flash
 
                             Yii::$app->response->format = Response::FORMAT_JSON;
-                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => '', /*'result' => $model->save()*/];
+                            return ['notify' => 1, 'responseText' => Yii::t('app', 'The action was successful'), 'validate' => '', /*'result' => $model->save()*/];
 
                             // Yii::$app->session->setFlash('success', 'This is the message');
                         }
                     } catch (Exception $e) {
                         $transaction->rollBack();
                         Yii::$app->response->format = Response::FORMAT_JSON;
-                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+                        return ['notify' => 0, 'responseText' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
 
                     }
                 } else {
@@ -241,14 +245,14 @@ class ContractorController extends Controller
                             $transaction->commit();
                             Yii::$app->response->format = Response::FORMAT_JSON;
                             // success message flash
-                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'validate' => '', 'contractor_id' => $model_contr->contractor_id];
+                            return ['notify' => 1, 'responseText' => Yii::t('app', 'The action was successful'), 'validate' => '', 'contractor_id' => $model_contr->contractor_id];
 
                             // Yii::$app->session->setFlash('success', 'This is the message');
                         }
                     } catch (Exception $e) {
                         $transaction->rollBack();
                         Yii::$app->response->format = Response::FORMAT_JSON;
-                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
+                        return ['notify' => 0, 'responseText' => Yii::t('app', 'The action was unsuccessful'), 'validate' => ''];
 
                     }
                 } else {

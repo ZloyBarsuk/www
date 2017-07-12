@@ -36,30 +36,42 @@ AppAsset::register($this);
     <?= $this->render($viewNavbar) ?>
 
     <?php
-    /*  universal modal windows for edit and create */
+    /*  first is modal windows for grid-view */
+
     Modal::begin([
-        'header' => '<h4><div id="modalUniversalHeader"> </div></h4>',
-        'id' => 'modal-universal',
+        'header' => '<h4><div id="modalFirstHeader"> </div></h4>',
+        'id' => 'modal-first',
+        'options' => [
+            'tabindex' => false // important for Select2 to work properly
+        ],
         'size' => 'modal-lg',
         'toggleButton' => false,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
     ]);
-    echo "<div id='modalUniversalContent'> </div>";
+    echo "<div id='modalFirstContent'> </div>";
     Modal::end();
+
     ?>
 
     <?php
-    /*  universal modal windows for edit and create */
+    /*  second is  modal windows for edit and create */
+
     Modal::begin([
-        'header' => '<h4><div id="modalUniversalHeader2"> </div></h4>',
-        'id' => 'modal-universal2',
+        'header' => '<h4><div id="modalSecondHeader"> </div></h4>',
+        'id' => 'modal-second',
+        'options' => [
+            'tabindex' => false // important for Select2 to work properly
+        ],
         'size' => 'modal-lg',
         'toggleButton' => false,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
     ]);
-    echo "<div id='modalUniversal2Content'> </div>";
+    echo "<div id='modalSecondContent'> </div>";
     Modal::end();
+
     ?>
+
+
     <div class="main-container" id="main-container">
 
         <?= $this->render($viewSidebar) ?>
@@ -71,7 +83,7 @@ AppAsset::register($this);
     <?php
 
     echo \shifrin\noty\NotyWidget::widget([
-        'options' => [ // you can add js options here, see noty plugin page for available options
+        'options' => [
 
             'dismissQueue' => true,
             'layout' => 'topCenter',
@@ -81,15 +93,15 @@ AppAsset::register($this);
                 'close' => 'animated flipOutX',
             ],
             'timeout' => Yii::$app->params['timeout_noty'],
-            'progressBar'=>true,
+            'progressBar' => true,
         ],
         'enableSessionFlash' => true,
-    'enableIcon' => true,
-    'registerAnimateCss' => true,
-    'registerButtonsCss' => true,
-    'registerFontAwesomeCss' => true,
+        'enableIcon' => true,
+        'registerAnimateCss' => true,
+        'registerButtonsCss' => true,
+        'registerFontAwesomeCss' => true,
     ]);
-?>
+    ?>
     </body>
     <?php $this->endBody() ?>
     </html>

@@ -38,7 +38,7 @@ $this->registerJsFile('@web/js/modal_js/banks/create.js', ['depends' => [\yii\we
                                  списка существующих</a></li>-->
                         <li><a href="#banks_create" role="tab" data-toggle="tab" class="ajax_loader">Записать новый
                                 банк</a></li>
-                        <li><a href="#contractor_banks-list" role="tab" data-toggle="tab" class="ajax_loader">Список банков</a></li>
+                        <li><a href="#banks_banks-list" role="tab" data-toggle="tab" class="ajax_loader">Список банков</a></li>
                     </ul>
                 </li>
                 <li><a href="#documenttemplate_create" role="tab" data-toggle="tab" class="ajax_loader">Шаблоны документов</a></li>
@@ -269,33 +269,7 @@ $this->registerJsFile('@web/js/modal_js/banks/create.js', ['depends' => [\yii\we
                                                 <div class="col-md-3 col-xs-5">
                                                     <?= Html::submitButton($model_contr->isNewRecord ? Yii::t('app', 'Create') : Yii::t('app', 'Update'), ['class' => $model_contr->isNewRecord ? 'btn btn-success' : 'btn btn-primary']) ?>
                                                 </div>
-                                                <div class="col-md-10">
-                                                    <div class="alert alert-success" role="alert" style="display:none;"
-                                                         id="success_notify">
 
-                                                        <button type="button" class="close" data-dismiss="alert">
-                                                            <span
-                                                                    aria-hidden="true">×</span>
-                                                            <span
-                                                                    class="sr-only"><?php Yii::t('app', 'Close'); ?> </span>
-                                                        </button>
-                                                        <strong>
-                                                            <div class="success_notify_content"></div>
-                                                        </strong>
-                                                    </div>
-                                                    <div class="alert alert-danger" role="alert" style="display:none;"
-                                                         id="danger_notify">
-
-                                                        <button type="button" class="close" data-dismiss="alert">
-                                                            <span aria-hidden="true">×</span>
-
-                                                            <span class="sr-only"><?php Yii::t('app', 'Close'); ?> </span>
-                                                        </button>
-                                                        <strong>
-                                                            <div class="danger_notify_content"></div>
-                                                        </strong>
-                                                    </div>
-                                                </div>
 
                                             </div>
                                         </div>
@@ -320,7 +294,7 @@ $this->registerJsFile('@web/js/modal_js/banks/create.js', ['depends' => [\yii\we
 
 
                 </div>
-                <div class="tab-pane" id="contractor_banks-list">
+                <div class="tab-pane" id="banks_banks-list">
 
 
                 </div>

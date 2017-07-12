@@ -55,8 +55,8 @@ class Contractor extends \yii\db\ActiveRecord
     public function scenarios()
     {
         return [
-            'create' => ['name_ua', 'name_en','contractor_type', 'signature'],
-            'update' => ['name_ua', 'name_en','contractor_type', 'signature']
+            'create' => ['name_ua', 'name_en', 'contractor_type', 'signature'],
+            'update' => ['name_ua', 'name_en', 'contractor_type', 'signature']
         ];
     }
 
@@ -66,7 +66,7 @@ class Contractor extends \yii\db\ActiveRecord
         return [
             [['name_ua', 'name_en'], 'required', 'on' => ['create', 'update']],
             [['name_ua', 'name_en'], 'unique', 'on' => ['create']],
-           // [['name_ua', 'name_en', 'signature', 'contractor_type'], 'safe', 'on' => ['update']],
+            // [['name_ua', 'name_en', 'signature', 'contractor_type'], 'safe', 'on' => ['update']],
             [['name_ua', 'name_en', 'signature',], 'string', 'max' => 255, 'on' => ['create', 'update']],
             [['created_by'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['created_by' => 'id']],
 
@@ -91,9 +91,7 @@ class Contractor extends \yii\db\ActiveRecord
     }
 
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getBanks()
     {
         return $this->hasMany(Banks::className(), ['contractor_id' => 'contractor_id']);
@@ -101,70 +99,55 @@ class Contractor extends \yii\db\ActiveRecord
 
     public function getAllBanksByContractor()
     {
-        $sdf= $this->hasMany(Banks::className(), ['contractor_id' => 'contractor_id'])
+        $result = $this->hasMany(Banks::className(), ['contractor_id' => 'contractor_id'])
             ->where('contractor_id = :contr_id', [':contr_id' => $this->contractor_id])
             ->orderBy('bank_id');
-        return $sdf;
+        return $result;
     }
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
+
     public function getCreatedBy()
     {
         return $this->hasOne(User::className(), ['id' => 'created_by']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getContractorInfo()
     {
         return $this->hasOne(ContractorInfo::className(), ['id_contractor' => 'contractor_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getDocumentTemplates()
     {
         return $this->hasMany(DocumentTemplate::className(), ['contractor_id' => 'contractor_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getDogovorsExecutor()
     {
         return $this->hasMany(Dogovor::className(), ['id_executor' => 'contractor_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getDogovorsContractor()
     {
         return $this->hasMany(Dogovor::className(), ['id_contractor' => 'contractor_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getDogovorNumerations()
     {
         return $this->hasMany(DogovorNumeration::className(), ['executor_id' => 'contractor_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getInvoicesContractor()
     {
         return $this->hasMany(Invoice::className(), ['contractor_id' => 'contractor_id']);
     }
 
-    /**
-     * @return \yii\db\ActiveQuery
-     */
+
     public function getInvoicesExecutor()
     {
         return $this->hasMany(Invoice::className(), ['executor_id' => 'contractor_id']);

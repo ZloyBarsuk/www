@@ -42,9 +42,19 @@ $(document).on('ready', function () {
             $.noty.setType(n.options.id, 'error');
 
         })
+        modal.on('hidden.bs.modal', function (event) {
+            modal_content.html('');
+            $.pjax.reload({container: '#contractor_grids', timeout: 3000});
+
+            return false;
+
+        });
+
+
         return false;
 
     });
 
 
 });
+

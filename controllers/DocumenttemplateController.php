@@ -76,19 +76,19 @@ class DocumenttemplateController extends Controller
                         if ($model_template->save(false)) {
 
                             $transaction->commit();
-                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful')];
+                            return ['notify' => 1, 'responseText' => Yii::t('app', 'The action was successful')];
 
                         } else {
                             $transaction->rollBack();
-                            return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful')];
+                            return ['notify' => 0, 'responseText' => Yii::t('app', 'The action was unsuccessful')];
 
                         }
                     } catch (Exception $e) {
                         $transaction->rollBack();
-                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful')];
+                        return ['notify' => 0, 'responseText' => Yii::t('app', 'The action was unsuccessful')];
                     }
                 } else {
-                    return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => $model_template->errors];
+                    return ['notify' => 0, 'responseText' => Yii::t('app', 'The action was unsuccessful'), 'validate' => $model_template->errors];
 
                 }
             } else {

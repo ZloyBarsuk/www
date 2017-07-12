@@ -9,12 +9,12 @@ $(document).on('ready', function () {
         var modal_content = modal.find('#modalContent');
         modal_content.html('');
 
-        $.post(href, function (data) {
-            modal_content.html(data);
+        $.post(href, function (response) {
+            modal_content.html(response);
             modal.modal('show');
-        }).fail(function (data) {
+        }).fail(function (response) {
             var n = Noty('id');
-            $.noty.setText(n.options.id, data.responseText);
+            $.noty.setText(n.options.id, response.responseText);
             $.noty.setType(n.options.id, 'error');
 
         })
