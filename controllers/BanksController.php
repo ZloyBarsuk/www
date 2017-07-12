@@ -43,7 +43,8 @@ class BanksController extends Controller
      //   $merged_params = Yii::$app->request->queryParams;
       //  var_dump($merged_params);
       //  exit;
-         $request = Yii::$app->getRequest();
+        $request = Yii::$app->getRequest();
+     //   Yii::$app->response->format = Response::FORMAT_JSON;
          if ($request->isPost) {
              $merged_params = Yii::$app->request->post();
          } else {
@@ -60,7 +61,7 @@ class BanksController extends Controller
                 'searchModel' => $searchModel,
                 'dataProvider' => $dataProvider,
                 'model_bank' => $model_bank,
-                'contractor_id' => Yii::$app->request->post('contractor_id'),
+                'contractor_id' => $merged_params['contractor_id'] ,
             ]);
 
 
@@ -128,6 +129,7 @@ class BanksController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $contractor_id = !empty($request->post('contractor_id')) ? $request->post('contractor_id') : '';
         $model_bank->contractor_id = $contractor_id;
+        $model_bank->contractor_id = $request->queryParams;
         // если AJAX
         if ($request->isAjax) {
 

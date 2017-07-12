@@ -23,6 +23,7 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
      //  'js/modal_js/jquery.easytabs.js'
+      // 'js/modal_js/banks/create.js'
     ];
 
 

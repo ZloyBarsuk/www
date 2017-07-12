@@ -4,6 +4,7 @@
 
 $('body').on('beforeSubmit', 'form#banks-form', function (event) {
     event.stopPropagation();
+
   //  var contractor_id = $('#contractor-contractor_id').val();
 
   //  if (contractor_id !== undefined || contractor_id !== '') {

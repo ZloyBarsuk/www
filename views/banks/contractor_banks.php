@@ -17,13 +17,11 @@ use app\models\Contractor;
 // $this->registerJsFile('@web/js/modal_js/banks/add.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 // $this->registerJsFile('@web/js/modal_js/banks/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 // $this->registerJsFile('@web/js/modal_js/banks/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/modal_js/banks/refresh.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 
 ?>
 
 <?= Html::button(Yii::t('app', 'TEST PJAX'), ['value' => '', 'class' => 'btn btn-success', 'id' => 'pjax_button']) ?>
-
 <?php
 
 // $this->registerJsFile('/js/modal_js/banks/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
@@ -31,13 +29,55 @@ $this->registerJsFile('@web/js/modal_js/banks/refresh.js', ['depends' => [\yii\w
 ?>
 
 <?php
-/*Pjax::begin(['id' => 'banks-list-modal-pjax',
-    'timeout' => false,
-    'enablePushState' => false,
-    'clientOptions' => ['method' => 'POST']])*/
+$this->registerJs('
+$( "body #pjax_button" ).off();
+
+$(\'#pjax_button\').on(\'click\', function (event) {
+    event.stopPropagation();
+    alert(\'cccccccccccccccccccc\');
+    // $.pjax.defaults.timeout = 5000;//IMPORTANT
+    // alert(\'ready\');
+    // $( "#refresh_grid" ).trigger( "click" );
+    // event.stopPropagation();
+// $( "body" ).data(); // { foo: 52, bar: { myType: "test", count: 40 }, baz: [ 1, 2, 3 ] }
+
+    var grid_data=$(\'body #contractor_banks_modal\').data();
+
+   // alert(JSON.stringify(grid_data));
+    // $.pjax.reload({container:\'#contractor-banks-grid\', replaceRedirect:false, replace:true});
+    $.pjax.reload({
+        container: \'#contractor-banks-grid\',
+        push: true,
+        url:grid_data.controller,
+        data:{\'contractor_id\':grid_data.contractor_id},
+        history: false,
+        cache: false,
+        datatype:\'html\',
+        replaceRedirect: false,
+        replace: true,
+        type: \'GET\',
+        timeout: 3000
+    });
+
+    return false;
+
+
+
+});
+');
+?>
+<?php
+
+// $this->registerJsFile('/js/modal_js/banks/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+ $this->registerJsFile('/js/modal_js/banks/pjax_reload.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+
+
+
+
 ?>
 
 
+<div>
 
 <?= GridView::widget([
     'dataProvider' => $dataProvider,
@@ -46,8 +86,8 @@ $this->registerJsFile('@web/js/modal_js/banks/refresh.js', ['depends' => [\yii\w
    // 'captionOptions' => ['data-method' => 'post',],
     'options' => [
     'id'=>'contractor_banks_modal',
-    'data-controller' => "/banks/bankslist/$contractor_id",
-
+    'data-controller' => "/banks/banks-list",
+     'data-contractor_id' => "$contractor_id",
     ],
 
     'panel' => [
@@ -147,4 +187,4 @@ $this->registerJsFile('@web/js/modal_js/banks/refresh.js', ['depends' => [\yii\w
     ],
 ]); ?>
 
-<?php // yii\widgets\Pjax::end() ?>
+</div>
