@@ -109,7 +109,6 @@ class ContractorController extends Controller
 
         $model_media = new MediaForm();
         $oldSignature = $model_contr->signature;
-
         $request = Yii::$app->getRequest();
 
         // если AJAX
@@ -161,7 +160,7 @@ class ContractorController extends Controller
 
                 }
             } else {
-                return $this->renderAjax('update_form', [
+                return $this->renderAjax('create_form', [
                     'model_contr' => $model_contr,
                     'model_contr_info' => $model_contr_info,
                     'model_media' => $model_media,
@@ -172,7 +171,7 @@ class ContractorController extends Controller
 
 
         } else {
-            return $this->render('update_form', [
+            return $this->render('create_form', [
                 'model_contr' => $model_contr,
                 'model_contr_info' => $model_contr_info,
                 'model_media' => $model_media,

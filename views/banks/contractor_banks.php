@@ -87,7 +87,7 @@ $(\'#pjax_button\').on(\'click\', function (event) {
     'options' => [
     'id'=>'contractor_banks_modal',
     'data-controller' => "/banks/banks-list",
-     'data-contractor_id' => "$contractor_id",
+        'data-contractor_id' => "$contractor_id",
     ],
 
     'panel' => [
@@ -95,8 +95,8 @@ $(\'#pjax_button\').on(\'click\', function (event) {
 
     ],
     'pjax' => true,
-    'filterUrl' => Url::to(["banks/bankslist/$contractor_id"]),
-    'toolbar' => [
+    // 'filterUrl' => Url::to(["banks/bankslist/$contractor_id"]),
+   /* 'toolbar' => [
         [
             'content' =>
                 Html::button('<i class="glyphicon glyphicon-plus"></i>', [
@@ -113,22 +113,17 @@ $(\'#pjax_button\').on(\'click\', function (event) {
         ],
         '{export}',
         '{toggleData}'
-    ],
+    ],*/
     'pjaxSettings' => [
         'timeout' => false,
         'neverTimeout' => false,
-
         'beforeGrid' => 'My fancy content before.',
         'afterGrid' => 'My fancy content after.',
-
         'method' => 'post',
-
         'options' => [
             'id' => 'contractor-banks-grid',
             'enablePushState' => false,
             'timeout' => false,
-
-
         ]
     ],
     'columns' => [

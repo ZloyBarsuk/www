@@ -13,23 +13,18 @@ use kartik\file\FileInput;
 
 $this->registerJsFile('@web/js/modal_js/contractor/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
-$this->registerJsFile('@web/js/modal_js/banks/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-
 ?>
  <div class="row">
     <div class="col-md-12">
 
         <!-- START TABS -->
         <div id="tabs">
-
-
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active"><a href="#contractor" role="tab" data-toggle="tab">Контрагент</a></li>
                 <!-- <li><a href="#javatab" role="tab" data-toggle="tab" class="ajax_loader">Java</a></li>
                  <li><a href="#csharptab" role="tab" data-toggle="tab" class="ajax_loader">C#</a></li>
                  <li><a href="#mysqltab" role="tab" data-toggle="tab" class="ajax_loader">MySQL</a></li>-->
-
                 <li class="dropdown">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">Банки<b
                                 class="caret"></b></a>

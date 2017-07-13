@@ -42,7 +42,7 @@ AppAsset::register($this);
         'header' => '<h4><div id="modalFirstHeader"> </div></h4>',
         'id' => 'modal-first',
         'options' => [
-            'tabindex' => false // important for Select2 to work properly
+            'tabindex' => false
         ],
         'size' => 'modal-lg',
         'toggleButton' => false,
@@ -60,7 +60,7 @@ AppAsset::register($this);
         'header' => '<h4><div id="modalSecondHeader"> </div></h4>',
         'id' => 'modal-second',
         'options' => [
-            'tabindex' => false // important for Select2 to work properly
+            'tabindex' => false
         ],
         'size' => 'modal-lg',
         'toggleButton' => false,

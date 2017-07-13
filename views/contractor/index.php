@@ -6,9 +6,6 @@ use yii\widgets\Pjax;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 
-/* @var $this yii\web\View */
-/* @var $searchModel app\models\ContractorSearch */
-/* @var $dataProvider yii\data\ActiveDataProvider */
 
 $this->title = Yii::t('app', 'Contractor');
 $this->params['breadcrumbs'][] = $this->title;
@@ -24,13 +21,10 @@ $this->registerJsFile(
 
 );
 
-
-// обновление контрагента
 $this->registerJsFile(
     '@web/js/modal_js/contractor/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 );
 
-// удаление контрагента
 $this->registerJsFile(
     '@web/js/modal_js/contractor/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 );
@@ -64,46 +58,38 @@ $this->registerJsFile(
 <?= GridView::widget(
 
     [
-
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'captionOptions' =>
             [
-              //  'data-method' => 'post'
+                //  'data-method' => 'post'
             ],
         'panel' => [
             'type' => GridView::TYPE_PRIMARY,
-
         ],
         'pjax' => true,
         'pjaxSettings' => [
             'timeout' => false,
             'neverTimeout' => false,
-
-
             'enablePushState' => true,
-           // 'method' => 'POST',
-
+            // 'method' => 'POST',
             'options' => [
                 'id' => 'contractors_grid',
                 'enablePushState' => true,
                 'timeout' => false,
-
             ]
         ],
         'columns' => [
             ['class' => 'yii\grid\SerialColumn'],
-
             // 'contractor_id',
             'name_en',
             'name_ua',
-
             //  'signature',
             [
                 'attribute' => 'Банки',
                 'format' => 'raw',
                 'value' => function ($model) {
-                    return Html::a(Html::encode('список банков'), ['/banks/bankslist/', 'id' => $model->contractor_id], ['class' => 'banks_by_contractor']);
+                    return Html::a(Html::encode('список банков'), ['/banks/banks-list', ], ['class' => 'banks_by_contractor','data-contr_id' => $model->contractor_id]);
                 },
             ],
             [
@@ -113,8 +99,6 @@ $this->registerJsFile(
                     if ($model->signature != '')
                         //   return '<img src="/uploads/signatures/'.$model->signature.'" width="50px" height="auto">'; else return 'нет печати';
                         return '<div class="signature"  style="text-align:center;"><img src="/uploads/signatures/' . $model->signature . '" width="50px" height="auto">'; else return 'нет печати' . "</div>";
-
-
                 },
             ],
 
@@ -126,7 +110,6 @@ $this->registerJsFile(
                 /*'urlCreator'=>function ( $action,  $model,  $key,  $index,  $this) {
                 return $key.'/'.$action;
                 },*/
-
                 'header' => 'Действия',
                 'template' => '{update}{delete}',
                 'buttons' => [
@@ -134,24 +117,22 @@ $this->registerJsFile(
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                             'title' => Yii::t('yii', 'Update'),
                             'class' => 'update_contractor',
-                            'data-model-id' => $model->contractor_id,
+                            'data-cont_id' => $model->contractor_id,
                             'data-pjax' => 1,
                             // 'action' => $url,
                         ]);
                     },
-
                     'delete' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
                             'title' => Yii::t('yii', 'Delete'),
                             'class' => 'delete_contractor',
-                            'data-model-id' => $model->contractor_id,
+                            'data-cont_id' => $model->contractor_id,
                             'data-pjax' => 1,
                             'data-method' => 'post',
 
                             // 'action' => $url,
                         ]);
                     },
-
 
                 ]
             ],
