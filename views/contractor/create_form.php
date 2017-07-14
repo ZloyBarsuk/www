@@ -14,6 +14,7 @@ use kartik\file\FileInput;
 $this->registerJsFile('@web/js/modal_js/contractor/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
+
  <div class="row">
     <div class="col-md-12">
 

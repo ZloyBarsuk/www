@@ -26,7 +26,7 @@ $this->registerJsFile('@web/js/modal_js/banks/delete.js',['depends' => [yii\web\
 
 
     <p>
-        <?= Html::button(Yii::t('app', 'Create Banks'), ['value' => Url::to('/banks/create'), 'class' => 'btn btn-success', 'id' => 'modalButtonBanks']) ?>
+        <?= Html::button(Yii::t('app', 'Create Banks'), ['value' => Url::to('/banks/create'), 'class' => 'btn btn-success', 'id' => 'add_bank_index']) ?>
     </p>
     <?php
     Modal::begin([

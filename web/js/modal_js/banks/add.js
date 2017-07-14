@@ -1,14 +1,20 @@
 
 
-$('body').on('click','#modalButtonBanks',function (event) {
+$('body').on('click','#add_bank_modal,#add_bank_index',function (event) {
+
+   var button_id= $(this).attr('id');
 
 
-        var modal = $('#modal-inner');
+
+        var modal = $('#modal-second');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalInnerContent');
+        var modal_content = modal.find('#modalSecondContent');
         modal_content.html('');
+        var grid_data = $('#contractor_banks_modal').data();
+        var param = grid_data!== undefined ? grid_data.contractor_id : '';
 
-        $.post(href, function (data) {
+
+        $.get(href,{'contractor_id': param}, function (data) {
             modal_content.html(data);
             modal.modal('show');
         }).fail(function (data) {
@@ -18,18 +24,36 @@ $('body').on('click','#modalButtonBanks',function (event) {
             return false;
         })
 
+
         modal.on('hidden.bs.modal', function (event) {
-        //    $.pjax.reload({container: '#pjax_banks'});
+
+
+
+
+            if(button_id=='add_bank_modal')
+            {
+                $.pjax.reload({
+                    container: '#contractor-banks-grid',
+                    push: true,
+                    url: grid_data.controller,
+                    data: {'contractor_id': grid_data.contractor_id},
+                    history: false,
+                    cache: false,
+                    datatype: 'html',
+                    replaceRedirect: false,
+                    replace: true,
+                    type: 'GET',
+                    timeout: 3000
+                });
+            }
+            else {
+                $.pjax.reload({container: '#pjax_banks'});
+            }
+
             modal_content.html('');
 
 
-            // alert("pjax_add_product");
-           //  $.pjax.reload({container: '#pjax_banks', timeout: 5000});
-          //  $.pjax.reload('#pjax_banks' , { url:'/contractor/bankslist/67',timeout : 3000,type:'POST',push:false,replaceRedirect:true,pushRedirect:false,dataType:'html'});
-            // $('#pjax_banks').yiiGridView({"methos": "POST"});
-          //  $('#pjax_banks').yiiGridView({"filterUrl": "\/banks/bankslist/67"});
-           // jQuery('#pjax_banks').yiiGridView('applyFilter');
-         //   $('.grid-view').yiiGridView('applyFilter');
+
                  return false;
 
         });
