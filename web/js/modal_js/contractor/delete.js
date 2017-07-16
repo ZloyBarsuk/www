@@ -29,7 +29,7 @@ $(document).on('ready', function () {
                                 var n = Noty('id');
                                 $.noty.setText(n.options.id, data.notify_text);
                                 $.noty.setType(n.options.id, 'information');
-                                $.pjax.reload({container: '#pjax_contractor', timeout: 2000});
+                                $.pjax.reload({container: '#contractors_grid', timeout: 3000});
                                 //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
                             }
                             else {

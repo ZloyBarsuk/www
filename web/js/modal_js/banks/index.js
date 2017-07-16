@@ -10,8 +10,8 @@ $(document).on('ready', function () {
         event.stopPropagation();
         var href = $(this).attr('href');
         var data_id = $(this).attr('data-model-id');
-        var modal = $('#modal-banks');
-        var modal_content = modal.find('#modalContentBanks');
+        var modal = $('#modal-second');
+        var modal_content = modal.find('#modalSecondContent');
         modal_content.html('');
 
         /*  $.post(href).done(function (data) {
