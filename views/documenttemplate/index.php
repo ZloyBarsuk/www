@@ -22,7 +22,7 @@ $this->registerJsFile(
 
 // обновление контрагента
 $this->registerJsFile(
-    '@web/js/modal_js/templates/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]
+    '@web/js/modal_js/templates/update.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 );
 
 // удаление контрагента

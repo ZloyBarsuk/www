@@ -9,7 +9,7 @@ $(document).on('ready', function () {
         var modal_content = modal.find('#modalContent');
         modal_content.html('');
 
-        $.post(href, function (data) {
+        $.get(href, function (data) {
             modal_content.html(data);
             modal.modal('show');
         }).fail(function (data) {

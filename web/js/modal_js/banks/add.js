@@ -6,9 +6,9 @@ $('body').on('click','#add_bank_modal,#add_bank_index',function (event) {
 
 
 
-        var modal = $('#modal-second');
+        var modal = $('#modal-upper');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalSecondContent');
+        var modal_content = modal.find('#modalUpperContent');
         modal_content.html('');
         var grid_data = $('#contractor_banks_modal').data();
         var param = grid_data!== undefined ? grid_data.contractor_id : '';

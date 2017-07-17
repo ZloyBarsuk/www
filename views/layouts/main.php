@@ -25,7 +25,6 @@ AppAsset::register($this);
         <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1"/>
         <meta charset="UTF-8">
         <?= Html::csrfMetaTags() ?>
-
         <title><?= Html::encode($this->title . ' :: ' . Yii::$app->name) ?></title>
         <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
         <?php $this->head() ?>
@@ -35,12 +34,14 @@ AppAsset::register($this);
 
     <?= $this->render($viewNavbar) ?>
 
+
     <?php
-    /*  first is modal windows for grid-view */
+
+    /*  second is  modal windows for edit and create */
 
     Modal::begin([
-        'header' => '<h4><div id="modalFirstHeader"> </div></h4>',
-        'id' => 'modal-first',
+        'header' => '<h4><div id="modalMainHeader"> modalMainHeader</div></h4>',
+        'id' => 'modal-main',
         'options' => [
             'tabindex' => false
         ],
@@ -48,7 +49,26 @@ AppAsset::register($this);
         'toggleButton' => false,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
     ]);
-    echo "<div id='modalFirstContent'> </div>";
+    echo "<div id='modalMainContent'> </div>";
+    Modal::end();
+
+    ?>
+
+
+    <?php
+    /*  first is modal windows for grid-view */
+
+    Modal::begin([
+        'header' => '<h4><div id="modalLowerHeader">modalLowerHeader</div></h4>',
+        'id' => 'modal-lower',
+        'options' => [
+            'tabindex' => false
+        ],
+        'size' => 'modal-lg',
+        'toggleButton' => false,
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+    ]);
+    echo "<div id='modalLowerContent'> </div>";
     Modal::end();
 
     ?>
@@ -57,8 +77,8 @@ AppAsset::register($this);
     /*  second is  modal windows for edit and create */
 
     Modal::begin([
-        'header' => '<h4><div id="modalSecondHeader"> </div></h4>',
-        'id' => 'modal-second',
+        'header' => '<h4><div id="modalUpperHeader"> modalUpperHeader</div></h4>',
+        'id' => 'modal-upper',
         'options' => [
             'tabindex' => false
         ],
@@ -66,7 +86,7 @@ AppAsset::register($this);
         'toggleButton' => false,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
     ]);
-    echo "<div id='modalSecondContent'> </div>";
+    echo "<div id='modalUpperContent'> </div>";
     Modal::end();
 
     ?>

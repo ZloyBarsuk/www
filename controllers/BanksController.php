@@ -13,16 +13,15 @@ use yii\web\Response;
 use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 
-/**
- * BanksController implements the CRUD actions for Banks model.
- */
 class BanksController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
+
+
+
     public function behaviors()
     {
+
         return [
             'verbs' => [
                 'class' => VerbFilter::className(),
@@ -31,6 +30,24 @@ class BanksController extends Controller
                 ],
             ],
         ];
+
+    }
+
+    public function actionDelete($id)
+    {
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
+
+        if ($request->isAjax && $request->isPost) {
+
+            if ($this->findModel($id)->delete()) {
+                return ['notify' => 1, 'flag' => 'success', 'notify_text' => Yii::t('app', 'Delete successful'),];
+
+            } else {
+                return ['notify' => 0, 'flag' => 'error', 'notify_text' => Yii::t('app', 'Delete unsuccessful'),];
+            }
+
+        }
     }
 
     public function actionBanksList()
@@ -97,7 +114,6 @@ class BanksController extends Controller
         // return ['output' => '', 'selected' => ''];
     }
 
-
     public function actionIndex()
     {
         $searchModel = new BanksSearch();
@@ -110,14 +126,12 @@ class BanksController extends Controller
 
     }
 
-
     public function actionView($id)
     {
         return $this->render('view', [
             'model' => $this->findModel($id),
         ]);
     }
-
 
     public function actionCreate()
     {
@@ -176,16 +190,16 @@ class BanksController extends Controller
         }
     }
 
-
     public function actionUpdate($id)
     {
         $model_bank = $this->findModel($id);
         $request = Yii::$app->getRequest();
-        Yii::$app->response->format = Response::FORMAT_JSON;
 
 
         if ($request->isAjax) {
             if ($model_bank->load($request->post()) && $model_bank->validate()) {
+                 Yii::$app->response->format = Response::FORMAT_JSON;
+
                 $transaction = \Yii::$app->db->beginTransaction();
                 try {
                     if ($model_bank->save()) {
@@ -208,28 +222,7 @@ class BanksController extends Controller
 
     }
 
-
-    public
-    function actionDelete($id)
-    {
-        $request = Yii::$app->getRequest();
-        Yii::$app->response->format = Response::FORMAT_JSON;
-
-        if ($request->isAjax && $request->isPost) {
-
-            if ($this->findModel($id)->delete()) {
-                return ['notify' => 1, 'flag' => 'success', 'notify_text' => Yii::t('app', 'Delete successful'),];
-
-            } else {
-                return ['notify' => 0, 'flag' => 'error', 'notify_text' => Yii::t('app', 'Delete unsuccessful'),];
-            }
-
-        }
-    }
-
-
-    protected
-    function findModel($id)
+    protected  function findModel($id)
     {
         if (($model = Banks::findOne($id)) !== null) {
             return $model;
@@ -237,7 +230,6 @@ class BanksController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
-
 
     public function actionCreateFromList()
     {
@@ -304,4 +296,6 @@ class BanksController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         return ActiveForm::validate($model);
     }
+
+
 }

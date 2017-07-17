@@ -4,9 +4,9 @@ $(document).on('ready', function () {
 
     $('body').on('click', '#CreateContractor', function () {
 
-        var modal = $('#modal-first');
+        var modal = $('#modal-main');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalFirstContent');
+        var modal_content = modal.find('#modalMainContent');
         modal_content.html('');
 
         /*
@@ -21,7 +21,7 @@ $(document).on('ready', function () {
 
          */
 
-        $.post(href, function (data) {
+        $.get(href, function (data) {
             modal_content.html(data);
             modal.modal('show');
         }).fail(function (data) {

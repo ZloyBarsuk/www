@@ -15,7 +15,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 
 $this->registerJsFile('@web/js/modal_js/products/add.js',['depends' => [\yii\web\JqueryAsset::className()],]);
-$this->registerJsFile('@web/js/modal_js/products/index.js',['depends' => [\yii\web\JqueryAsset::className()],]);
+$this->registerJsFile('@web/js/modal_js/products/update.js',['depends' => [\yii\web\JqueryAsset::className()],]);
 $this->registerJsFile('@web/js/modal_js/products/delete.js',['depends' => [\yii\web\JqueryAsset::className()],]);
 
 ?>

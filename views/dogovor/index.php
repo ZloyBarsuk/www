@@ -17,7 +17,7 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
 
 $this->registerJsFile('@web/js/modal_js/dogovor/add.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/modal_js/dogovor/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/dogovor/update.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('@web/js/modal_js/dogovor/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 

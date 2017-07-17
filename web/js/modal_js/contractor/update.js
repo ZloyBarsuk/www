@@ -10,8 +10,8 @@ $(document).on('ready', function () {
 
         var href = $(this).attr('href');
         var data = $(this).data();
-        var modal = $('#modal-first');
-        var modal_content = modal.find('#modalFirstContent');
+        var modal = $('#modal-main');
+        var modal_content = modal.find('#modalMainContent');
         modal_content.html('');
         $.get(href,{contractor_id:data.contr_id} , function (data) {
             modal_content.html(data);
@@ -32,8 +32,8 @@ $(document).on('ready', function () {
         event.stopPropagation();
         var href = $(this).attr('href');
         var data = $(this).data();
-        var modal = $('#modal-first');
-        var modal_content = modal.find('#modalFirstContent');
+        var modal = $('#modal-main');
+        var modal_content = modal.find('#modalMainContent');
         modal_content.html('');
         // alert(JSON.stringify(data));
         //return false;

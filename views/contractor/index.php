@@ -22,7 +22,7 @@ $this->registerJsFile(
 );
 
 $this->registerJsFile(
-    '@web/js/modal_js/contractor/index.js', ['depends' => [\yii\web\JqueryAsset::className()]]
+    '@web/js/modal_js/contractor/update.js', ['depends' => [\yii\web\JqueryAsset::className()]]
 );
 
 $this->registerJsFile(

@@ -10,15 +10,15 @@ $(document).on('ready', function () {
         event.stopPropagation();
         var href = $(this).attr('href');
         var data_id = $(this).attr('data-model-id');
-        var modal = $('#modal-second');
-        var modal_content = modal.find('#modalSecondContent');
+        var modal = $('#modal-upper');
+        var modal_content = modal.find('#modalUpperContent');
         modal_content.html('');
 
         /*  $.post(href).done(function (data) {
          modal_content.html(data);
          modal.modal('show');
          });*/
-        $.post(href, function (data) {
+        $.get(href, function (data) {
             modal_content.html(data);
             modal.modal('show');
         }).fail(function (data) {
