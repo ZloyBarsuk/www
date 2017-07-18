@@ -71,11 +71,11 @@ $this->registerJsFile(
         'pjaxSettings' => [
             'timeout' => false,
             'neverTimeout' => false,
-            'enablePushState' => true,
+            'enablePushState' => false,
             // 'method' => 'POST',
             'options' => [
                 'id' => 'contractors_grid',
-                'enablePushState' => true,
+                'enablePushState' => false,
                 'timeout' => false,
             ]
         ],

@@ -57,6 +57,53 @@ class DocumenttemplateController extends Controller
     }
 
 
+
+
+    public function actionListByContractor()
+    {
+
+
+
+        $docs_templ= new DocumentTemplate();
+        $searchModel = new DocumentTemplateSearch();
+        //   $merged_params = Yii::$app->request->queryParams;
+        //  var_dump($merged_params);
+        //  exit;
+        $request = Yii::$app->getRequest();
+        //   Yii::$app->response->format = Response::FORMAT_JSON;
+        if ($request->isPost) {
+            $merged_params = Yii::$app->request->post();
+        } else {
+            $merged_params = Yii::$app->request->queryParams;
+        }
+
+        $dataProvider = $searchModel->search(\yii\helpers\ArrayHelper::merge(
+            $merged_params,
+            [$searchModel->formName() => ['contractor_id' =>$merged_params['contractor_id'] ]]
+        ));
+
+        return $this->renderAjax('contractor_templates',
+            [
+                'searchModel_templ' => $searchModel,
+                'dataProvider_templ' => $dataProvider,
+                'model_bank_templ' => $docs_templ,
+                'contractor_id' => $merged_params['contractor_id'] ,
+            ]);
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     public function actionCreate()
     {
         $model_template = new DocumentTemplate(['scenario'=>'create']);

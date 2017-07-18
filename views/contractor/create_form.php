@@ -23,21 +23,22 @@ $this->registerJsFile('@web/js/modal_js/contractor/create.js', ['depends' => [\y
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
                 <li class="active"><a href="#contractor" role="tab" data-toggle="tab">Контрагент</a></li>
+                <li ><a href="#banks_banks-list" role="tab" data-toggle="tab" class="ajax_loader">Банки</a></li>
                 <!-- <li><a href="#javatab" role="tab" data-toggle="tab" class="ajax_loader">Java</a></li>
                  <li><a href="#csharptab" role="tab" data-toggle="tab" class="ajax_loader">C#</a></li>
                  <li><a href="#mysqltab" role="tab" data-toggle="tab" class="ajax_loader">MySQL</a></li>-->
-                <li class="dropdown">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">Банки<b
-                                class="caret"></b></a>
-                    <ul class="dropdown-menu">
-                        <!-- <li><a href="#banks_create-from-list" role="tab" data-toggle="tab" class="ajax_loader">Выбрать из
-                                 списка существующих</a></li>-->
-                        <li><a href="#banks_create" role="tab" data-toggle="tab" class="ajax_loader">Записать новый
-                                банк</a></li>
-                        <li><a href="#banks_banks-list" role="tab" data-toggle="tab" class="ajax_loader">Список банков</a></li>
-                    </ul>
-                </li>
-                <li><a href="#documenttemplate_create" role="tab" data-toggle="tab" class="ajax_loader">Шаблоны документов</a></li>
+                <!--  <li class="dropdown">
+                      <a class="dropdown-toggle" data-toggle="dropdown" href="#">Банки<b class="caret"></b></a>
+
+                  <!-- <ul class="dropdown-menu">
+                           <li><a href="#banks_create-from-list" role="tab" data-toggle="tab" class="ajax_loader">Выбрать из
+                                    списка существующих</a></li>
+                          <li><a href="#banks_create" role="tab" data-toggle="tab" class="ajax_loader">Записать новый банк</a></li>
+
+                           <li><a href="#banks_banks-list" role="tab" data-toggle="tab" class="ajax_loader">Список банков</a></li>
+                      </ul>
+                </li>-->
+                <li><a href="#documenttemplate_list-by-contractor" role="tab" data-toggle="tab" class="ajax_loader">Шаблоны документов</a></li>
 
             </ul>
 
@@ -295,7 +296,7 @@ $this->registerJsFile('@web/js/modal_js/contractor/create.js', ['depends' => [\y
 
                 </div>
 
-                <div class="tab-pane" id="documenttemplate_create">
+                <div class="tab-pane" id="documenttemplate_list-by-contractor">
 
 
                 </div>

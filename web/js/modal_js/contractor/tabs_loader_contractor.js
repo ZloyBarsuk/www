@@ -21,7 +21,6 @@ $(document).ready(function () {
             'cache': false,
             success: function (response) {
                 $('#' + href_controller).html(response);
-
             },
             error: function (response) {
                 var n = Noty('id');
