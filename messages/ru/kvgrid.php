@@ -1,8 +1,5 @@
 <?php
 
 return [
-
-
-
-    'Do all with'=> '',
+    'Do all with' => '',
 ];

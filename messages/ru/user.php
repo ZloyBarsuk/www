@@ -1,8 +1,8 @@
 <?php
 
     return [
-
         /* Форма аторизации*/
+
         'Password'                  => 'Пароль',
         'Login'                     => 'Логин',
         'Remember me next time'     => 'Запомнить меня',

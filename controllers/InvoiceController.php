@@ -9,14 +9,14 @@ use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 
+
 /**
  * InvoiceController implements the CRUD actions for Invoice model.
  */
 class InvoiceController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
+
     public function behaviors()
     {
         return [
@@ -29,10 +29,7 @@ class InvoiceController extends Controller
         ];
     }
 
-    /**
-     * Lists all Invoice models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $searchModel = new InvoiceSearch();
@@ -44,11 +41,7 @@ class InvoiceController extends Controller
         ]);
     }
 
-    /**
-     * Displays a single Invoice model.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionView($id)
     {
         return $this->render('view', [
@@ -56,11 +49,7 @@ class InvoiceController extends Controller
         ]);
     }
 
-    /**
-     * Creates a new Invoice model.
-     * If creation is successful, the browser will be redirected to the 'view' page.
-     * @return mixed
-     */
+
     public function actionCreate()
     {
         $model = new Invoice();
@@ -74,12 +63,7 @@ class InvoiceController extends Controller
         }
     }
 
-    /**
-     * Updates an existing Invoice model.
-     * If update is successful, the browser will be redirected to the 'view' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionUpdate($id)
     {
         $model = $this->findModel($id);
@@ -93,12 +77,7 @@ class InvoiceController extends Controller
         }
     }
 
-    /**
-     * Deletes an existing Invoice model.
-     * If deletion is successful, the browser will be redirected to the 'index' page.
-     * @param integer $id
-     * @return mixed
-     */
+
     public function actionDelete($id)
     {
         $this->findModel($id)->delete();
@@ -106,13 +85,7 @@ class InvoiceController extends Controller
         return $this->redirect(['index']);
     }
 
-    /**
-     * Finds the Invoice model based on its primary key value.
-     * If the model is not found, a 404 HTTP exception will be thrown.
-     * @param integer $id
-     * @return Invoice the loaded model
-     * @throws NotFoundHttpException if the model cannot be found
-     */
+
     protected function findModel($id)
     {
         if (($model = Invoice::findOne($id)) !== null) {

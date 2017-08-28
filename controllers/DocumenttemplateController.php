@@ -13,14 +13,10 @@ use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
 
-/**
- * DocumenttemplateController implements the CRUD actions for DocumentTemplate model.
- */
+
 class DocumenttemplateController extends Controller
 {
-    /**
-     * @inheritdoc
-     */
+
     public function behaviors()
     {
         return [
@@ -33,10 +29,7 @@ class DocumenttemplateController extends Controller
         ];
     }
 
-    /**
-     * Lists all DocumentTemplate models.
-     * @return mixed
-     */
+
     public function actionIndex()
     {
         $searchModel = new DocumentTemplateSearch();
@@ -66,11 +59,8 @@ class DocumenttemplateController extends Controller
 
         $docs_templ= new DocumentTemplate();
         $searchModel = new DocumentTemplateSearch();
-        //   $merged_params = Yii::$app->request->queryParams;
-        //  var_dump($merged_params);
-        //  exit;
+
         $request = Yii::$app->getRequest();
-        //   Yii::$app->response->format = Response::FORMAT_JSON;
         if ($request->isPost) {
             $merged_params = Yii::$app->request->post();
         } else {
@@ -111,7 +101,6 @@ class DocumenttemplateController extends Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $contractor_id = !empty($request->post('contractor_id')) ? $request->post('contractor_id') : '';
         $model_template->contractor_id = $contractor_id;
-        // если AJAX
         if ($request->isAjax) {
 
             if ($model_template->load($request->post())) {
@@ -141,7 +130,6 @@ class DocumenttemplateController extends Controller
             } else {
                 return $this->renderAjax('create_form', [
                     'model_template' => $model_template,
-                    // 'contractor_flag'=>$contractor_id,
 
                 ]);
             }
@@ -150,7 +138,6 @@ class DocumenttemplateController extends Controller
         } else {
             return $this->render('create_form', [
                 'model_template' => $model_template,
-                //  'contractor_flag'=>$contractor_id,
 
             ]);
 
@@ -209,7 +196,6 @@ class DocumenttemplateController extends Controller
 
                 echo Json::encode(['output' => $result, 'selected' => '']);
                 return;
-                //  return ['output' => $result, 'selected' => ''];
 
 
             }
