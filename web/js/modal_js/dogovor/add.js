@@ -1,43 +1,55 @@
-$(document).on('ready', function () {
 
-    $('#modalButtonDogovor').click(function () {
 
-        var modal = $('#modal-dogovor');
+$('body').on('click', '#add_dogovor_modal,#add_dogovor_index', function (event) {
+
+        event.stopPropagation();
+        var button_id = $(this).attr('id');
+
+        var modal = $('#modal-lower');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalContentDogovor');
+        var modal_content = modal.find('#modalLowerContent');
         modal_content.html('');
-        var index_highest = 0;
-        modal.each(function () {
-            // always use a radix when using parseInt
-            var index_current = parseInt($(this).css("zIndex"), 1);
-            if (index_current > index_highest) {
-                index_highest = index_current;
-            }
-        });
+        var grid_data = $('#contractor_banks_modal').data();
+        var param = grid_data !== undefined ? grid_data.dogovor_id : '';
 
-        $.post(href, function (data) {
+        $.get(href, {'dogovor_id': param}, function (data) {
             modal_content.html(data);
             modal.modal('show');
+
+
         }).fail(function (data) {
-            var n = Noty('id');
+
             $.noty.setText(n.options.id, data.responseText);
             $.noty.setType(n.options.id, 'error');
 
-        })
+            if (button_id == 'add_dogovor_modal') {
+                $.pjax.reload({
+                    container: '#dogovors-grid',
+                    push: true,
+                    url: grid_data.controller,
+                    data: {'contractor_id': grid_data.contractor_id},
+                    history: false,
+                    cache: false,
+                    datatype: 'html',
+                    replaceRedirect: false,
+                    replace: true,
+                    type: 'GET',
+                    timeout: 3000
+                });
+            }
+            else if (button_id == 'add_bank_index') {
+                $.pjax.reload({container: '#dogovors-grid'});
+            }
+
+
+        });
 
         modal.on('hidden.bs.modal', function (event) {
-            $.pjax.reload({container: '#pjax_dogovors'});
-            modal_content.html('');
-            return false;
-            event.stopPropagation();
-            /* $('#pjax_add_product').on('pjax:end', function () {
-             alert("pjax_add_product");
-             $.pjax.reload({container: '#pjax_products', timeout: 5000});
-             });*/
+
         });
 
 
-    });
+
 
 })
 

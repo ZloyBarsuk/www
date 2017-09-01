@@ -1,8 +1,8 @@
 -- --------------------------------------------------------
 -- Хост:                         127.0.0.1
--- Версия сервера:               10.1.21-MariaDB - mariadb.org binary distribution
+-- Версия сервера:               10.1.16-MariaDB - mariadb.org binary distribution
 -- Операционная система:         Win32
--- HeidiSQL Версия:              9.4.0.5169
+-- HeidiSQL Версия:              9.4.0.5125
 -- --------------------------------------------------------
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
@@ -27,12 +27,11 @@ CREATE TABLE IF NOT EXISTS `auth_assignment` (
   CONSTRAINT `auth_assignment_ibfk_1` FOREIGN KEY (`item_name`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы inwiz.auth_assignment: ~1 rows (приблизительно)
+-- Дамп данных таблицы inwiz.auth_assignment: ~2 rows (приблизительно)
 DELETE FROM `auth_assignment`;
 /*!40000 ALTER TABLE `auth_assignment` DISABLE KEYS */;
 INSERT INTO `auth_assignment` (`item_name`, `user_id`, `created_at`) VALUES
-	('DogovorAdmin', '1', 1499373498),
-	('superadmin', '1', 1499358015);
+	('Superadmin', '1', 1499417508);
 /*!40000 ALTER TABLE `auth_assignment` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.auth_item
@@ -51,25 +50,167 @@ CREATE TABLE IF NOT EXISTS `auth_item` (
   CONSTRAINT `auth_item_ibfk_1` FOREIGN KEY (`rule_name`) REFERENCES `auth_rule` (`name`) ON DELETE SET NULL ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы inwiz.auth_item: ~15 rows (приблизительно)
+-- Дамп данных таблицы inwiz.auth_item: ~160 rows (приблизительно)
 DELETE FROM `auth_item`;
 /*!40000 ALTER TABLE `auth_item` DISABLE KEYS */;
 INSERT INTO `auth_item` (`name`, `type`, `description`, `rule_name`, `data`, `created_at`, `updated_at`) VALUES
-	('/dogovor-numeration/*', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor-numeration/create', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor-numeration/delete', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor-numeration/index', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor-numeration/update', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor-numeration/view', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor/*', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor/ajax-validate', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor/create', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor/delete', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor/index', 2, NULL, NULL, NULL, 1499357100, 1499357100),
-	('/dogovor/update', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('/dogovor/view', 2, NULL, NULL, NULL, 1499357101, 1499357101),
-	('DogovorAdmin', 2, NULL, NULL, NULL, 1499358054, 1499358054),
-	('superadmin', 1, '', NULL, NULL, 1493478657, 1493478657);
+	('/admin/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/assignment/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/assignment/assign', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/assignment/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/assignment/revoke', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/assignment/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/default/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/default/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/menu/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/menu/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/menu/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/menu/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/menu/update', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/menu/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/permission/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/permission/assign', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/permission/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/permission/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/permission/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/permission/remove', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/permission/update', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/permission/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/role/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/role/assign', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/role/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/role/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/role/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/role/remove', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/role/update', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/role/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/route/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/route/assign', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/route/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/route/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/route/refresh', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/route/remove', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/rule/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/rule/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/rule/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/rule/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/rule/update', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/rule/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/activate', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/change-password', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/login', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/logout', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/request-password-reset', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/reset-password', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/signup', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/admin/user/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/banks/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/banks/ajax-validate', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/banks/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/banks/create-from-list', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/banks/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/banks/dropdown-by-contractor', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/banks/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/banks/update', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/banks/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractor/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractor/ajax-validate', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractor/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractor/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractor/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractor/update', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractor/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractorinfo/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractorinfo/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractorinfo/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractorinfo/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractorinfo/update', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/contractorinfo/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/datecontrol/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/datecontrol/parse/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/datecontrol/parse/convert', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/debug/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/debug/default/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/debug/default/db-explain', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/debug/default/download-mail', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/debug/default/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/debug/default/toolbar', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/debug/default/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/documenttemplate/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/documenttemplate/ajax-validate', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/documenttemplate/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/documenttemplate/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/documenttemplate/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/documenttemplate/templates-by-contractor', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/documenttemplate/update', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/documenttemplate/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/dogovor-numeration/*', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/dogovor-numeration/create', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/dogovor-numeration/delete', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/dogovor-numeration/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/dogovor-numeration/update', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/dogovor-numeration/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/dogovor/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/dogovor/ajax-validate', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/dogovor/create', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/dogovor/delete', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/dogovor/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/dogovor/update', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/dogovor/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/gii/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/gii/default/*', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/gii/default/action', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/gii/default/diff', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/gii/default/index', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/gii/default/preview', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/gii/default/view', 2, NULL, NULL, NULL, 1499417488, 1499417488),
+	('/invoice/*', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/invoice/create', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/invoice/delete', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/invoice/index', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/invoice/update', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/invoice/view', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/lotnumber/*', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/lotnumber/create', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/lotnumber/delete', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/lotnumber/index', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/lotnumber/update', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/lotnumber/view', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/media/*', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/media/upload', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/products/*', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/products/ajax-validate', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/products/create', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/products/delete', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/products/index', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/products/update', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/products/view', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/productstoinvoice/*', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/productstoinvoice/create', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/productstoinvoice/delete', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/productstoinvoice/index', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/productstoinvoice/update', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/productstoinvoice/view', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/salesinvoice/*', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/salesinvoice/create', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/salesinvoice/delete', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/salesinvoice/index', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/salesinvoice/update', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/salesinvoice/view', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/site/*', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/site/about', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/site/captcha', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/site/contact', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/site/error', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/site/index', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/site/login', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('/site/logout', 2, NULL, NULL, NULL, 1499417489, 1499417489),
+	('Banks', 2, NULL, NULL, NULL, 1499417608, 1499417608),
+	('Superadmin', 1, NULL, NULL, NULL, 1499416635, 1499417592),
+	('TemplatesAdmin', 2, NULL, NULL, NULL, 1499422691, 1499422691);
 /*!40000 ALTER TABLE `auth_item` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.auth_item_child
@@ -83,14 +224,24 @@ CREATE TABLE IF NOT EXISTS `auth_item_child` (
   CONSTRAINT `auth_item_child_ibfk_2` FOREIGN KEY (`child`) REFERENCES `auth_item` (`name`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы inwiz.auth_item_child: ~4 rows (приблизительно)
+-- Дамп данных таблицы inwiz.auth_item_child: ~14 rows (приблизительно)
 DELETE FROM `auth_item_child`;
 /*!40000 ALTER TABLE `auth_item_child` DISABLE KEYS */;
 INSERT INTO `auth_item_child` (`parent`, `child`) VALUES
-	('DogovorAdmin', '/dogovor/create'),
-	('DogovorAdmin', '/dogovor/delete'),
-	('DogovorAdmin', '/dogovor/update'),
-	('superadmin', 'DogovorAdmin');
+	('Banks', '/banks/create-from-list'),
+	('Banks', '/banks/dropdown-by-contractor'),
+	('Banks', '/banks/index'),
+	('Banks', '/banks/view'),
+	('Superadmin', 'Banks'),
+	('Superadmin', 'TemplatesAdmin'),
+	('TemplatesAdmin', '/documenttemplate/*'),
+	('TemplatesAdmin', '/documenttemplate/ajax-validate'),
+	('TemplatesAdmin', '/documenttemplate/create'),
+	('TemplatesAdmin', '/documenttemplate/delete'),
+	('TemplatesAdmin', '/documenttemplate/index'),
+	('TemplatesAdmin', '/documenttemplate/templates-by-contractor'),
+	('TemplatesAdmin', '/documenttemplate/update'),
+	('TemplatesAdmin', '/documenttemplate/view');
 /*!40000 ALTER TABLE `auth_item_child` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.auth_rule
@@ -135,16 +286,24 @@ CREATE TABLE IF NOT EXISTS `banks` (
   KEY `FK_banks_user` (`created_by`),
   KEY `FK_banks_contractor` (`contractor_id`),
   CONSTRAINT `FK_banks_contractor` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_banks_user` FOREIGN KEY (`created_by`) REFERENCES `user_old` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_banks_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.banks: ~3 rows (приблизительно)
+-- Дамп данных таблицы inwiz.banks: ~11 rows (приблизительно)
 DELETE FROM `banks`;
 /*!40000 ALTER TABLE `banks` DISABLE KEYS */;
 INSERT INTO `banks` (`bank_id`, `contractor_id`, `name_ua`, `name_en`, `inn`, `kpp`, `ogrm`, `adress_official_ua`, `adress_official_en`, `adress_post_ua`, `adress_post_en`, `r_s`, `k_s`, `bic`, `swift`, `comments`, `account_type`, `created_at`, `created_by`, `by_default`) VALUES
-	(3, 218, 'fuck', 'fuck', 'asdsad', 'asdasd', 'asdsad', 'fuck', 'fuck', '', '', 'fuck', 'fuck', '', '', '', 'rub', '2017-07-01 23:31:51', 1, 'y'),
-	(5, 220, 'xcvcxv', 'cv', '', '', '', 'xcvcxv', 'xcvccv', '', '', 'zxcxcxz', 'cxcxzc', '', '', '', 'usd', '2017-07-02 00:16:59', 1, 'n'),
-	(6, 212, 'fgfgdfgff', 'dfgfg', '234234', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, 'rub', '2017-07-03 16:17:22', 1, 'y');
+	(68, 236, 'КГРУ ПАО КБ Приватбанк', 'PJSC CB “PRIVATBANK”', '000000000000', '000000000', '0000000000000', 'Київ, Україна ', 'Kiev, Ukraine', 'Київ, Україна ', 'Kiev, Ukraine', '26003162160063', '26003162160063', '32184', '', 'нет ИНН и КПП беда блядь', 'usd', '2017-08-30 12:06:23', 1, 'y'),
+	(71, 236, 'dfgfdgdfgdfg', 'gdsdfsdfdf9999', '000000000000', '', '', 'cbcvbbcb', 'cvbvbvcb', '', '', 'dgdfgdfg', 'dfgfddfg', '', '', '', 'rub', '2017-08-29 17:24:40', 1, 'n'),
+	(75, 237, 'барыга банк', 'барыга банк', '', '', '', 'ывавыавыа', 'кцукцк', '', '', 'ыаываываываа', 'ывавыаываыва', '', '', '', 'rub', '2017-08-30 17:36:53', 1, 'n'),
+	(86, 237, 'второй банк инвиза ', 'второй банк инвиза ', '', '', '', 'ячс', 'ячс', '', '', 'ячся', 'ячс', '', '', '', 'rub', '2017-08-30 17:38:50', 1, 'y'),
+	(87, 237, 'третий банк нвизы', 'третий банк нвизы', '', '', '', 'третий банк нвизы', 'третий банк нвизы', '', '', 'третий банк нвизы', 'третий банк нвизы', '', '', '', 'rub', '2017-08-30 17:40:28', 1, 'n'),
+	(90, 236, 'cvb', 'xcv', '', '', '', 'v', 'v', '', '', 'v', 'v', '', '', '', 'rub', '2017-08-30 17:49:42', 1, 'y'),
+	(91, 277, 'новый', 'новый', '', '', '', 'новый', 'новый', '', '', 'новый', 'новый', '', '', '', 'eur', '2017-08-30 17:54:31', 1, 'y'),
+	(92, 277, 'новый2', 'новый22', '', '', '', 'новый', 'новый', '', '', 'новый', 'новый', '', '', '', 'eur', '2017-08-30 17:54:39', 1, 'y'),
+	(95, 277, 'xcvxcv', 'zxczcxzcxcxcxc', '', '', '', 'cvcv', 'cv', '', '', 'xcv', 'xcv', '', '', '', 'rub', '2017-09-01 11:13:20', 1, 'y'),
+	(97, 278, '1111111111111111111111111', '11111111111111111', '', '', '', 'sdfdf', 'sdfdf', '', '', 'sfsd', 'sdfsdf', '', '', '', 'rub', '2017-09-01 11:14:28', 1, 'n'),
+	(98, 237, 'xvxcv', 'cvxcvxcv', '', '', '', 'adasd', 'dfdfdsf', '', '', '11111111111111111111', '22222222222222222222', '', '', '', 'usd', '2017-09-01 11:39:56', 1, 'n');
 /*!40000 ALTER TABLE `banks` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.contractor
@@ -159,31 +318,17 @@ CREATE TABLE IF NOT EXISTS `contractor` (
   `contractor_type` enum('client','owner') DEFAULT 'client',
   PRIMARY KEY (`contractor_id`),
   KEY `FK_contractor_user_accounts` (`created_by`),
-  CONSTRAINT `FK_contractor_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user_old` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=221 DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_contractor_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=279 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.contractor: ~18 rows (приблизительно)
+-- Дамп данных таблицы inwiz.contractor: ~4 rows (приблизительно)
 DELETE FROM `contractor`;
 /*!40000 ALTER TABLE `contractor` DISABLE KEYS */;
 INSERT INTO `contractor` (`contractor_id`, `name_ua`, `name_en`, `signature`, `created_at`, `created_by`, `contractor_type`) VALUES
-	(66, 'ewr', 'wer', '', '2017-06-11 17:57:56', 1, 'client'),
-	(67, 'ewr', 'wer', '', '2017-06-11 17:57:57', 1, 'client'),
-	(68, 'ewr', 'wer', '', '2017-06-11 17:57:59', 1, 'client'),
-	(69, 'ewr', 'wer', '', '2017-06-11 17:58:00', 1, 'client'),
-	(70, 'ewr', 'wer', '', '2017-06-11 17:58:01', 1, 'client'),
-	(71, 'ewr', 'wer', '', '2017-06-11 17:58:02', 1, 'client'),
-	(72, 'ewr', 'wer', '', '2017-06-11 17:58:02', 1, 'client'),
-	(73, 'ewr', 'wer', '', '2017-06-11 17:58:03', 1, 'client'),
-	(209, 'sadsad', 'ewrewrewr', NULL, '2017-06-11 19:01:32', 1, 'client'),
-	(210, 'sadsadvbvb', 'ewrewrewrvbvb', NULL, '2017-06-11 19:02:15', 1, 'client'),
-	(211, 'sadsadvbvbdf', 'ewrewrewrvbvbdf', NULL, '2017-06-11 19:03:55', 1, 'client'),
-	(212, 'sadsadvbvbdf2', 'ewrewrewrvbvbdf2', NULL, '2017-06-11 19:04:58', 1, 'client'),
-	(213, 'test', 'test', NULL, '2017-06-11 19:06:18', 1, 'client'),
-	(214, 'xcvcxv', 'vcxvxcvv', 'empty.png', '2017-06-11 19:10:53', 1, 'client'),
-	(215, 'wqe', 'werererr', 'empty.png', '2017-06-12 00:18:23', 1, 'client'),
-	(217, 'wqe12wer', 'werererr12wer', 'empty.png', '2017-06-12 00:19:13', 1, 'client'),
-	(218, 'test255', 'test255', 'empty.png', '2017-06-24 14:59:01', 1, 'owner'),
-	(220, 'xvvvvxcv', 'cxzxzxz', 'empty.png', '2017-07-02 00:15:19', 1, 'owner');
+	(236, 'ТОВ "БАТЕКС"', 'BATEX Ltd.', 'батекс.png', '2017-08-29 14:26:42', 1, 'owner'),
+	(237, 'ТОВ "ИНВИЗ"', 'INWIZ', 'батекс.png', '2017-08-30 17:38:11', 1, 'owner'),
+	(277, 'новый', 'новый', 'empty.png', '2017-09-01 11:42:21', 1, 'client'),
+	(278, 'erqwe', 'Test', 'empty.png', '2017-09-01 11:14:02', 1, 'client');
 /*!40000 ALTER TABLE `contractor` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.contractor_info
@@ -211,31 +356,17 @@ CREATE TABLE IF NOT EXISTS `contractor_info` (
   KEY `FK_contractor_info_contractor` (`id_contractor`),
   KEY `FK_contractor_info_user_accounts` (`created_by`),
   CONSTRAINT `FK_contractor_info_contractor` FOREIGN KEY (`id_contractor`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_contractor_info_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user_old` (`id`) ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=202 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+  CONSTRAINT `FK_contractor_info_user_accounts` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=42 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Дамп данных таблицы inwiz.contractor_info: ~18 rows (приблизительно)
+-- Дамп данных таблицы inwiz.contractor_info: ~3 rows (приблизительно)
 DELETE FROM `contractor_info`;
 /*!40000 ALTER TABLE `contractor_info` DISABLE KEYS */;
 INSERT INTO `contractor_info` (`contr_info_id`, `id_contractor`, `adress_official_ua`, `adress_official_en`, `adress_post_ua`, `adress_post_en`, `director_ua`, `director_en`, `email`, `phone`, `fax`, `contact_person`, `tax_number`, `vat_reg_no`, `rep`, `customer_number`, `created_at`, `created_by`) VALUES
-	(47, 66, 'ewr', 'wer', 'ewr', 'ewr', 'ewr', 'er', 'dfgqwe@sfd.ru', 'dfsdf', 'sdf', 'ewr', 'sdf', 'dsf', 'dsf', 'dsf', NULL, 1),
-	(48, 67, 'ewr', 'wer', 'ewr', 'ewr', 'ewr', 'er', 'dfgqwe@sfd.ru', 'dfsdf', 'sdf', 'ewr', 'sdf', 'dsf', 'dsf', 'dsf', NULL, 1),
-	(49, 68, 'ewr', 'wer', 'ewr', 'ewr', 'ewr', 'er', 'dfgqwe@sfd.ru', 'dfsdf', 'sdf', 'ewr', 'sdf', 'dsf', 'dsf', 'dsf', NULL, 1),
-	(50, 69, 'ewr', 'wer', 'ewr', 'ewr', 'ewr', 'er', 'dfgqwe@sfd.ru', 'dfsdf', 'sdf', 'ewr', 'sdf', 'dsf', 'dsf', 'dsf', NULL, 1),
-	(51, 70, 'ewr', 'wer', 'ewr', 'ewr', 'ewr', 'er', 'dfgqwe@sfd.ru', 'dfsdf', 'sdf', 'ewr', 'sdf', 'dsf', 'dsf', 'dsf', NULL, 1),
-	(52, 71, 'ewr', 'wer', 'ewr', 'ewr', 'ewr', 'er', 'dfgqwe@sfd.ru', 'dfsdf', 'sdf', 'ewr', 'sdf', 'dsf', 'dsf', 'dsf', NULL, 1),
-	(53, 72, 'ewr', 'wer', 'ewr', 'ewr', 'ewr', 'er', 'dfgqwe@sfd.ru', 'dfsdf', 'sdf', 'ewr', 'sdf', 'dsf', 'dsf', 'dsf', NULL, 1),
-	(54, 73, 'ewr', 'wer', 'ewr', 'ewr', 'ewr', 'er', 'dfgqwe@sfd.ru', 'dfsdf', 'sdf', 'ewr', 'sdf', 'dsf', 'dsf', 'dsf', NULL, 1),
-	(190, 209, 'asd', 'asd', 'sad', 'sad', 'asd', 'asd', 'qweqweweq@sdf.ru', '3454', '3454345', 'sad', '', '345', '345435', '345', NULL, 1),
-	(191, 210, 'asd', 'asd', 'sad', 'sad', 'asd', 'asd', 'qweqweweq@sdf.ru', '3454', '3454345', 'sad', '', '345', '345435', '345', NULL, 1),
-	(192, 211, 'asd', 'asd', 'sad', 'sad', 'asd', 'asd', 'qweqweweq@sdf.ru', '3454', '3454345', 'sad', '', '345', '345435', '345', NULL, 1),
-	(193, 212, 'asd', 'asd', 'sad', 'sad', 'asd', 'asd', 'qweqweweq@sdf.ru', '3454', '3454345', 'sad', '', '345', '345435', '345', NULL, 1),
-	(194, 213, 'test', 'test', 'test', 'test', 'test', 'test', 'test@sdf.rys', 'test', 'test', 'test', 'test', 'test', 'test', 'test', NULL, 1),
-	(195, 214, 'xcv', 'xcvcxv', 'xcv', 'xcv', 'xcv', 'xcv', 'dfg2222222222222@fg.ru', '$model_contr->signature', '$model_contr->signature', '', '$model_contr->signature', '$model_contr->signature', '$model_contr->signature', '$model_contr->signature', NULL, 1),
-	(196, 215, 'qwe', 'qwe', 'wqe', 'qwqe', 'ewr', 'wqe', 'er@sdf.ru', 'ewr', 'werr', 'ewr', '', 'ewr', 'ewr', 'ewr', NULL, 1),
-	(198, 217, 'qwe', 'qwe', 'wqe', 'qwqe', 'ewr', 'wqe', 'er@sdf.ru', 'ewr', 'werr', 'ewr', '', 'ewr', 'ewr', 'ewr', NULL, 1),
-	(199, 218, 'test255', 'test255', 'test255', 'test255', 'test255', 'test255', 'test255@hj.ru', 'test255', 'test255', 'test255', 'test255', 'test255', 'test255', 'test255', NULL, 1),
-	(201, 220, 'cv', 'cxv', 'cvv', 'cv', '', '', '', '', '', '', '', '', '', '', NULL, 1);
+	(1, 236, 'Україна, 03057, г. Київ 57, вул. Довженко, 18', 'Dovzhenko Str. 18 UKR 03057, Kyiv 57, Ukraine', 'Україна, 03057, г. Київ 57, вул. Довженко, 18', 'Dovzhenko Str. 18 UKR 03057, Kyiv 57, Ukraine', 'Струцінський Анатолій Всеволодович', 'Anatoliy Strutsinskyy', '', '380 44 5835382', '380 44 5835382', 'Струцінський Анатолій Всеволодович', '', '', '', '', NULL, 1),
+	(2, 237, 'Україна, 03057, г. Київ 57, вул. Довженко, 18', 'Dovzhenko Str. 18 UKR 03057, Kyiv 57, Ukraine', 'Україна, 03057, г. Київ 57, вул. Довженко, 18', 'Dovzhenko Str. 18 UKR 03057, Kyiv 57, Ukraine', 'Струцінський Анатолій Всеволодович', 'Anatoliy Strutsinskyy', '', '380 44 5835382', '380 44 5835382', 'Струцінський Анатолій Всеволодович', '', '', '', '', '2017-08-30 17:36:21', 1),
+	(40, 277, 'новый', 'новый', 'новый', 'новый', '', '', '', '', '', '', '', '', '', '', NULL, 1),
+	(41, 278, 'sdfsdf', 'asdasd', 'sdf', 'sdf', '', 'sdf', '', '', '', '', '', '', '', '', NULL, 1);
 /*!40000 ALTER TABLE `contractor_info` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.document_template
@@ -247,20 +378,21 @@ CREATE TABLE IF NOT EXISTS `document_template` (
   `html_template` text,
   `contractor_id` int(11) DEFAULT NULL,
   `document_type` enum('dogovor','invoice') DEFAULT NULL,
-  `date` timestamp NULL DEFAULT NULL,
+  `date` date DEFAULT NULL,
   PRIMARY KEY (`doc_templ_id`),
   KEY `FK_document_template_contractor` (`contractor_id`),
   CONSTRAINT `FK_document_template_contractor` FOREIGN KEY (`contractor_id`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
--- Дамп данных таблицы inwiz.document_template: ~4 rows (приблизительно)
+-- Дамп данных таблицы inwiz.document_template: ~5 rows (приблизительно)
 DELETE FROM `document_template`;
 /*!40000 ALTER TABLE `document_template` DISABLE KEYS */;
 INSERT INTO `document_template` (`doc_templ_id`, `name`, `path_to_template`, `html_template`, `contractor_id`, `document_type`, `date`) VALUES
-	(1, 'dogovor 212', NULL, NULL, 212, 'dogovor', NULL),
-	(2, 'invoice 212', NULL, NULL, 212, 'invoice', NULL),
-	(3, 'dogovor 218', NULL, NULL, 218, 'dogovor', NULL),
-	(4, 'invoice  218', NULL, NULL, 218, 'invoice', NULL);
+	(2, 'xcvcxv', NULL, '<p><span style="font-size:14px"><span style="font-family:comic sans ms,cursive">vvxcvcxvxcvxcvxcvxcvcvxcvvcvcxvcxvxcvcxvxcvcvxcvxcv</span></span></p>\r\n', 236, 'dogovor', '2017-09-01'),
+	(9, 'xcvcxv', NULL, '<p><span style="font-size:14px"><span style="font-family:comic sans ms,cursive">vvxcvcxvxcvxcvxcvxcvcvxcvvcvcxvcxvxcvcxvxcvcvxcvxcv</span></span></p>\r\n', 236, 'invoice', '2017-09-01'),
+	(12, 'xcvcxv', NULL, '<table border="0" cellpadding="0" cellspacing="0" style="width:100%">\r\n	<tbody>\r\n		<tr>\r\n			<td style="width:50%">\r\n			<h2 style="text-align: center;"><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">CONTRACT No 1774</span></span></h2>\r\n\r\n			<p><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span></span></p>\r\n\r\n			<p><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Kyiv&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;April 06, 2017</span></span></p>\r\n			</td>\r\n			<td>&nbsp;</td>\r\n			<td style="width:50%">\r\n			<p style="text-align: center;"><span style="font-size:14px"><span style="font-family:courier new,courier,monospace"><strong>КОНТРАКТ</strong><strong> № 1774</strong></span></span></p>\r\n\r\n			<p>&nbsp;</p>\r\n\r\n			<h3><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Київ&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;06 квітня 2017 р.</span></span></h3>\r\n			</td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n		<tr>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 1</span></span></td>\r\n			<td>&nbsp;</td>\r\n			<td><span style="font-size:14px"><span style="font-family:courier new,courier,monospace">Text 2</span></span></td>\r\n		</tr>\r\n	</tbody>\r\n</table>\r\n\r\n<p>&nbsp;</p>\r\n', 236, 'dogovor', '2017-09-01'),
+	(15, 'новый', NULL, '<p>новый</p>\r\n', 277, 'dogovor', '2017-08-25'),
+	(16, 'шаблон документа нах', NULL, '<p><span style="font-family:comic sans ms,cursive">sasdasasdsa &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span><span style="font-family:courier new,courier,monospace">ываываываываываыва</span></p>\r\n', 236, 'invoice', '2017-08-24');
 /*!40000 ALTER TABLE `document_template` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.dogovor
@@ -277,9 +409,9 @@ CREATE TABLE IF NOT EXISTS `dogovor` (
   `delivery_date` date DEFAULT NULL COMMENT 'дата доставки товара по договору',
   `comments` text,
   `total_summ` decimal(10,2) unsigned DEFAULT '0.00' COMMENT 'сумма договора',
-  `created_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'дата создания',
-  `closed_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT 'дата закрытия',
-  `updated_date` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP,
+  `created_date` date DEFAULT NULL COMMENT 'дата создания',
+  `closed_date` date DEFAULT NULL COMMENT 'дата закрытия',
+  `updated_date` date DEFAULT NULL,
   `status` enum('в работе','на подписании','не заключили','расторгнут','закрыт','приостановлен','не оплачен','оплачен') NOT NULL DEFAULT 'в работе' COMMENT 'статус',
   `folder_path` text,
   PRIMARY KEY (`dogovor_id`),
@@ -295,14 +427,13 @@ CREATE TABLE IF NOT EXISTS `dogovor` (
   CONSTRAINT `FK_dogovor_contractor_2` FOREIGN KEY (`id_contractor`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_dogovor_doc_template_to_contractor` FOREIGN KEY (`doc_template_id`) REFERENCES `document_template` (`doc_templ_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_dogovor_user` FOREIGN KEY (`id_author`) REFERENCES `user_old` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.dogovor: ~2 rows (приблизительно)
+-- Дамп данных таблицы inwiz.dogovor: ~0 rows (приблизительно)
 DELETE FROM `dogovor`;
 /*!40000 ALTER TABLE `dogovor` DISABLE KEYS */;
 INSERT INTO `dogovor` (`dogovor_id`, `id_executor`, `doc_template_id`, `id_contractor`, `id_bank_contractor`, `id_bank_executor`, `id_author`, `dogovor_number`, `delivery_date`, `comments`, `total_summ`, `created_date`, `closed_date`, `updated_date`, `status`, `folder_path`) VALUES
-	(2, 218, 1, 212, 6, 3, NULL, '1', '0000-00-00', 'Комментарий', 300100.00, '0000-00-00 00:00:00', '0000-00-00 00:00:00', '0000-00-00 00:00:00', 'в работе', 'Путь к папке'),
-	(3, 220, 1, 212, 6, 5, NULL, '2246/456', '0000-00-00', '546456', 456456.00, '2017-07-03 21:27:42', '2017-07-03 21:27:42', '0000-00-00 00:00:00', 'расторгнут', '456456');
+	(1, 236, 15, 277, 92, 68, NULL, '665', '2017-09-29', '', 6465456.00, '2017-09-01', '2017-08-31', '2017-10-01', 'в работе', '');
 /*!40000 ALTER TABLE `dogovor` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.dogovor_numeration
@@ -361,13 +492,15 @@ CREATE TABLE IF NOT EXISTS `invoice` (
   CONSTRAINT `FK_invoice_contractor_2` FOREIGN KEY (`executor_id`) REFERENCES `contractor` (`contractor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_invoice_doc_template_to_contractor` FOREIGN KEY (`doc_template_id`) REFERENCES `document_template` (`doc_templ_id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_invoice_dogovor` FOREIGN KEY (`dogovor_id`) REFERENCES `dogovor` (`dogovor_id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_invoice_user` FOREIGN KEY (`created_by`) REFERENCES `user_old` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_invoice_user_2` FOREIGN KEY (`updated_by`) REFERENCES `user_old` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+  CONSTRAINT `FK_invoice_user` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_invoice_user_2` FOREIGN KEY (`updated_by`) REFERENCES `user` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- Дамп данных таблицы inwiz.invoice: ~0 rows (приблизительно)
 DELETE FROM `invoice`;
 /*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
+INSERT INTO `invoice` (`invoice_id`, `contractor_id`, `executor_id`, `number`, `order_number`, `purchase_order`, `warehouse_name`, `h_s_code`, `comment`, `net_weight`, `gross_weight`, `doc_template_id`, `paletts_info`, `payment_item`, `shipment`, `delivery_terms`, `total_pcs`, `total_summ`, `freight`, `document_date`, `created_at`, `created_by`, `updated_at`, `updated_by`, `dogovor_id`) VALUES
+	(9, 277, 237, '234234324', '', '', '', '', '', '', '', 12, '', '', '', '', '', 0.00, 0.00, '0000-00-00', '2017-09-01 16:03:32', 1, '0000-00-00 00:00:00', 1, 1);
 /*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.inv_ext_lot_number
@@ -427,15 +560,11 @@ CREATE TABLE IF NOT EXISTS `menu` (
   PRIMARY KEY (`id`),
   KEY `parent` (`parent`),
   CONSTRAINT `menu_ibfk_1` FOREIGN KEY (`parent`) REFERENCES `menu` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.menu: ~1 rows (приблизительно)
+-- Дамп данных таблицы inwiz.menu: ~0 rows (приблизительно)
 DELETE FROM `menu`;
 /*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-INSERT INTO `menu` (`id`, `name`, `parent`, `route`, `order`, `data`) VALUES
-	(1, 'Договор', NULL, '/dogovor/index', 1, NULL),
-	(3, 'qewqe', 1, '/dogovor-numeration/create', NULL, NULL),
-	(4, 'екек', 1, '/dogovor/create', NULL, NULL);
 /*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.migration
@@ -446,7 +575,7 @@ CREATE TABLE IF NOT EXISTS `migration` (
   PRIMARY KEY (`version`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.migration: ~1 rows (приблизительно)
+-- Дамп данных таблицы inwiz.migration: ~0 rows (приблизительно)
 DELETE FROM `migration`;
 /*!40000 ALTER TABLE `migration` DISABLE KEYS */;
 INSERT INTO `migration` (`version`, `apply_time`) VALUES
@@ -514,9 +643,9 @@ CREATE TABLE IF NOT EXISTS `products` (
   `active` enum('y','n') DEFAULT 'y',
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`products_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=99 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=110 DEFAULT CHARSET=utf8;
 
--- Дамп данных таблицы inwiz.products: ~98 rows (приблизительно)
+-- Дамп данных таблицы inwiz.products: ~106 rows (приблизительно)
 DELETE FROM `products`;
 /*!40000 ALTER TABLE `products` DISABLE KEYS */;
 INSERT INTO `products` (`products_id`, `description_en`, `description_ua`, `part_number`, `country_origin_en`, `country_origin_ua`, `tarif_number_en`, `tarif_number_ua`, `weight`, `height`, `width`, `length`, `price`, `active`, `created_at`) VALUES
@@ -580,7 +709,7 @@ INSERT INTO `products` (`products_id`, `description_en`, `description_ua`, `part
 	(58, 'A STN THK Turret TOP85 punch ass\'y RE 2/10', 'A станція THK Turret TOP85 пуансоон в зборі прямокутник 2/10', 'HV.AA2RE.', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 85.90, 'y', '2017-04-05 11:00:15'),
 	(59, 'B STN THK Turret die RO Ф12.3+0.15', 'B станція THK Turret матриця круг Ф12.3+0.15', 'HT.BD1RO.', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 10.50, 'y', '2017-04-05 11:00:15'),
 	(60, 'B STN THK Turret die RO Ф12.3+0.2', 'B станція THK Turret матриця круг Ф12.3+0.2', 'HT.BD1RO.', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 10.50, 'y', '2017-04-05 11:00:15'),
-	(61, 'B STN THK Turret die RO Ф12.3+0.4', 'B станція THK Turret матриця круг Ф12.3+0.4', 'HT.BD1RO.', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 10.50, 'y', '2017-04-05 11:00:15'),
+	(61, 'B STN THK Turret die RO Ф12.3+0.4', 'B станція THK Turret матриця круг Ф12.3+0.4', 'HT.BD1RO.', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '5', '', '', '', 10.50, 'y', '2017-08-30 13:09:35'),
 	(62, 'B STN THK Turret die RO Ф12.3+0.6', 'B станція THK Turret матриця круг Ф12.3+0.6', 'HT.BD1RO.', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 10.50, 'y', '2017-04-05 11:00:15'),
 	(63, 'C STN THK Turret die RO Ф37.5+0.15', 'C станція THK Turret матриця круг Ф37.5+0.15', 'HT.CD1RO.', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 30.40, 'y', '2017-04-05 11:00:15'),
 	(64, 'C STN THK Turret die RO Ф37.5+0.2', 'C станція THK Turret матриця круг Ф37.5+0.2', 'HT.CD1RO.', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 30.40, 'y', '2017-04-05 11:00:15'),
@@ -617,7 +746,16 @@ INSERT INTO `products` (`products_id`, `description_en`, `description_ua`, `part
 	(95, 'AXCELA-H 41x1,8/2', 'AXCELA-H 41x1,8/2', 'CH00004113108201000', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 23.32, 'y', '2017-04-05 12:01:21'),
 	(96, 'AXCELA-34x3920x1,8/2 (1pc=3.92m)', 'AXCELA-34x3920x1,8/2 (1pc=3.92m)', 'EH00003411018203920', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 22.78, 'y', '2017-04-05 12:01:21'),
 	(97, 'AXCELA-H 41x4715x1,8/2(1pc=4.715m)', 'AXCELA-H 41x4715x1,8/2(1pc=4.715m)', 'EH00004113018204715', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 25.66, 'y', '2017-04-05 12:01:21'),
-	(98, 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'EG00005416018206100', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 39.78, 'y', '2017-04-05 12:01:21');
+	(98, 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'AXCELA-G 54x6100x1,8/2 (1pc=6.1m)', 'EG00005416018206100', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 39.78, 'y', '2017-04-05 12:01:21'),
+	(99, 'vcvxcvxcvxcv', 'xvcvxcvxcv', '1234123123223', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '5', '454', 'e', 'e', 234.00, 'y', '0000-00-00 00:00:00'),
+	(101, 'vcvxcvxcvxcv12', 'xvcvxcvxcv12', '1234123123223', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '5', '454', 'e', 'e', 234.00, 'y', '0000-00-00 00:00:00'),
+	(102, 'vcvxcvxcvxcv', 'xvcvxcvxcv122', '123fghfgh', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '5', '454', 'e', 'e', 234.00, 'y', '2017-08-30 13:09:23'),
+	(104, 'vcxvxcv2', 'vgdfgdfg', 'rwerer234234', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', 'e', 'e', 20.00, 'y', '2017-08-29 15:04:29'),
+	(105, 'asdasd', 'asdasd', 'dsfsdfsdfdsf', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '3', '3', 'we', 'we', 4545.00, 'n', '0000-00-00 00:00:00'),
+	(106, 'vbnvbn', 'vbnvbn', 'vbnvbn', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 0.00, 'y', '0000-00-00 00:00:00'),
+	(107, 'qwe', 'asd', 'zxczxczc', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 0.00, 'y', '0000-00-00 00:00:00'),
+	(108, 'sfsdf', 'sffsdfd', 'sdfdfdsf', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 0.00, 'y', '0000-00-00 00:00:00'),
+	(109, 'asdasdxcxc', 'sdfsdfsd', 'zczxcx', 'Country of origin: OESTERREICH', 'Країна походження: Австрія', 'Customs Tarif-Nr: 82022000', 'Код товара: 82022000', '', '', '', '', 0.00, 'y', '0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `products` ENABLE KEYS */;
 
 -- Дамп структуры для таблица inwiz.products_to_invoice
@@ -662,7 +800,7 @@ CREATE TABLE IF NOT EXISTS `profile` (
   CONSTRAINT `fk_user_profile` FOREIGN KEY (`user_id`) REFERENCES `user_old` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы inwiz.profile: ~1 rows (приблизительно)
+-- Дамп данных таблицы inwiz.profile: ~0 rows (приблизительно)
 DELETE FROM `profile`;
 /*!40000 ALTER TABLE `profile` DISABLE KEYS */;
 INSERT INTO `profile` (`user_id`, `name`, `public_email`, `gravatar_email`, `gravatar_id`, `location`, `website`, `bio`, `timezone`) VALUES
@@ -704,7 +842,7 @@ CREATE TABLE IF NOT EXISTS `token` (
   CONSTRAINT `fk_user_token` FOREIGN KEY (`user_id`) REFERENCES `user_old` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы inwiz.token: ~1 rows (приблизительно)
+-- Дамп данных таблицы inwiz.token: ~0 rows (приблизительно)
 DELETE FROM `token`;
 /*!40000 ALTER TABLE `token` DISABLE KEYS */;
 INSERT INTO `token` (`user_id`, `code`, `created_at`, `type`) VALUES
@@ -726,40 +864,12 @@ CREATE TABLE IF NOT EXISTS `user` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
--- Дамп данных таблицы inwiz.user: ~1 rows (приблизительно)
+-- Дамп данных таблицы inwiz.user: ~0 rows (приблизительно)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 INSERT INTO `user` (`id`, `username`, `auth_key`, `password_hash`, `password_reset_token`, `email`, `status`, `created_at`, `updated_at`) VALUES
-	(1, 'andrew', 'olwWEIuNXHDP6OdNVjHZJhkOwEeT3_ia', '$2y$13$IPuNIhDza9P2BQgzAwXwsOWIlJNYGqGNAGD7am/JN9n1lNdv5PkEC', NULL, 'dombrovskiyandrej1@gmail.com', 10, 1499375861, 1499375861);
+	(1, 'admin', 'neXZLCNiTTwesuqS551BhFr-9qHOuOXn', '$2y$13$.P3yIRSxbVhvQb/FQPhI.e3EtK/w89VwdPWXr54oC8zaVdYM4zyTO', NULL, 'admin@asd.ru', 10, 1499416604, 1499416604);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
-
--- Дамп структуры для таблица inwiz.user_old
-DROP TABLE IF EXISTS `user_old`;
-CREATE TABLE IF NOT EXISTS `user_old` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `username` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `email` varchar(255) COLLATE utf8_unicode_ci NOT NULL,
-  `password_hash` varchar(60) COLLATE utf8_unicode_ci NOT NULL,
-  `auth_key` varchar(32) COLLATE utf8_unicode_ci NOT NULL,
-  `confirmed_at` int(11) DEFAULT NULL,
-  `unconfirmed_email` varchar(255) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `blocked_at` int(11) DEFAULT NULL,
-  `registration_ip` varchar(45) COLLATE utf8_unicode_ci DEFAULT NULL,
-  `created_at` int(11) NOT NULL,
-  `updated_at` int(11) NOT NULL,
-  `flags` int(11) NOT NULL DEFAULT '0',
-  `last_login_at` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  UNIQUE KEY `user_unique_username` (`username`),
-  UNIQUE KEY `user_unique_email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
-
--- Дамп данных таблицы inwiz.user_old: ~1 rows (приблизительно)
-DELETE FROM `user_old`;
-/*!40000 ALTER TABLE `user_old` DISABLE KEYS */;
-INSERT INTO `user_old` (`id`, `username`, `email`, `password_hash`, `auth_key`, `confirmed_at`, `unconfirmed_email`, `blocked_at`, `registration_ip`, `created_at`, `updated_at`, `flags`, `last_login_at`) VALUES
-	(1, 'Andrew', 'dombrovskiyandrej@gmail.com', '$2y$10$USrXS2TZzzBHevogdoLzJufkQNfCHTA0C8bsnKUxdrRVYe46XwAGS', 'neuWvoB9_re-QrKWkcFk_NSbp3JczwZI', 1493478691, NULL, NULL, '127.0.0.1', 1493478529, 1493478529, 0, 1493478607);
-/*!40000 ALTER TABLE `user_old` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;

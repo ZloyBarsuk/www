@@ -1,9 +1,14 @@
 /**
  * Created by ZloyBarsuk on 30.06.2017.
  */
-$(document).on('ready', function () {
+
     $('body').on('click', 'td>a.delete_templates', function (event) {
+        var button_class= $(this).attr('class');
+        alert(button_class);
+        var grid_data = $('#contractor_templates_modal').data();
+
         if (confirm("Уверен, что хочешь удалить?")) {
+
             event.stopPropagation();
             var url = $(this).attr("href");
             $.ajax({
@@ -29,9 +34,25 @@ $(document).on('ready', function () {
                                 var n = Noty('id');
                                 $.noty.setText(n.options.id, data.notify_text);
                                 $.noty.setType(n.options.id, 'information');
-                                $.pjax.reload({container: '#pjax_templates', timeout: 3000});
+                                if (button_class == 'delete_templates') {
+                                    $.pjax.reload({
+                                        container: '#contractor-templates-grid',
+                                        push: true,
+                                        url: grid_data.controller,
+                                        data: {'contractor_id': grid_data.contractor_id},
+                                        history: false,
+                                        cache: false,
+                                        datatype: 'html',
+                                        replaceRedirect: false,
+                                        replace: true,
+                                        type: 'GET',
+                                        timeout: 3000
+                                    });
+                                }
+                                else {
+                                    $.pjax.reload({container: '#contractor-templates-grid'});
+                                }
 
-                                //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
 
                             }
                             else {
@@ -62,4 +83,5 @@ $(document).on('ready', function () {
         }
 
     });
-});
+
+

@@ -36,6 +36,7 @@ class DogovorController extends Controller
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
+            'model'=>$searchModel,
         ]);
     }
 

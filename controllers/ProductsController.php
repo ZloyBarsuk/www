@@ -106,28 +106,27 @@ class ProductsController extends Controller
         $model = $this->findModel($id);
         $model->scenario = 'update';
         $request = Yii::$app->getRequest();
+        if ($request->isAjax) {
+            if ($model->load($request->post()) && $model->validate()) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
 
-        if ($request->isAjax && $model->load($request->post())) {
-            Yii::$app->response->format = Response::FORMAT_JSON;
+                $ajaxValidate = ActiveForm::validate($model);
 
-            $ajaxValidate = ActiveForm::validate($model);
+                if (count($ajaxValidate) > 0) {
+                    return ['notify' => 0, 'notify_text' => Yii::t('app', 'The update was unsuccessful'), 'validate' => $ajaxValidate];
+                }
 
-            if (count($ajaxValidate) > 0) {
-                return ['notify' => 0, 'notify_text' => Yii::t('app', 'The update was unsuccessful'), 'validate' => $ajaxValidate];
+                return ['notify' => 1, 'notify_text' => Yii::t('app', 'The update was successful'), 'validate' => $ajaxValidate, 'result' => $model->save()];
+
+
+            } else {
+                return $this->renderAjax('_form', [
+                    'model' => $model,
+
+
+                ]);
             }
-
-            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The update was successful'), 'validate' => $ajaxValidate, 'result' => $model->save()];
-
-
-        } /*// General use
-        if ($model->load($request->post()) && $model->save()) {
-            return $this->redirect(['index']);
         } else {
-            return $this->renderAjax('_form', [
-                'model' => $model,
-            ]);
-        }*/
-        else {
             return $this->renderAjax('_form', [
                 'model' => $model,
             ]);

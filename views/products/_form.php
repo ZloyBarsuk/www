@@ -22,9 +22,9 @@ $this->registerJsFile('@web/js/modal_js/products/create.js', ['depends' => [\yii
         'id' => 'products-form',
 
         //  'options' => ['enctype' => 'multipart/form-data'],
-          'enableAjaxValidation' => true,
+        'enableAjaxValidation' => true,
         //  'validationUrl' => Url::toRoute(['/contractor/ajaxvalidate']),
-         'validationUrl' => Url::toRoute(['products/ajax-validate', 'scenario' => $model->scenario, 'model_id' => $model->products_id ]),
+        'validationUrl' => Url::toRoute(['products/ajax-validate', 'scenario' => $model->scenario, 'model_id' => $model->products_id]),
 
     ]); ?>
     <div class="row">

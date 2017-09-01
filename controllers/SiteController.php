@@ -9,6 +9,8 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 
+use app\models\Po;
+
 class SiteController extends Controller
 {
     /**
@@ -36,7 +38,20 @@ class SiteController extends Controller
             ],
         ];
     }
+    public function actionPdf()
+    {
 
+        $model = Po::find()
+            ->where(['id' => 17])
+            ->one();
+        $content = $model->description;
+        $pdf = Yii::$app->pdf; // or new Pdf();
+        $mpdf = $pdf->api; // fetches mpdf api
+        $mpdf->SetHeader('Kartik Header'); // call methods or set any properties
+        $mpdf->WriteHtml($content); // call mpdf write html
+        echo $mpdf->Output('ketek.pdf', 'D'); // call the mpdf api output as needed
+
+    }
     /**
      * @inheritdoc
      */

@@ -4,9 +4,9 @@
 $(document).on('ready', function () {
 
     $('#modalButtonProducts').click(function () {
-        var modal = $('#modal-products');
+        var modal = $('#modal-main');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalContent');
+        var modal_content = modal.find('#modalMainContent');
         modal_content.html('');
 
         $.get(href, function (data) {
@@ -20,7 +20,7 @@ $(document).on('ready', function () {
         })
 
         modal.on('hidden.bs.modal', function (event) {
-            $.pjax.reload({container: '#pjax_products'});
+            $.pjax.reload({container: '#products_grid'});
             modal_content.html('');
             return false;
             /* $('#pjax_add_product').on('pjax:end', function () {

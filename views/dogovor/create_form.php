@@ -31,9 +31,10 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                 <!-- <li><a href="#javatab" role="tab" data-toggle="tab" class="ajax_loader">Java</a></li>
                  <li><a href="#csharptab" role="tab" data-toggle="tab" class="ajax_loader">C#</a></li>
                  <li><a href="#mysqltab" role="tab" data-toggle="tab" class="ajax_loader">MySQL</a></li>-->
-                <?php if ($model_dogovor->isNewRecord) { ?>
+              <!--  <?php /*if ($model_dogovor->isNewRecord) { */?>
                     <li><a href="#invoice_create" role="tab" data-toggle="tab" class="ajax_loader">Инвойсы</a></li>
-                <?php } else { ?>
+
+                <?php /*} else { */?>
                     <li class="dropdown">
                         <a class="dropdown-toggle" data-toggle="dropdown" href="#">Инвойсы<b class="caret"></b></a>
                         <ul class="dropdown-menu">
@@ -44,8 +45,12 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
 
                         </ul>
                     </li>
-                <?php } ?>
-                <li><a href="#products" role="tab" data-toggle="tab">Товарные позиции</a></li>
+                --><?php /*} */?>
+
+
+
+                <li><a href="#invoice_list-by-contractor" role="tab" data-toggle="tab" class="ajax_loader">Инвойсы</a></li>
+
 
             </ul>
 
@@ -401,21 +406,13 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
 
                 <!-- <div class="tab-pane" id="banks_create-from-list">
                  </div>-->
-                <div class="tab-pane" id="invoice_create">
-
-                    INVOICE
-
-                </div>
                 <div class="tab-pane" id="invoice_list-by-contractor">
 
-                    invoice_list-by-contractor
+                    asd
 
                 </div>
-                <div class="tab-pane" id="products">
 
-                    PRODUCTS
 
-                </div>
             </div>
             <!-- END TABS -->
         </div>

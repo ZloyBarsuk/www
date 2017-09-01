@@ -1,7 +1,7 @@
 
 
 $('body').on('click','#add_bank_modal,#add_bank_index',function (event) {
-
+    event.stopPropagation();
    var button_id= $(this).attr('id');
 
 
@@ -17,19 +17,14 @@ $('body').on('click','#add_bank_modal,#add_bank_index',function (event) {
         $.get(href,{'contractor_id': param}, function (data) {
             modal_content.html(data);
             modal.modal('show');
+
+
+
+
         }).fail(function (data) {
             var n = Noty('id');
             $.noty.setText(n.options.id, data.responseText);
             $.noty.setType(n.options.id, 'error');
-            return false;
-        })
-
-
-        modal.on('hidden.bs.modal', function (event) {
-
-
-
-
             if(button_id=='add_bank_modal')
             {
                 $.pjax.reload({
@@ -46,11 +41,22 @@ $('body').on('click','#add_bank_modal,#add_bank_index',function (event) {
                     timeout: 3000
                 });
             }
-            else {
+            else if(button_id=='add_bank_index')
+            {
                 $.pjax.reload({container: '#pjax_banks'});
             }
 
             modal_content.html('');
+            return false;
+        })
+
+
+        modal.on('hidden.bs.modal', function (event) {
+
+
+
+
+
 
 
 

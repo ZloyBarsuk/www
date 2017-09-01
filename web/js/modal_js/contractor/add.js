@@ -24,6 +24,8 @@ $(document).on('ready', function () {
         $.get(href, function (data) {
             modal_content.html(data);
             modal.modal('show');
+
+
         }).fail(function (data) {
             var n = Noty('id');
             $.noty.setText(n.options.id, data.responseText);

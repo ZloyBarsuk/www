@@ -94,4 +94,40 @@ class InvoiceController extends Controller
             throw new NotFoundHttpException('The requested page does not exist.');
         }
     }
+
+    public function actionListByContractor()
+    {
+
+
+
+        $model_invoice = new Invoice();
+        $searchModel = new InvoiceSearch();
+        //   $merged_params = Yii::$app->request->queryParams;
+        //  var_dump($merged_params);
+        //  exit;
+        $request = Yii::$app->getRequest();
+        //   Yii::$app->response->format = Response::FORMAT_JSON;
+        if ($request->isPost) {
+            $merged_params = Yii::$app->request->post();
+        } else {
+            $merged_params = Yii::$app->request->queryParams;
+        }
+
+        $dataProvider = $searchModel->search(\yii\helpers\ArrayHelper::merge(
+            $merged_params,
+            [$searchModel->formName() => ['dogovor_id' =>$merged_params['dogovor_id'] ]]
+        ));
+
+        return $this->renderAjax('dogovor_invoices',
+            [
+                'searchModel' => $searchModel,
+                'dataProvider' => $dataProvider,
+                'model_bank' => $model_invoice,
+                'dogovor_id' => $merged_params['dogovor_id'] ,
+            ]);
+
+
+    }
+
 }
+

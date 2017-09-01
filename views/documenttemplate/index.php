@@ -3,6 +3,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\widgets\Pjax;
+use yii\helpers\Url;
 
 /* @var $this yii\web\View */
 /* @var $searchModel app\models\DocumentTemplateSearch */
@@ -34,11 +35,11 @@ $this->registerJsFile(
 ?>
 <div class="document-template-index">
 
-    <h1><?= Html::encode($this->title) ?></h1>
     <?php // echo $this->render('_search', ['model' => $searchModel]); ?>
 
     <p>
-        <?= Html::a(Yii::t('app', 'Create Document Template'), ['create'], ['class' => 'btn btn-success']) ?>
+        <?= Html::button(Yii::t('app', 'Create Document Template'), ['value' => Url::to('/documenttemplate/create'), 'class' => 'btn btn-success', 'id' => 'add_templates_index']) ?>
+
     </p>
     <?php Pjax::begin([
 

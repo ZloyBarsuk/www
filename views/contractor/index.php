@@ -111,7 +111,7 @@ $this->registerJsFile(
                 return $key.'/'.$action;
                 },*/
                 'header' => 'Действия',
-                'template' => '{update}{delete}',
+                'template' => '{update} / {delete}',
                 'buttons' => [
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [

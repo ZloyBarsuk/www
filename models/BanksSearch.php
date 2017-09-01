@@ -87,7 +87,7 @@ class BanksSearch extends Banks
     public function SearchBanksByContractor($contr_id)
     {
         $query = Banks::find();
-        $query->with('contractor')->where(['contractor_is'=>$contr_id]);
+        $query->with('contractor')->where(['contractor_id'=>$contr_id]);
 
         // add conditions that should always apply here
 

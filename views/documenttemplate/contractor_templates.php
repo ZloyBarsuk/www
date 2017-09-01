@@ -33,7 +33,7 @@ $this->registerJsFile('@web/js/modal_js/templates/update.js', ['depends' => [\yi
         'headerRowOptions' => ['class' => 'kartik-sheet-style'],
         // 'captionOptions' => ['data-method' => 'post',],
         'options' => [
-            'id' => 'contractor_banks_modal',
+            'id' => 'contractor_templates_modal',
             'data-controller' => "/documenttemplate/list-by-contractor",
             'data-contractor_id' => "$contractor_id",
         ],
@@ -106,7 +106,7 @@ $this->registerJsFile('@web/js/modal_js/templates/update.js', ['depends' => [\yi
                     'update' => function ($url, $model) {
                         return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
                             'title' => Yii::t('yii', 'Update'),
-                            'class' => 'update_templates',
+                            'class' => 'update_templates_contractor',
                             'data-model-id' => $model->doc_templ_id,
                             'data-pjax' => 1,
                             // 'action' => $url,

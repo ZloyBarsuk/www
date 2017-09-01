@@ -197,6 +197,7 @@ class BanksController extends Controller
 
 
         if ($request->isAjax) {
+
             if ($model_bank->load($request->post()) && $model_bank->validate()) {
                  Yii::$app->response->format = Response::FORMAT_JSON;
 

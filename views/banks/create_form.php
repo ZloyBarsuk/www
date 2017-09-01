@@ -20,11 +20,12 @@ $this->registerJsFile('/js/modal_js/banks/create.js', ['depends' => [\yii\web\Jq
 <div class="banks-form">
     <div class="row">
         <div class="col-md-12">
-            <?php  yii\widgets\Pjax::begin([
+            <?php
+          /*  yii\widgets\Pjax::begin([
                     'id' => 'pjax_add_banks',
-               // 'timeout' => false,
-               // 'enablePushState' => false,
-            ]) ?>
+
+            ]) */
+            ?>
             <?php $form = ActiveForm::begin([
 
                 'method' => 'post',
@@ -253,6 +254,6 @@ $this->registerJsFile('/js/modal_js/banks/create.js', ['depends' => [\yii\web\Jq
 
 
             <?php ActiveForm::end(); ?>
-            <?php  yii\widgets\Pjax::end() ?>
+            <?php // yii\widgets\Pjax::end() ?>
         </div>
     </div>

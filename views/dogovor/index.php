@@ -1,8 +1,7 @@
 <?php
 
 use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\widgets\Pjax;
+use kartik\grid\GridView;
 use yii\helpers\Url;
 use yii\bootstrap\Modal;
 
@@ -15,94 +14,125 @@ $this->params['breadcrumbs'][] = $this->title;
 ?>
 
 <?php
-
+$this->registerJsFile('@web/js/modal_js/dogovor/tabs_loader_dogovor.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('@web/js/modal_js/dogovor/add.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerJsFile('@web/js/modal_js/dogovor/update.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerJsFile('@web/js/modal_js/dogovor/delete.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
-
+$this->registerJsFile('@web/js/modal_js/dogovor/update.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
 
 ?>
+
+
 <div class="dogovor-index">
 
 
     <p>
-        <?= Html::button(Yii::t('app', 'Create Dogovor'), ['value' => Url::to('/dogovor/create'), 'class' => 'btn btn-success', 'id' => 'modalButtonDogovor']) ?>
+        <?= Html::button(Yii::t('app', 'Create Dogovor'), ['value' => Url::to('/dogovor/create'), 'class' => 'btn btn-success', 'id' => 'add_dogovor_index']) ?>
     </p>
-    <?php
-    Modal::begin([
-        'options' => [
-            'id' => 'modal-dogovor',
-            'tabindex' => false // important for Select2 to work properly
-        ],
-        'header' => '<h5>' . Yii::t('app', 'Заполнение данных договора') . '</h5>',
-        //   'footer' => '<div class="form-group"><div class="col-md-5 col-xs-10"></div></div>',
-        'size' => 'modal-lg',
-        'toggleButton' => false,
-        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
-    ]);
 
-    echo "<div id='modalContentDogovor'> </div>";
-    Modal::end();
-    ?>
 
-    <?php Pjax::begin(
-        [
-            'id' => 'pjax_dogovors',
-        ]
+    <div>
 
-    ); ?>   <?= GridView::widget([
-        'dataProvider' => $dataProvider,
-        'filterModel' => $searchModel,
-        'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+        <?= GridView::widget([
+            'dataProvider' => $dataProvider,
+            'filterModel' => $searchModel,
+            'headerRowOptions' => ['class' => 'kartik-sheet-style'],
+            // 'captionOptions' => ['data-method' => 'post',],
+            'options' => [
+                'id' => 'dogovors_modal',
+                'data-controller' => "/dogovor/full-list",
+                'data-dogovor_id' => "$model->id_executor",
+            ],
 
-            'dogovor_id',
-            'id_executor',
-            'doc_template_id',
-            'id_contractor',
-            'id_bank_contractor',
-            // 'id_bank_executor',
-            // 'id_author',
-            // 'dogovor_number',
-            // 'delivery_date',
-            // 'comments:ntext',
-            // 'total_summ',
-            // 'created_date',
-            // 'closed_date',
-            // 'updated_date',
-            // 'status',
-            // 'folder_path:ntext',
+            'panel' => [
+                'type' => GridView::TYPE_PRIMARY,
 
-            ['class' => 'yii\grid\ActionColumn',
-                /*'urlCreator'=>function ( $action,  $model,  $key,  $index,  $this) {
-                return $key.'/'.$action;
-                },*/
-                'header' => 'Действия',
-                'template' => '{update} / {delete} /',
-                'buttons' => [
-                    'update' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
-                            'title' => Yii::t('yii', 'Update'),
-                            'class' => 'update_dogovors',
-                            'data-model-id' => $model->dogovor_id,
-                            'data-pjax' => 1,
-                            // 'action' => $url,
-                        ]);
-                    },
-                    'delete' => function ($url, $model) {
-                        return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
-                            'title' => Yii::t('yii', 'Delete'),
-                            'class' => 'delete_dogovors',
-                            'data-model-id' => $model->dogovor_id,
-                            'data-pjax' => 1,
-                            'data-method' => 'post',
+            ],
+            'pjax' => true,
+            // 'filterUrl' => Url::to(["banks/bankslist/$contractor_id"]),
+            /* 'toolbar' => [
+                 [
+                     'content' =>
+                         Html::button('<i class="glyphicon glyphicon-plus"></i>', [
+                             'type' => 'button',
+                             'title' => Yii::t('kvgrid', 'Add Book'),
+                             'class' => 'btn btn-success'
+                         ]) . ' ' .
+                         Html::a('<i class="glyphicon glyphicon-repeat"></i>', ["/banks/bankslist/$contractor_id"], [
+                             'class' => 'btn btn-default',
+                             'id' => 'refresh_grid',
+                             'title' => Yii::t('kvgrid', 'Reset Grid')
+                         ]),
 
-                            // 'action' => $url,
-                        ]);
-                    },
-
+                 ],
+                 '{export}',
+                 '{toggleData}'
+             ],*/
+            'pjaxSettings' => [
+                'timeout' => false,
+                'neverTimeout' => false,
+                'beforeGrid' => '<strong>Список всех договоров</strong>',
+                'afterGrid' => '',
+                'method' => 'post',
+                'options' => [
+                    'id' => 'dogovors-grid',
+                    'enablePushState' => false,
+                    'timeout' => false,
                 ]
             ],
-        ],
-    ]); ?>
-    <?php Pjax::end(); ?></div>
+            'columns' => [
+                ['class' => 'yii\grid\SerialColumn'],
+
+                'dogovor_id',
+                'id_executor',
+                'doc_template_id',
+                'id_contractor',
+                'id_bank_contractor',
+                // 'id_bank_executor',
+                // 'id_author',
+                // 'dogovor_number',
+                // 'delivery_date',
+                // 'comments:ntext',
+                // 'total_summ',
+                // 'created_date',
+                // 'closed_date',
+                // 'updated_date',
+                // 'status',
+                // 'folder_path:ntext',
+
+                ['class' => 'yii\grid\ActionColumn',
+                    /*'urlCreator'=>function ( $action,  $model,  $key,  $index,  $this) {
+                    return $key.'/'.$action;
+                    },*/
+                    'header' => 'Действия',
+                    'template' => '{update} / {delete} /',
+                    'buttons' => [
+                        'update' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-pencil"></span>', $url, [
+                                'title' => Yii::t('yii', 'Update'),
+                                'class' => 'update_dogovors',
+                                'data-model-id' => $model->dogovor_id,
+                                'data-pjax' => 1,
+                                // 'action' => $url,
+                            ]);
+
+
+                        },
+                        'delete' => function ($url, $model) {
+                            return Html::a('<span class="glyphicon glyphicon-trash"></span>', $url, [
+                                'title' => Yii::t('yii', 'Delete'),
+                                'class' => 'delete_dogovors',
+                                'data-model-id' => $model->dogovor_id,
+                                'data-pjax' => 1,
+                                'data-method' => 'post',
+
+                                // 'action' => $url,
+                            ]);
+                        },
+
+                    ]
+                ],
+            ],
+        ]); ?>
+
+    </div>

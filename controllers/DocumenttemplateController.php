@@ -12,7 +12,7 @@ use yii\helpers\Json;
 use yii\helpers\ArrayHelper;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
-
+use yii\data\Pagination;
 
 class DocumenttemplateController extends Controller
 {
@@ -50,14 +50,11 @@ class DocumenttemplateController extends Controller
     }
 
 
-
-
     public function actionListByContractor()
     {
 
 
-
-        $docs_templ= new DocumentTemplate();
+        $docs_templ = new DocumentTemplate();
         $searchModel = new DocumentTemplateSearch();
 
         $request = Yii::$app->getRequest();
@@ -69,7 +66,7 @@ class DocumenttemplateController extends Controller
 
         $dataProvider = $searchModel->search(\yii\helpers\ArrayHelper::merge(
             $merged_params,
-            [$searchModel->formName() => ['contractor_id' =>$merged_params['contractor_id'] ]]
+            [$searchModel->formName() => ['contractor_id' => $merged_params['contractor_id']]]
         ));
 
         return $this->renderAjax('contractor_templates',
@@ -77,26 +74,17 @@ class DocumenttemplateController extends Controller
                 'searchModel_templ' => $searchModel,
                 'dataProvider_templ' => $dataProvider,
                 'model_bank_templ' => $docs_templ,
-                'contractor_id' => $merged_params['contractor_id'] ,
+                'contractor_id' => $merged_params['contractor_id'],
+
             ]);
 
 
     }
 
 
-
-
-
-
-
-
-
-
-
-
     public function actionCreate()
     {
-        $model_template = new DocumentTemplate(['scenario'=>'create']);
+        $model_template = new DocumentTemplate(['scenario' => 'create']);
         $request = Yii::$app->getRequest();
         Yii::$app->response->format = Response::FORMAT_JSON;
         $contractor_id = !empty($request->post('contractor_id')) ? $request->post('contractor_id') : '';
@@ -147,23 +135,54 @@ class DocumenttemplateController extends Controller
 
     public function actionUpdate($id)
     {
-        $model = $this->findModel($id);
+        $model_templates = $this->findModel($id);
+        $model_templates->scenario = 'update';
+        $request = Yii::$app->getRequest();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->doc_templ_id]);
+
+        if ($request->isAjax) {
+
+            if ($model_templates->load($request->post()) && $model_templates->validate()) {
+                Yii::$app->response->format = Response::FORMAT_JSON;
+
+                $transaction = \Yii::$app->db->beginTransaction();
+                try {
+                    if ($model_templates->save()) {
+                        $transaction->commit();
+                        return ['notify' =>1, 'responseText' => Yii::t('app', 'The action was successful')];
+                    }
+                } catch (Exception $e) {
+                    $transaction->rollBack();
+                    return ['notify' => 0, 'responseText' => Yii::t('app', 'The action was unsuccessful')];
+                }
+            } else {
+                return $this->renderAjax('create_form', [
+                    'model_template' => $model_templates,]);
+            }
         } else {
-            return $this->render('update', [
-                'model' => $model,
-            ]);
+            return $this->renderAjax('create_form', [
+                'model_template' => $model_templates,]);
         }
+
+
     }
 
 
     public function actionDelete($id)
     {
-        $this->findModel($id)->delete();
+        $request = Yii::$app->getRequest();
+        Yii::$app->response->format = Response::FORMAT_JSON;
 
-        return $this->redirect(['index']);
+        if ($request->isAjax && $request->isPost) {
+
+            if ($this->findModel($id)->delete()) {
+                return ['notify' => 1, 'flag' => 'success', 'notify_text' => Yii::t('app', 'Delete successful'),];
+
+            } else {
+                return ['notify' => 0, 'flag' => 'error', 'notify_text' => Yii::t('app', 'Delete unsuccessful'),];
+            }
+
+        }
     }
 
 
