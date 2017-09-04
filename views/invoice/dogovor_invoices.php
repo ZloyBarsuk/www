@@ -51,6 +51,8 @@ $this->registerJsFile('@web/js/modal_js/invoice/update.js', ['depends' => [\yii\
             'id' => 'contractor_dogovor_invoices_modal',
             'data-controller' => "/invoice/invoice-list",
             'data-dogovor_id' => "$dogovor_id",
+            'data-executor_id' => "$executor_id",
+            'data-contractor_id' => "$contractor_id",
         ],
 
         'panel' => [

@@ -8,22 +8,12 @@
 
     $('body').on('click', 'td>a.update_banks,td>a.update_banks_contractor', function (event) {
 
-        event.stopPropagation();
         var button_class= $(this).attr('class');
-        switch(button_class)
-        {
-            case 'update_banks_contractor': var modal = $('#modal-update'); break;
-            case 'update_banks': var modal = $('#modal-main'); break;
-            default:
-                alert( 'Я таких значений не знаю! Проверь селектор в скрипте !' );
-
-        }
-
-
+        event.stopPropagation();
         var href = $(this).attr('href');
       //  var data_id = $(this).attr('data-model-id');
-
-        var modal_content = modal.find('#modalContent');
+        var modal = $('#modal-upper');
+        var modal_content = modal.find('#modalUpperContent');
         var grid_data = $('#contractor_banks_modal').data();
         modal_content.html('');
 

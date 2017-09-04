@@ -12,8 +12,8 @@
         event.stopPropagation();
         var href = $(this).attr('href');
       //  var data_id = $(this).attr('data-model-id');
-        var modal = $('#modal-lower');
-        var modal_content = modal.find('#modalLowerContent');
+        var modal = $('#modal-update');
+        var modal_content = modal.find('#modalContent');
         var grid_data = $('#dogovors_modal').data();
         modal_content.html('');
 

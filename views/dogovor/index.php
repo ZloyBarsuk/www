@@ -25,7 +25,6 @@ $this->registerJsFile('@web/js/modal_js/dogovor/update.js', ['depends' => [\yii\
 
 <div class="dogovor-index">
 
-
     <p>
         <?= Html::button(Yii::t('app', 'Create Dogovor'), ['value' => Url::to('/dogovor/create'), 'class' => 'btn btn-success', 'id' => 'add_dogovor_index']) ?>
     </p>
@@ -88,6 +87,7 @@ $this->registerJsFile('@web/js/modal_js/dogovor/update.js', ['depends' => [\yii\
                 'doc_template_id',
                 'id_contractor',
                 'id_bank_contractor',
+
                 // 'id_bank_executor',
                 // 'id_author',
                 // 'dogovor_number',

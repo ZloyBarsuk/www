@@ -5,10 +5,24 @@
 $('body').on('click', '#add_template_modal,#add_templates_index', function (event) {
 
     event.stopPropagation();
+
     var button_id = $(this).attr('id');
-    var modal = $('#modal-lower');
+
+
+    switch (button_id) {
+        case 'add_templates_index':
+            var modal = $('#modal-main');
+            break;
+        case 'add_template_modal':
+            var modal = $('#modal-add');
+            break;
+        default:
+            alert('Я таких значений не знаю! Проверь селектор в скрипте !');
+
+    }
+
     var href = $(this).attr('value');
-    var modal_content = modal.find('#modalLowerContent');
+    var modal_content = modal.find('#modalContent');
     modal_content.html('');
     var grid_data = $('#contractor_templates_modal').data();
     var param = grid_data !== undefined ? grid_data.contractor_id : '';

@@ -8,10 +8,15 @@ $(document).on('ready', function () {
 
     $('body').on('click', 'td > a.update_contractor', function (event) {
         event.stopPropagation();
+
+
+
+
+
         var href = $(this).attr('href');
         var data = $(this).data();
         var modal = $('#modal-main');
-        var modal_content = modal.find('#modalMainContent');
+        var modal_content = modal.find('#modalContent');
         modal_content.html('');
         $.get(href,{contractor_id:data.contr_id} , function (data) {
             modal_content.html(data);
@@ -33,7 +38,7 @@ $(document).on('ready', function () {
         var href = $(this).attr('href');
         var data = $(this).data();
         var modal = $('#modal-main');
-        var modal_content = modal.find('#modalMainContent');
+        var modal_content = modal.find('#modalContent');
         modal_content.html('');
 
         $.get(href, {contractor_id: data.contr_id}, function (data) {

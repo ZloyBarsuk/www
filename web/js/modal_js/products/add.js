@@ -6,7 +6,7 @@ $(document).on('ready', function () {
     $('#modalButtonProducts').click(function () {
         var modal = $('#modal-main');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalMainContent');
+        var modal_content = modal.find('#modalContent');
         modal_content.html('');
 
         $.get(href, function (data) {

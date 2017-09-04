@@ -12,7 +12,7 @@ $('body').on('click', 'td>a.update_products', function (event) {
     event.stopPropagation();
     var href = $(this).attr('href');
     var modal = $('#modal-main');
-    var modal_content = modal.find('#modalMainContent');
+    var modal_content = modal.find('#modalContent');
 
     $.get(href, function (data) {
         modal_content.html(data);

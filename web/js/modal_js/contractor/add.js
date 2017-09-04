@@ -4,9 +4,13 @@ $(document).on('ready', function () {
 
     $('body').on('click', '#CreateContractor', function () {
 
+        event.stopPropagation();
+        var button_id= $(this).attr('id');
+
+
         var modal = $('#modal-main');
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalMainContent');
+        var modal_content = modal.find('#modalContent');
         modal_content.html('');
 
         /*

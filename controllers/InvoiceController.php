@@ -8,6 +8,10 @@ use app\models\InvoiceSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\widgets\ActiveForm;
+use yii\web\Response;
+use yii\helpers\Json;
+use yii\helpers\ArrayHelper;
 
 
 /**
@@ -54,13 +58,77 @@ class InvoiceController extends Controller
     {
         $model = new Invoice();
 
-        if ($model->load(Yii::$app->request->post()) && $model->save()) {
-            return $this->redirect(['view', 'id' => $model->invoice_id]);
-        } else {
-            return $this->render('create', [
-                'model' => $model,
-            ]);
+        //  $model_contr = new Contractor(['scenario' => "create"]);
+        //  $model_contr_info = new ContractorInfo();
+        //   $model_media = new MediaForm();
+        $request = Yii::$app->getRequest();
+
+
+      //  if( empty($request->post('dogovor_id')) || empty($request->post('dogovor_contractor')) || empty($request->post('dogovor_executor')) )
+        if( empty($request->post('dogovor_id')) && (empty($request->post('dog_contractor')) && empty($request->post('dog_executor'))))
+
+        {
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            return ['notify' => 0, 'responseText' => Yii::t('app', 'Не указали № договора, поставщика и покупателя')];
+
+
         }
+        else{
+            $model->dogovor_id =  $request->post('dogovor_id');
+            $model->contractor_id = $request->post('dog_contractor');
+            $model->executor_id =  $request->post('dog_executor');
+        }
+
+
+        // если AJAX
+        if ($request->isAjax) {
+
+            if ($model->load($request->post())) {
+
+                if ($model->validate()) {
+
+                    $transaction = Yii::$app->db->beginTransaction();
+                    try {
+                        if ($model->save(false)) {
+
+                            $transaction->commit();
+                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful')];
+
+                        } else {
+                            $transaction->rollBack();
+                            return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful')];
+
+                        }
+                    } catch (Exception $e) {
+                        $transaction->rollBack();
+                        return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful')];
+                    }
+                } else {
+                    return ['notify' => 0, 'notify_text' => Yii::t('app', 'The action was unsuccessful'), 'validate' => $model->errors];
+
+                }
+            } else {
+                return $this->renderAjax('ketek_form', [
+                    'model_invoice' => $model,
+                    // 'contractor_flag'=>$contractor_id,
+
+                ]);
+            }
+
+
+        } else {
+            return $this->renderAjax('ketek_form', [
+                'model_invoice' => $model,
+                //  'contractor_flag'=>$contractor_id,
+
+            ]);
+
+        }
+
+
+
+
+
     }
 
 
@@ -124,6 +192,8 @@ class InvoiceController extends Controller
                 'dataProvider' => $dataProvider,
                 'model_bank' => $model_invoice,
                 'dogovor_id' => $merged_params['dogovor_id'] ,
+                'contractor_id' => $request->post('dog_contractor') ,
+                'executor_id' =>$request->post('dog_executor') ,
             ]);
 
 

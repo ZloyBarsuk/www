@@ -49,18 +49,20 @@ AppAsset::register($this);
         'toggleButton' => false,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
     ]);
-    echo "<div id='modalMainContent'> </div>";
+    echo "<div id='modalContent'> </div>";
     Modal::end();
 
     ?>
 
 
+
+
     <?php
-    /*  first is modal windows for grid-view */
+    /*  second is  modal windows for edit and create */
 
     Modal::begin([
-        'header' => '<h4><div id="modalLowerHeader">modalLowerHeader</div></h4>',
-        'id' => 'modal-lower',
+        'header' => '<h4><div id="modalUpdateHeader"> modalUpdateHeader</div></h4>',
+        'id' => 'modal-update',
         'options' => [
             'tabindex' => false
         ],
@@ -68,7 +70,25 @@ AppAsset::register($this);
         'toggleButton' => false,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
     ]);
-    echo "<div id='modalLowerContent'> </div>";
+    echo "<div id='modalContent'> </div>";
+    Modal::end();
+
+    ?>
+
+    <?php
+    /*  first is modal windows for grid-view */
+
+    Modal::begin([
+        'header' => '<h4><div id="modalAddHeader">modalAddHeader</div></h4>',
+        'id' => 'modal-add',
+        'options' => [
+            'tabindex' => false
+        ],
+        'size' => 'modal-lg',
+        'toggleButton' => false,
+        'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
+    ]);
+    echo "<div id='modalContent'> </div>";
     Modal::end();
 
     ?>
@@ -77,8 +97,8 @@ AppAsset::register($this);
     /*  second is  modal windows for edit and create */
 
     Modal::begin([
-        'header' => '<h4><div id="modalUpperHeader"> modalUpperHeader</div></h4>',
-        'id' => 'modal-upper',
+        'header' => '<h4><div id="modalEditHeader"> modalEditHeader</div></h4>',
+        'id' => 'modal-edit',
         'options' => [
             'tabindex' => false
         ],
@@ -86,10 +106,12 @@ AppAsset::register($this);
         'toggleButton' => false,
         'clientOptions' => ['backdrop' => 'static', 'keyboard' => false],
     ]);
-    echo "<div id='modalUpperContent'> </div>";
+    echo "<div id='modalContent'> </div>";
     Modal::end();
 
     ?>
+
+
 
 
     <div class="main-container" id="main-container">

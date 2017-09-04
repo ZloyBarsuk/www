@@ -23,22 +23,19 @@ $('body').on('beforeSubmit', 'form#dogovor-form', function (event) {
                 if (data === Object(data)) {
                     // Если success значит валидация не прошла
                     if (data.notify == 0) {
-                        //Выводим ошибки валидации
-                        /* $.each(data.validate, function(key, val) {
-                         $("#example-form").yiiActiveForm("updateAttribute", key, "");
-                         $("#example-form").yiiActiveForm("updateAttribute", key, [val]);
-                         });*/
+                       
                         var n = Noty('id');
                         $.noty.setText(n.options.id, response.responseText);
                         $.noty.setType(n.options.id, 'error');
                     } else {
                         if (data.notify == 1) {
 
-                            $('#contractor-contractor_id').val(data.contractor_id);
+                            $('#dogovor-dogovor_id').val(data.dogovor_id);
+                            alert(data.dogovor_id);
                             var n = Noty('id');
                             $.noty.setText(n.options.id, data.notify_text);
                             $.noty.setType(n.options.id, 'information');
-                            $.pjax.reload({container: '#pjax_dogovors', timeout: 3000});
+                            $.pjax.reload({container: '#dogovors-grid', timeout: 3000});
                             //  $.pjax.reload({container: '#pjax_products', timeout: 2000});
                         }
                         else {

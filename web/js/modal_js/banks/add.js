@@ -5,10 +5,17 @@ $('body').on('click','#add_bank_modal,#add_bank_index',function (event) {
    var button_id= $(this).attr('id');
 
 
+switch(button_id)
+{
+    case 'add_bank_index': var modal = $('#modal-main'); break;
+    case 'add_bank_modal': var modal = $('#modal-add'); break;
+    default:
+        alert( 'Я таких значений не знаю! Проверь селектор в скрипте !' );
 
-        var modal = $('#modal-upper');
+}
+
         var href = $(this).attr('value');
-        var modal_content = modal.find('#modalUpperContent');
+        var modal_content = modal.find('#modalContent');
         modal_content.html('');
         var grid_data = $('#contractor_banks_modal').data();
         var param = grid_data!== undefined ? grid_data.contractor_id : '';

@@ -68,7 +68,8 @@ class DogovorController extends Controller
                         if ($model_dogovor->save(false)) {
 
                             $transaction->commit();
-                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful')];
+                            return ['notify' => 1, 'notify_text' => Yii::t('app', 'The action was successful'), 'dogovor_id' => $model_dogovor->dogovor_id];
+
 
                         } else {
                             $transaction->rollBack();
