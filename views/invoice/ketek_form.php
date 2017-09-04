@@ -41,9 +41,14 @@ $this->registerCssFile("@web/css/ketek.css", [
                 <?=
                 $form->field($model_invoice, 'contractor_id')->widget(Select2::classname(), [
                     'data' => ArrayHelper::map(\app\models\Contractor::find()->where(['contractor_type' => 'client'])->all(), 'contractor_id', 'name_ua'),
-                    'options' => ['placeholder' => 'Select a state ...'],
+                    'options' => [
+                        'placeholder' => 'Select a state ...',
+
+                    ],
+
                     'size' => Select2::SMALL,
                     'pluginOptions' => [
+                        'width'=>'50%',
 
                         'allowClear' => true
                     ],
@@ -53,11 +58,28 @@ $this->registerCssFile("@web/css/ketek.css", [
 
             </td>
             <td class="bill-info-col"> Invoice No:</td>
-            <td> XK-2016-10-19-UKR161012</td>
+            <td>  <?= $form->field($model_invoice, 'number')->textInput(['maxlength' => true]) ?></td>
         </tr>
         <tr>
             <td class="bill-info-col"> Ship To:</td>
-            <td> INWIZ</td>
+            <td>
+                <?=
+                $form->field($model_invoice, 'contractor_id')->widget(Select2::classname(), [
+                    'data' => ArrayHelper::map(\app\models\Contractor::find()->where(['contractor_type' => 'client'])->all(), 'contractor_id', 'name_ua'),
+                    'options' => [
+                        'placeholder' => 'Select a state ...',
+
+                    ],
+
+                    'size' => Select2::SMALL,
+                    'pluginOptions' => [
+                        'width'=>'50%',
+
+                        'allowClear' => true
+                    ],
+                ]);
+                ?>
+            </td>
             <td class="bill-info-col"> Order No:</td>
             <td> UKR161012</td>
         </tr>
