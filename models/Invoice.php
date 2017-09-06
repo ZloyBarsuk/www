@@ -57,7 +57,7 @@ class Invoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['contractor_id', 'executor_id', 'number', 'order_number', 'purchase_order', 'warehouse_name', 'h_s_code', 'comment', 'net_weight', 'gross_weight', 'doc_template_id', 'paletts_info', 'payment_item', 'shipment', 'delivery_terms', 'total_pcs', 'document_date', 'created_by', 'updated_by'], 'required'],
+            [['contractor_id', 'executor_id', 'number', 'order_number', 'purchase_order','dogovor_id', 'warehouse_name', 'h_s_code', 'comment', 'net_weight', 'gross_weight', 'doc_template_id', 'paletts_info', 'payment_item', 'shipment', 'delivery_terms', 'total_pcs', 'document_date', 'created_by', 'updated_by'], 'required'],
             [['contractor_id', 'executor_id', 'doc_template_id', 'created_by', 'updated_by', 'dogovor_id'], 'integer'],
             [['total_summ', 'freight'], 'number'],
             [['document_date', 'created_at', 'updated_at'], 'safe'],
