@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d12d88a2438d38767fe4e134573ef063",
+    "content-hash": "7cb29cf7ed6f073e8fc7b847ae8fb92b",
     "packages": [
         {
             "name": "bower-asset/bootstrap",
@@ -1004,7 +1004,7 @@
                 "yii",
                 "yii2"
             ],
-            "time": "2014-12-13 16:58:44"
+            "time": "2014-12-13T16:58:44+00:00"
         },
         {
             "name": "kartik-v/yii2-dialog",
@@ -1822,16 +1822,16 @@
         },
         {
             "name": "kartik-v/yii2-widget-select2",
-            "version": "v2.0.9",
+            "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/kartik-v/yii2-widget-select2.git",
-                "reference": "03f202e9e2415f4c84e93a64074d85677fd0cc51"
+                "reference": "2c3f47527c783d5d03e778b40d0f1a0f28f6e541"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/03f202e9e2415f4c84e93a64074d85677fd0cc51",
-                "reference": "03f202e9e2415f4c84e93a64074d85677fd0cc51",
+                "url": "https://api.github.com/repos/kartik-v/yii2-widget-select2/zipball/2c3f47527c783d5d03e778b40d0f1a0f28f6e541",
+                "reference": "2c3f47527c783d5d03e778b40d0f1a0f28f6e541",
                 "shasum": ""
             },
             "require": {
@@ -1840,7 +1840,7 @@
             "type": "yii2-extension",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "autoload": {
@@ -1871,7 +1871,7 @@
                 "widget",
                 "yii2"
             ],
-            "time": "2017-04-12T09:00:24+00:00"
+            "time": "2017-09-04 15:30:52"
         },
         {
             "name": "kartik-v/yii2-widget-sidenav",
@@ -2654,16 +2654,16 @@
         },
         {
             "name": "wbraganca/yii2-dynamicform",
-            "version": "v2.0.1",
+            "version": "v2.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/wbraganca/yii2-dynamicform.git",
-                "reference": "97eab95aa52251b7fc56d009462575959e89473d"
+                "reference": "9b761d708aa6c06c1219e1c2ed321f7cb205b09f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/wbraganca/yii2-dynamicform/zipball/97eab95aa52251b7fc56d009462575959e89473d",
-                "reference": "97eab95aa52251b7fc56d009462575959e89473d",
+                "url": "https://api.github.com/repos/wbraganca/yii2-dynamicform/zipball/9b761d708aa6c06c1219e1c2ed321f7cb205b09f",
+                "reference": "9b761d708aa6c06c1219e1c2ed321f7cb205b09f",
                 "shasum": ""
             },
             "require": {
@@ -2696,7 +2696,7 @@
                 "yii2 dynamic form",
                 "yii2-dynamicform"
             ],
-            "time": "2015-02-23T19:20:21+00:00"
+            "time": "2015-02-25T15:31:24+00:00"
         },
         {
             "name": "yiisoft/yii2",
@@ -5302,7 +5302,8 @@
     "minimum-stability": "stable",
     "stability-flags": {
         "sadovojav/yii2-ckeditor": 20,
-        "kartik-v/yii2-datecontrol": 20
+        "kartik-v/yii2-datecontrol": 20,
+        "kartik-v/yii2-widget-select2": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

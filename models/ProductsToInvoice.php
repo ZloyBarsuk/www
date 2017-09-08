@@ -43,11 +43,11 @@ class ProductsToInvoice extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['invoice_id', 'product_id', 'unit'], 'required'],
+            [['invoice_id', 'product_id', 'unit','part_number_temp'], 'required'],
             [['invoice_id', 'product_id'], 'integer'],
             [['quantity', 'unit_price_manual', 'total_price'], 'number'],
             [['unit'], 'string'],
-            [['part_number'], 'string'],
+            [['part_number_temp'], 'string'],
             [['created_at', 'updated_at'], 'safe'],
             [['item_number'], 'string', 'max' => 10],
             [['remark'], 'string', 'max' => 255],
@@ -73,6 +73,8 @@ class ProductsToInvoice extends \yii\db\ActiveRecord
             'total_price' => Yii::t('app', 'Total Price'),
             'created_at' => Yii::t('app', 'Created At'),
             'updated_at' => Yii::t('app', 'Updated At'),
+            'order_number' => Yii::t('app', 'Order'),
+
         ];
     }
 

@@ -10,6 +10,8 @@ use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
 use yii\web\Response;
 use yii\widgets\ActiveForm;
+use yii\helpers\Json;
+use yii\db\Query;
 
 /**
  * ProductsController implements the CRUD actions for Products model.
@@ -171,6 +173,31 @@ class ProductsController extends Controller
         $model->load(Yii::$app->request->post());
         Yii::$app->response->format = Response::FORMAT_JSON;
         return ActiveForm::validate($model);
+    }
+
+
+
+
+    public function actionDropdownForInvoice($q = null, $id = null)
+    {
+
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $out = ['results' => ['id' => '', 'text' => '']];
+        if (!is_null($q)) {
+            $query = new Query;
+            $query->select(['CONCAT(part_number,"  =>    ",description_en) AS text', 'products_id AS id'])
+
+                ->from('products')
+                ->where(['like', 'part_number', $q]);
+
+            $command = $query->createCommand();
+            $data = $command->queryAll();
+            $out['results'] = array_values($data);
+        }
+        elseif ($id > 0) {
+            $out['results'] = ['id' => $id, 'text' => Products::find($id)->description_en];
+        }
+        return $out;
     }
 
 

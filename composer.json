@@ -22,7 +22,6 @@
         "symfony/dom-crawler": "v2.8.0",
         "symfony/css-selector": "v2.8.0",
         "kartik-v/yii2-widgets": "v3.4.0",
-        "wbraganca/yii2-dynamicform": "v2.0.1",
         "sadovojav/yii2-ckeditor": "dev-master",
         "kartik-v/yii2-tabs-x": "v1.2.0",
         "yiisoft/yii2-jui": "2.0.0",
@@ -32,7 +31,9 @@
         "drsdre/yii2-wizardwidget": "1.2.3",
         "shifrin/yii2-noty": "v1.0.2",
         "kartik-v/yii2-datecontrol": "1.9.0.x-dev",
-        "mdmsoft/yii2-admin": "2.7"
+        "mdmsoft/yii2-admin": "2.7",
+        "kartik-v/yii2-widget-select2": "@dev",
+        "wbraganca/yii2-dynamicform": "*"
 
 
 

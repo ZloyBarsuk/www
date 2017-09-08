@@ -27,20 +27,26 @@ class PoController extends Controller
      */
     public function actionIndex()
     {
+
         $searchModel = new PoSearch();
+
         $dataProvider = $searchModel->search(Yii::$app->request->queryParams);
 
         return $this->render('index', [
             'searchModel' => $searchModel,
             'dataProvider' => $dataProvider,
         ]);
+
     }
+
 
     /**
      * Displays a single Po model.
      * @param integer $id
      * @return mixed
      */
+
+
     public function actionView($id)
     {
         return $this->render('view', [

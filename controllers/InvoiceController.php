@@ -215,7 +215,7 @@ class InvoiceController extends Controller
             }
         }
 
-        return $this->renderAjax('ketek_form', [
+        return $this->renderAjax('ketek_form_copy', [
             'modelInvoice' => $modelInvoice,
             'modelsProductsInvoice' => (empty($modelProductsToInvoice)) ? [new ProductsToInvoice()] : $modelProductsToInvoice
         ]);

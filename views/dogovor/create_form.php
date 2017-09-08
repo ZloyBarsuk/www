@@ -151,7 +151,7 @@ $this->registerJsFile('/js/modal_js/dogovor/create.js', ['depends' => [\yii\web\
                                                 <?=
                                                 $form->field($model_dogovor, 'id_contractor')->widget(Select2::classname(), [
                                                     'data' => ArrayHelper::map(\app\models\Contractor::find()->where(['contractor_type' => 'client'])->all(), 'contractor_id', 'name_ua'),
-                                                    'options' => ['placeholder' => 'Select a state ...'],
+                                                    'options' => ['placeholder' => 'Выбор поставщика ...'],
                                                     'pluginOptions' => [
                                                         'allowClear' => true
                                                     ],

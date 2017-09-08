@@ -16,7 +16,8 @@ $this->registerCssFile("@web/css/ketek.css", [
     'depends' => [\yii\bootstrap\BootstrapAsset::className()],
 
 ]);
- $this->registerJsFile('@web/js/modal_js/invoice/dynamic_form_invoice.js', ['depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerJsFile('@web/js/modal_js/invoice/dynamic_form_invoice.js', ['depends' => [\yii\web\JqueryAsset::className()],'position' => \yii\web\View::POS_END]);
+// $this->registerJsFile('@web/js/modal_js/invoice/fuck.js', ['depends' => [\yii\web\JqueryAsset::className()],'position' => \yii\web\View::POS_END]);
 
 $js = '
 
@@ -26,16 +27,15 @@ $this->registerJs($js);
 ?>
 
 
-
-
 <?php yii\widgets\Pjax::begin(['id' => 'pjax_add_invoice']) ?>
 <?php $form = ActiveForm::begin([
-    'id' => 'invoice-form',
-    'options' => ['enctype' => 'multipart/form-data'], // important
-    'enableAjaxValidation' => true,
+    // 'id' => 'invoice-form',
+    'id' => 'dynamic-form',
+
+    // 'options' => ['enctype' => 'multipart/form-data'], // important
+    //  'enableAjaxValidation' => true,
     // 'validationUrl' => Url::toRoute(['invoice/ajax-validate', 'scenario' => $modelInvoice->scenario, 'model_id' => $modelInvoice->invoice_id]),
 ]); ?>
-
 
     <div class="company-name"></div>
 <?= Html::activeHiddenInput($modelInvoice, 'invoice_id') ?>
@@ -64,6 +64,7 @@ $this->registerJs($js);
 
                     'size' => Select2::SMALL,
                     'pluginOptions' => [
+
                         'width' => '80%',
                         'font-size' => '12px',
                         'allowClear' => true
@@ -191,160 +192,109 @@ $this->registerJs($js);
             <td class="remark">Remark</td>
         </tr>
 
+        <tr class="product-header-subrow" id="subrow">
 
-        <div class="panel-body">
-            <?php DynamicFormWidget::begin([
-                'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
-                'widgetBody' => '.container-items', // required: css class selector
-                'widgetItem' => '.item', // required: css class
-                'limit' => 10, // the maximum times, an element can be cloned (default 999)
-                'min' => 1, // 0 or 1 (default 1)
-                'insertButton' => '.add-product', // css class
-                'deleteButton' => '.remove-c', // css class
-                'model' => $modelsProductsInvoice[0],
-                'formId' => 'dynamic-form',
-                'formFields' => [
-                    'item_number',
-                    'product_id',
-                    'unit',
-                    'quantity',
-                    'unit_price_manual',
-                    'total_price',
-                ],
-            ]); ?>
+            <td class="item-position">&nbsp;</td>
+            <td class="part-code">Part code</td>
+            <td colspan="2" class="description">Description (mm)</td>
+            <td class="amount">Amount</td>
+            <td class="unit">Unit/$</td>
+            <td class="total">Total/$</td>
+            <td class="remark">
+
+            </td>
+        </tr>
 
 
-            <div class="container-items"><!-- widgetContainer -->
-                <?php foreach ($modelsProductsInvoice as $i => $modelProductInvoice): ?>
-                    <div class="item panel panel-default"><!-- widgetBody -->
-                        <div class="panel-heading">
-                            <h3 class="panel-title pull-left panel-title-products">Address</h3>
-                            <div class="pull-right">
-                                <button type="button" class="add-product btn btn-success btn-xs"><i
-                                        class="glyphicon glyphicon-plus"></i></button>
-                                <button type="button" class="remove-product btn btn-danger btn-xs"><i
-                                        class="glyphicon glyphicon-minus"></i></button>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-                        <div class="panel-body">
-                            <?php
-                            // necessary for update action.
-                            if (!$modelProductInvoice->isNewRecord) {
-                                echo Html::activeHiddenInput($modelProductInvoice, "[{$i}]pr_to_inv_id");
-                            }
-                            ?>
-                            <?= $form->field($modelProductInvoice, "[{$i}]item_number")->textInput(['maxlength' => true]) ?>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <?= $form->field($modelProductInvoice, "[{$i}]product_id")->textInput(['maxlength' => true]) ?>
-                                </div>
-                                <div class="col-sm-6">
-                                    <?= $form->field($modelProductInvoice, "[{$i}]unit")->textInput(['maxlength' => true]) ?>
-                                </div>
-                            </div><!-- .row -->
-                            <div class="row">
-                                <div class="col-sm-4">
-                                    <?= $form->field($modelProductInvoice, "[{$i}]quantity")->textInput(['maxlength' => true]) ?>
-                                </div>
-                                <div class="col-sm-4">
-                                    <?= $form->field($modelProductInvoice, "[{$i}]unit_price_manual")->textInput(['maxlength' => true]) ?>
-                                </div>
-                                <div class="col-sm-4">
-                                    <?= $form->field($modelProductInvoice, "[{$i}]total_price")->textInput(['maxlength' => true]) ?>
-                                </div>
-                            </div><!-- .row -->
-                        </div>
+        <tr class="product-item-row">
+            <td colspan="8">
+
+                        <?php DynamicFormWidget::begin([
+                            'widgetContainer' => 'dynamicform_wrapper', // required: only alphanumeric characters plus "_" [A-Za-z0-9_]
+                            'widgetBody' => '.container-items', // required: css class selector
+                            'widgetItem' => '.item', // required: css class
+                            'limit' => 10, // the maximum times, an element can be cloned (default 999)
+                            'min' => 1, // 0 or 1 (default 1)
+                            'insertButton' => '.add-product', // css class
+                            'deleteButton' => '.remove-product', // css class
+                            'model' => $modelsProductsInvoice[0],
+                            'formId' => 'dynamic-form',
+                            'formFields' => [
+                                'item_number',
+                                'product_id',
+                                'unit',
+                                'quantity',
+                                'unit_price_manual',
+                                'total_price',
+                            ],
+                        ]); ?>
+                        <table class="table-products" border="0" width="100%">
+                            <tbody class="container-items">
+                            <?php foreach ($modelsProductsInvoice as $i => $modelProductInvoice): ?>
+                                <tr class="product-item-row item">
+                                    <td class="item-position"><?php
+                                        // necessary for update action.
+                                        if (!$modelProductInvoice->isNewRecord) {
+                                            echo Html::activeHiddenInput($modelProductInvoice, "[{$i}]pr_to_inv_id");
+                                        } ?></td>
+                                    <td>                                    <?= $form->field($modelProductInvoice, "[{$i}]item_number")->textInput(['maxlength' => true])->widget(Select2::classname(), [
+                                            'data' => ArrayHelper::map(\app\models\Dogovor::find()->where(['dogovor_id' => $modelInvoice->dogovor_id])->all(),
+                                                'dogovor_id', 'dogovor_number'),
+                                            'options' => [
+                                                'placeholder' => 'Выбери номер договора, блядь',
+
+                                            ],
+
+                                            'size' => Select2::SMALL,
+                                            'pluginOptions' => [
+                                                'width' => '80%',
+                                                'font-size' => '12px',
+                                                'allowClear' => true
+                                            ],
+                                        ])->label('') ?></td>
+                                    <td class="part-code"><?= $form->field($modelProductInvoice, "[{$i}]product_id")->textInput(['maxlength' => true]) ?></td>
+                                    <td class="description"><?= $form->field($modelProductInvoice, "[{$i}]unit")->textInput(['maxlength' => true]) ?></td>
+                                    <td><?= $form->field($modelProductInvoice, "[{$i}]quantity")->textInput(['maxlength' => true]) ?></td>
+                                    <td><?= $form->field($modelProductInvoice, "[{$i}]unit_price_manual")->textInput(['maxlength' => true]) ?></td>
+                                    <td><?= $form->field($modelProductInvoice, "[{$i}]total_price")->textInput(['maxlength' => true]) ?></td>
+
+                                    <td></td>
+                                    <td>
+                                        <div class="panel-heading">
+                                            <h3 class="panel-title pull-left panel-title-products">удалить</h3>
+                                            <div class="pull-right">
+
+                                                <button type="button" class="remove-product btn btn-danger btn-xs"><i
+                                                        class="glyphicon glyphicon-minus">werer</i></button>
+                                            </div>
+                                            <div class="clearfix"></div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            <?php endforeach; ?>
+                            </tbody>
+                        </table>
+                <div class="panel-heading">
+                    <h3 class="panel-title pull-left panel-title-products">добавить</h3>
+                    <div class="pull-right">
+                        <button type="button" class="add-product btn btn-success btn-xs"><i
+                                class="glyphicon glyphicon-plus">sdfsd</i></button>
+
                     </div>
-                <?php endforeach; ?>
-            </div>
-            <?php DynamicFormWidget::end(); ?>
-        </div>
-
-
-        <!--
-                <tr class="product-item-row">
-                    <td class="item-position-row">22</td>
-                    <td class="part-code-row">HT.BP2SQ.</td>
-                    <td class="description-row" colspan="2">B STN Thk Turret 85 Punch SQ 10/10</td>
-                    <td class="amount-row">1</td>
-                    <td class="unit-row">34.9</td>
-                    <td class="total-row">34.9</td>
-                    <td class="remark-row">0+135DEG</td>
-                </tr>
-
-
-        -->
-
-
-        <tr class="product-item-row">
-            <td class="item-position-row">22</td>
-            <td class="part-code-row">HT.BP2SQ.</td>
-            <td class="description-row" colspan="2">B STN Thk Turret 85 Punch SQ 10/10</td>
-            <td class="amount-row">1</td>
-            <td class="unit-row">    <?= $form->field($modelInvoice, 'paletts_info')->textInput(['maxlength' => true,
-                    'style' => ['width' => '50%', 'height' => '20px', 'align' => "center", 'margin-left' => 'auto', 'margin-right' => 'auto',]])->label(''); ?>
+                    <div class="clearfix"></div>
+                </div>
+                        <?php DynamicFormWidget::end(); ?>
 
             </td>
-            <td class="total-row">34.9</td>
-            <td class="remark-row">0+135DEG</td>
-        </tr>
-        <tr class="product-item-row">
-            <td colspan="8">product-item-row</td>
+
         </tr>
 
 
-        <tr class="product-item-row">
-            <td>&nbsp;</td>
-            <td>Freight</td>
-            <td colspan="2" class="description-row">Freight</td>
-            <td>1</td>
-            <td align="center"><?= $form->field($modelInvoice, 'freight')->textInput(['maxlength' => true,
-                    'style' => ['width' => '50%', 'height' => '20px', 'align' => "center", 'margin-left' => 'auto', 'margin-right' => 'auto',]])->label(''); ?>
-            </td>
-            <td><p><?= $form->field($modelInvoice, 'freight')->textInput(['maxlength' => true,
-                        'style' => ['width' => '50%', 'height' => '20px', 'align' => "center", 'margin-left' => 'auto', 'margin-right' => 'auto',]])->label(''); ?>
-                </p>
-            </td>
-            <td><?= $form->field($modelInvoice, 'gross_weight')->textInput(['maxlength' => true,
-                    'style' => ['width' => '50%', 'height' => '20px', 'align' => "center", 'margin-left' => 'auto', 'margin-top' => 'auto', 'margin-bottom' => '20px',
-                        'margin-right' => 'auto',]])->label(''); ?>
-            </td>
-        </tr>
-        <tr class="product-footer-col">
-            <td colspan="3" class="description-row">Country of origin of positions:(China)</td>
-            <td width="173" align="center">
-                <div align="center">Total pcs:</div>
-            </td>
-            <td>
-                <?= $form->field($modelInvoice, 'total_pcs')->textInput(['maxlength' => true,
-                    'style' => ['width' => '50%', 'height' => '20px', 'align' => "center", 'margin-left' => 'auto', 'margin-top' => 'auto', 'margin-bottom' => '20px',
-                        'margin-right' => 'auto',]])->label(''); ?>
-
-            </td>
-            <td colspan="2">Total Value(US$):</td>
-            <td align="center">
-
-                <?= $form->field($modelInvoice, 'total_summ')->textInput(['maxlength' => true,
-                    'style' => ['width' => '50%', 'height' => '20px', 'align' => "center", 'margin-left' => 'auto', 'margin-top' => 'auto', 'margin-bottom' => '20px',
-                        'margin-right' => 'auto']])->label(''); ?>
-
-            </td>
-        </tr>
-        <tr class="product-footer-total">
-            <td colspan="3" class="description-row">Total Value (after add-ons or discount):</td>
-            <td colspan="5">&nbsp;</td>
-        </tr>
-        <tr class="product-footer-total ">
-            <td colspan="3">
-                <div align="right">Remark:</div>
-            </td>
-            <td colspan="5">
-                <div align="left">paid off taxes</div>
-            </td>
-        </tr>
         </tbody>
+
+
     </table>
+
 
     <p></p>
     <table class="company-info" cellspacing="0" cellpadding="0">

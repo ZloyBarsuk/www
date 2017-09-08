@@ -4,7 +4,6 @@
  * A jQuery plugin to clone form elements in a nested manner, maintaining accessibility.
  *
  * @author Wanderson Bragança <wanderson.wbc@gmail.com>
- * @contributor Vivek Marakana <vivek.marakana@gmail.com>
  */
 (function ($) {
     var pluginName = 'yiiDynamicForm';
@@ -40,11 +39,11 @@
         },
 
         addItem: function (widgetOptions, e, $elem) {
-           _addItem(widgetOptions, e, $elem);
+            _addItem(widgetOptions, e, $elem);
         },
 
         deleteItem: function (widgetOptions, e, $elem) {
-           _deleteItem(widgetOptions, e, $elem);
+            _deleteItem(widgetOptions, e, $elem);
         },
 
         updateContainer: function () {
@@ -455,23 +454,24 @@
                     $(this).unbind();
                     _restoreKrajeeDepdrop($(this));
                 }
-
-                $.when($('#' + id).select2(configSelect2)).done(initS2Loading(id, '.select2-container--krajee'));
+                var s2LoadingFunc = typeof initSelect2Loading != 'undefined' ? initSelect2Loading : initS2Loading;
+                var s2OpenFunc = typeof initSelect2DropStyle != 'undefined' ? initSelect2Loading : initS2Loading;
+                $.when($('#' + id).select2(configSelect2)).done(s2LoadingFunc(id, '.select2-container--krajee'));
 
                 var kvClose = 'kv_close_' + id.replace(/\-/g, '_');
 
-                // $('#' + id).on('select2:opening', function(ev) {
-                //     initSelect2DropStyle(id, kvClose, ev);
-                // });
+                $('#' + id).on('select2:opening', function(ev) {
+                    s2OpenFunc(id, kvClose, ev);
+                });
 
                 $('#' + id).on('select2:unselect', function() {
                     window[kvClose] = true;
                 });
 
-                // if (configDepdrop) {
-                //     var loadingText = (configDepdrop.loadingText) ? configDepdrop.loadingText : 'Loading ...';
-                //     initDepdropS2(id, loadingText);
-                // }
+                if (configDepdrop) {
+                    var loadingText = (configDepdrop.loadingText) ? configDepdrop.loadingText : 'Loading ...';
+                    initDepdropS2(id, loadingText);
+                }
             });
         }
     };

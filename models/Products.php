@@ -81,6 +81,15 @@ class Products extends \yii\db\ActiveRecord
         ];
     }
 
+    /*public static function AutocompleteProductsDropdown($product_id)
+    {
+        $products_model_list = self::find()->orderBy('description_en')->where(['products_id' => (int)$product_id])->asArray()->all();
+        return $products_model_list;
+    }*/
+
+
+
+
     /**
      * @return \yii\db\ActiveQuery
      */
@@ -88,4 +97,9 @@ class Products extends \yii\db\ActiveRecord
     {
         return $this->hasMany(ProductsToInvoice::className(), ['product_id' => 'products_id']);
     }
+
+
+
+
+
 }
